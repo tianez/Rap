@@ -19,18 +19,26 @@
 
 <body>
     <div id="app"></div>
+    <script src="./public/bower/react/umd/react.production.min.js"></script>
+    <script src="./public/bower/react-dom/umd/react-dom.production.min.js"></script>
+    <script src="./public/bower/axios/dist/axios.min.js"></script>
+    <script src="./public/bower/dexie/dist/dexie.min.js"></script>
+    <script src="./dll/vendor.dll.js"></script>
     <script>
         var AppConfig = {
             ApiUrl: 'http://cloudhubeioa.estv.com.cn/yssj_OA/a/rest/',
             YapiUrl: 'http://10.114.20.106:8888/mock/17/',
             baseUrl: "http://10.114.20.143:9002/api/",
         }
+        if (navigator.serviceWorker != null) {
+            navigator.serviceWorker.register('sw.js')
+                .then(function (registration) {
+                    console.log('Registered events at scope: ', registration.scope);
+                }).catch((err => {
+                    console.log('Registered events at scope: ', err);
+                }));
+        }
     </script>
-    <script src="./public/bower/react/umd/react.production.min.js"></script>
-    <script src="./public/bower/react-dom/umd/react-dom.production.min.js"></script>
-    <script src="./public/bower/axios/dist/axios.min.js"></script>
-    <script src="./public/bower/dexie/dist/dexie.min.js"></script>
-    <script src="./dll/vendor.dll.js"></script>
 </body>
 
 </html>
