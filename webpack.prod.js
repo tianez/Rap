@@ -10,7 +10,7 @@ module.exports = merge(common, {
     // devtool: "source-map",
     mode: "production",
     output: {
-        path: path.resolve(__dirname, "dist/Rap/dist"),
+        path: path.resolve(__dirname, "dist"),
         filename: "[name]-[chunkhash].js"
         // publicPath: './',
         // publicPath: "http://imgfile.estv.com.cn/yssjcms/dist/"
@@ -22,9 +22,9 @@ module.exports = merge(common, {
         }
     },
     plugins: [
-        new CleanWebpackPlugin(["dist/Rap/dist"]),
+        new CleanWebpackPlugin(["dist"]),
         new HtmlWebpackPlugin({
-            filename: "../index2.html",
+            filename: "../index.html",
             template: "./public/index.prod.html"
         }),
         new webpack.HashedModuleIdsPlugin(),
