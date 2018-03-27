@@ -37,7 +37,7 @@
             baseUrl: "http://10.114.20.143:9002/api/",
         }
         if (navigator.serviceWorker != null) {
-            navigator.serviceWorker.register('sw.js')
+            navigator.serviceWorker.register('sw_dev.js')
                 .then(function (registration) {
                     console.log('Registered events at scope: ', registration.scope);
                 }).catch((err => {
