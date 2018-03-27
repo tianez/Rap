@@ -1,13 +1,13 @@
-var cacheStorageKey = "cacheStorage-v3";
+var cacheStorageKey = "cacheStorage-v4";
 
 var cacheList = [
     "/",
     "index.html",
     "manifest.json",
     "dll/vendor.dll.js",
-    "node_modules/react/umd/react.production.min.js",
-    "node_modules/react-dom/umd/react-dom.production.min.js",
-    "node_modules/axios/dist/axios.min.js"
+    "public/bower/react/umd/react.production.min.js",
+    "public/bower/react-dom/umd/react-dom.production.min.js",
+    "public/bower/axios/dist/axios.min.js"
 ];
 
 self.addEventListener("install", e => {
