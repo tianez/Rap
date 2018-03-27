@@ -1,0 +1,45 @@
+{
+  "name": "dexie",
+  "version": "2.0.2",
+  "homepage": "http://dexie.org",
+  "authors": [
+    "David Fahlander"
+  ],
+  "description": "Minimalistic IndexedDB API with bullet proof transactions",
+  "main": "dist/dexie.js",
+  "moduleType": [
+    "amd",
+    "es6",
+    "node",
+    "globals"
+  ],
+  "keywords": [
+    "indexeddb",
+    "browser",
+    "database"
+  ],
+  "license": "Apache-2.0",
+  "ignore": [
+    "**/.*",
+    "**/tmp/",
+    "addons/*/bower.json",
+    "addons/*/package.json",
+    "addons/*/test/",
+    "addons/*/tools/",
+    "samples/",
+    "*.njsproj",
+    "src",
+    "test",
+    "tools"
+  ],
+  "_release": "2.0.2",
+  "_resolution": {
+    "type": "version",
+    "tag": "v2.0.2",
+    "commit": "a07e17d8c17e0b83073a1b6e8613baab155f9098"
+  },
+  "_source": "https://github.com/dfahlander/dexie.js.git",
+  "_target": "^2.0.2",
+  "_originalSource": "dexie",
+  "_direct": true
+}

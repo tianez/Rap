@@ -1,0 +1,34 @@
+.select,
+.selectItem {
+    width: 80px;
+    height: 80px;
+    display: inline-block;
+    background: #ccc;
+    color: #fff;
+    border-radius: 80px;
+    overflow: hidden;
+    font-size: 56px;
+    text-align: center;
+    line-height: 70px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.selectItem {
+    background: #1890ff;
+    font-size: 22px;
+    line-height: 80px;
+}
+
+.selectjt {
+    width: 30px;
+    height: 80px;
+    display: inline-block;
+    color: #1890ff;
+    border-radius: 80px;
+    overflow: hidden;
+    font-size: 22px;
+    text-align: center;
+    line-height: 80px;
+    margin: 5px 0;
+}

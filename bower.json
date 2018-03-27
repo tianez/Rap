@@ -1,0 +1,23 @@
+{
+  "name": "webpack4",
+  "description": "",
+  "main": "app.js",
+  "authors": [
+    "tianez <saber_tz@163.com>"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/bower",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "dexie": "^2.0.2",
+    "axios": "^0.18.0"
+  }
+}

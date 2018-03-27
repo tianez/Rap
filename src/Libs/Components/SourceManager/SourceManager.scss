@@ -1,0 +1,36 @@
+.SourceManager {
+    border-top: 1px solid #f1f1f1;
+    position: fixed;
+    z-index: 99999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    display: flex;
+    padding-top: 50px;
+}
+
+.title {
+    font-size: 16px;
+    height: 50px;
+    line-height: 50px;
+    background: #002240;
+    color: #fff;
+    text-align: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    .back {
+        position: absolute;
+        right: 20px;
+        top: 9px;
+    }
+}
+
+.menu {
+    width: 185px;
+    min-width: 185px;
+    background: #313c4e;
+}

@@ -1,0 +1,18 @@
+.select {
+    display: block;
+    width: 100%;
+    color: #000;
+    padding: 15px 0;
+    min-height: 51px !important;
+    border-bottom: 1px solid #ececec;
+     :global(.ant-select-selection) {
+        box-shadow: none !important;
+        border: none;
+    }
+     :global(.ant-select-selection__rendered) {
+        margin: 0;
+    }
+     :global(.ant-select-selection__placeholder) {
+        margin-left: 0;
+    }
+}

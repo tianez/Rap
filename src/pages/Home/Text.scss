@@ -1,0 +1,16 @@
+.texta {
+    border: 1px solid #f00;
+    min-height: 56px;
+    line-height: 22px;
+    font-size: 14px;
+    padding: 5px 8px;
+    div {
+        min-height: 22px;
+    }
+    img {
+        text-align: center;
+        display: block;
+        margin: 0 auto;
+        max-width: 100%;
+    }
+}

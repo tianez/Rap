@@ -1,0 +1,32 @@
+.title {
+    font-size: 14px;
+    display: block;
+    line-height: 54px;
+    width: 100%;
+    position: relative;
+    border-bottom: 1px solid #ececec;
+}
+
+.error {
+    border-bottom: 1px solid #f00;
+    .ipt {
+        color: #f00;
+    }
+}
+
+.ipt {
+    display: block;
+    width: 100%;
+    border: none;
+    outline: none;
+    padding: 0;
+    color: #000;
+}
+
+.tip {
+    position: absolute;
+    right: 20px;
+    top: 0;
+    font-size: 12px;
+    color: #ccc;
+}

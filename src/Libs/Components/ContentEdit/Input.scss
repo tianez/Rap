@@ -1,0 +1,19 @@
+.item {
+    display: flex;
+    line-height: 32px;
+    margin: 15px 0;
+}
+
+.title {
+    min-width: 80px;
+    width: 80px;
+}
+
+.ipt {
+    display: block;
+    flex: 1;
+    border: none;
+    background: #ececec;
+    border-radius: 4px;
+    padding: 0 10px;
+}
