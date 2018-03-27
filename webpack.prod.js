@@ -11,8 +11,8 @@ module.exports = merge(common, {
     mode: "production",
     output: {
         path: path.resolve(__dirname, "dist2"),
-        filename: "[name]-[chunkhash].js"
-        // publicPath: './',
+        filename: "[name]-[chunkhash].js",
+        publicPath: "./dist2/"
         // publicPath: "http://imgfile.estv.com.cn/yssjcms/dist/"
         // sourceMapFilename: "[name].map"
     },
