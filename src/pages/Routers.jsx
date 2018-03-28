@@ -1,31 +1,23 @@
 import React, { Component } from "react";
 import { HashRouter, Switch, Route } from "react-router-dom";
 
-// import LayoutView from "Views/Layout/LayoutView";
-// import MainView from "Views/Layout/MainView";
-// import ContentView from "Views/Layout/ContentView";
-
 import PrivateRoute from "Extended/privateRoute";
 import asyncComponent from "Extended/asyncComponent";
-
+import IsLogin from "./Nomatch/IsLogin";
+import IsOrgs from "./Nomatch/IsOrgs";
 const Home = asyncComponent(() => import("./Home/Home"), true);
-const Login = asyncComponent(() => import("./Login/Login"), true);
-
-const Routers = ({ location }) => (
-    <Switch location={location}>
-        <Route path="/" exact component={Home} />
-        {/* <Route path="*" component={Nomatch} /> */}
-    </Switch>
-);
+// const Login = asyncComponent(() => import("./Login/Login"), true);
 
 const InitRoutes = () => (
-    <HashRouter>
-        <Switch>
-            <Route path="/login" component={Login} />
-            <Route component={Routers} />
-            {/* <PrivateRoute component={Routers} /> */}
-        </Switch>
-    </HashRouter>
+    <IsLogin>
+        <IsOrgs>
+            <HashRouter>
+                <Switch>
+                    <Route path="/" exact component={Home} />
+                </Switch>
+            </HashRouter>
+        </IsOrgs>
+    </IsLogin>
 );
 
 export default InitRoutes;

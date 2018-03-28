@@ -1,0 +1,32 @@
+.Notice {
+    display: flex;
+    line-height: 36px;
+    margin: 6px 0;
+    padding: 0 15px;
+    height: 36px;
+    overflow: hidden;
+}
+
+.icon {
+    font-size: 24px;
+    color: #999;
+}
+
+.Carousel {
+    flex: 1;
+    font-size: 14px;
+    color: #0b0203;
+    height: 36px;
+    overflow: hidden;
+}
+
+.item {
+    height: 36px;
+    overflow: hidden;
+    color: #0b0203;
+    display: block;
+}
+
+.more {
+    color: #fe353b;
+}

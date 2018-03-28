@@ -33,14 +33,13 @@ const asyncComponent = (importComponent, isRouter = false) =>
         }
         async componentDidMount() {
             const { default: component } = await importComponent();
-            console.log(component);
             this.setState({
                 component: component
             });
         }
         render() {
             const C = this.state.component;
-            return <LoadingFarmeWork />;
+            // return <LoadingFarmeWork />;
             return C ? <C {...this.props} /> : isRouter ? <LoadingFarmeWork /> : <Loading />;
         }
     };

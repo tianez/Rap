@@ -1,15 +1,5 @@
-.content {
-    padding: 15px;
-    background: #fff;
-    flex: 1;
-}
-
-.echarts {
-    width: 600px;
-    height: 400px;
-}
-
-.test {
-    color: #f00;
-    font-size: 30px;
+.scrollDiv {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
 }

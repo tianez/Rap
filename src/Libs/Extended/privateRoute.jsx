@@ -15,5 +15,5 @@ const PrivateRoute = ({ component: Component, sessionKey, ...rest }) => {
 };
 
 export default contextConsumers(state => ({
-    sessionKey: state.get("_sessionKey")
+    sessionKey: state.sessionKey
 }))(PrivateRoute);
