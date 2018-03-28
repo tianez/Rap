@@ -79,7 +79,8 @@ module.exports = {
                 test: /\.(svg)$/i,
                 loader: "svg-sprite-loader",
                 include: [
-                    // require.resolve("antd").replace(/warn\.js$/, "") // antd-mobile 内置svg
+                    // require.resolve("antd").replace(/warn\.js$/, ""), // antd-mobile 内置svg
+                    require.resolve("antd-mobile").replace(/warn\.js$/, "") // antd-mobile 内置svg
                     // path.resolve(__dirname, 'public/svg'),  // 业务代码本地私有 svg 存放目录
                 ]
             },

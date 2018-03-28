@@ -8,10 +8,8 @@ import { HashRouter, Switch, Route } from "react-router-dom";
 import PrivateRoute from "Extended/privateRoute";
 import asyncComponent from "Extended/asyncComponent";
 
-// import Home from "./Home/Home";
-// import Nomatch from "./Nomatch/Nomatch";
 const Home = asyncComponent(() => import("./Home/Home"), true);
-// const Login = asyncComponent(() => import("./Login/Login"));
+const Login = asyncComponent(() => import("./Login/Login"), true);
 
 const Routers = ({ location }) => (
     <Switch location={location}>
@@ -23,7 +21,7 @@ const Routers = ({ location }) => (
 const InitRoutes = () => (
     <HashRouter>
         <Switch>
-            {/* <Route path="/login" component={Login} /> */}
+            <Route path="/login" component={Login} />
             <Route component={Routers} />
             {/* <PrivateRoute component={Routers} /> */}
         </Switch>

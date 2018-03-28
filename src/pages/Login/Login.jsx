@@ -3,8 +3,9 @@ import { Redirect } from "react-router-dom";
 
 import asyncComponent from "Extended/asyncComponent";
 const Header = asyncComponent(() => import("../Layout/Header"));
+const Footer = asyncComponent(() => import("../Layout/Footer"));
 
-import style from "./login.scss";
+// import styles from "./login.scss";
 
 /**
  * 系统登录模块
@@ -19,6 +20,7 @@ export default class Login extends React.Component {
         return (
             <div>
                 <Header />
+                <Footer />
                 登录页面
             </div>
         );

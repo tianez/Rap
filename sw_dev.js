@@ -1,4 +1,4 @@
-var cacheStorageKey = "cacheStorage-v2";
+var cacheStorageKey = "cacheStorage-v4";
 
 var cacheList = [
     "/",
@@ -45,17 +45,6 @@ self.addEventListener("fetch", function(e) {
                 return response;
             }
             return fetch(e.request);
-            var requestToCache = e.request.clone();
-            return fetch(requestToCache).then(function(response) {
-                if (!response || response.status !== 200) {
-                    return response;
-                }
-                var responseToCache = response.clone();
-                caches.open(cacheStorageKey).then(function(cache) {
-                    cache.put(requestToCache, responseToCache);
-                });
-                return response;
-            });
         })
     );
 });
