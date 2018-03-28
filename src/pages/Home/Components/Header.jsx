@@ -18,7 +18,7 @@ export default class Header extends Component {
         };
     }
     handleSelect = opt => {
-        this.props.dispatch("init/save", {
+        this.props.dispatch.set({
             orgId: opt.props.value
         });
     };

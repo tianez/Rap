@@ -6,7 +6,7 @@ import asyncComponent from "Extended/asyncComponent";
 import IsLogin from "./Nomatch/IsLogin";
 import IsOrgs from "./Nomatch/IsOrgs";
 const Home = asyncComponent(() => import("./Home/Home"), true);
-// const Login = asyncComponent(() => import("./Login/Login"), true);
+const AddressBook = asyncComponent(() => import("./AddressBook/AddressBookRouter"), true); //通讯录
 
 const InitRoutes = () => (
     <IsLogin>
@@ -14,6 +14,7 @@ const InitRoutes = () => (
             <HashRouter>
                 <Switch>
                     <Route path="/" exact component={Home} />
+                    <Route path="/addressbook" component={AddressBook} />
                 </Switch>
             </HashRouter>
         </IsOrgs>

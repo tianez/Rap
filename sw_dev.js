@@ -1,4 +1,4 @@
-var cacheStorageKey = "cacheStorage-v7";
+var cacheStorageKey = "cacheStorage-v8";
 
 var cacheList = [
     "/",
@@ -44,7 +44,6 @@ self.addEventListener("fetch", function(e) {
             if (response != null) {
                 return response;
             }
-            console.log(e.request.url);
             return fetch(e.request);
         })
     );

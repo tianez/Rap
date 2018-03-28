@@ -21,7 +21,6 @@ const reqDepartment = (fieldname = "deptList", remoteServer = false) => Componen
             if (data) {
                 return;
             }
-            let { setInContext } = this.props.contextRudexAction;
             let organizationId = localStorage.orgId;
             let res = await Request("deptment/deptList", {
                 params: {
@@ -30,7 +29,7 @@ const reqDepartment = (fieldname = "deptList", remoteServer = false) => Componen
                 }
             });
             if (res.success) {
-                setInContext(["deptList", localStorage.orgId], res.data.deptList, true);
+                this.props.dispatch.setIn(["deptList", organizationId], res.data.deptList, true);
             }
         };
         reqDataServer = async () => {

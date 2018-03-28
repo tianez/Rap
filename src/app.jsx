@@ -3,14 +3,15 @@
 import "./style/app.less";
 import React from "react";
 import ReactDOM from "react-dom";
-import seamless from "seamless-immutable";
+import Immutable from "seamless-immutable";
 import Request from "Utils/axios";
 import userAgent from "Utils/userAgent";
 
 Object.assign(window, {
     Request,
-    $arr: seamless([]),
-    $obj: seamless({}),
+    Immutable,
+    $arr: Immutable([]),
+    $obj: Immutable({}),
     userAgents: userAgent()
 });
 

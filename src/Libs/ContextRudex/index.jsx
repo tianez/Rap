@@ -24,16 +24,15 @@ export class Provider extends Component {
     }
     componentDidMount() {
         window.addEventListener("popstate", this.handleHashChange, false);
-        this.handleHashChange();
+        setTimeout(() => {
+            this.handleHashChange();
+        }, 10);
     }
     callBack = async fbc => {
         let data = await fbc(this.state.data);
-        console.log(data);
         this.setContext(data);
     };
     setContext = payload => {
-        console.log(payload);
-
         let data = this.state.data.merge(seamless(payload));
         this.setState({
             data
