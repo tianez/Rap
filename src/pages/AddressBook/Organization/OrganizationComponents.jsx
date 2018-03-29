@@ -215,8 +215,9 @@ export default class OrganizationComponents extends Component {
                     onChangeBreadcrumbs={this.handleChangeBreadcrumbs}
                 />
                 <Content>
-                    <DepList deptlist={deptlist} onClick={this.handleClickDep} />
-                    <UserList userlist={userlist} />
+                    {!searchValue && <DepList deptlist={deptlist} onClick={this.handleClickDep} />}
+                    {searchValue && <UserList userlist={userlist} tip="没有搜索到相关用户信息" />}
+                    {breadcrumbs.length > 0 && !searchValue && <UserList userlist={userlist} />}
                 </Content>
             </Layout>
         );

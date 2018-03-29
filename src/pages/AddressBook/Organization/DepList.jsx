@@ -11,7 +11,7 @@ import styles from "./DepList.scss";
 export default class DepList extends Component {
     render() {
         let { deptlist, onClick } = this.props;
-        return (
+        return deptlist.length > 0 ? (
             <List key={"list"} style={{ marginTop: "6px" }}>
                 {deptlist.map((list, index) => {
                     return (
@@ -26,15 +26,6 @@ export default class DepList extends Component {
                     );
                 })}
             </List>
-        );
+        ) : null;
     }
 }
-
-const Extra = ({ list, onClick }) => {
-    return (
-        <span className={styles.extra} onClick={onClick && onClick.bind(null, list)}>
-            <i className="iconfont icon-wodexiaji" />
-            下级
-        </span>
-    );
-};

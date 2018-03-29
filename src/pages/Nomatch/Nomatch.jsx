@@ -9,25 +9,13 @@ import styles from "./nomatch.scss";
 
 export default class Nomatch extends React.Component {
     render() {
-        let { title, children } = this.props;
+        let { title, children, loading } = this.props;
         return (
             <Layout>
                 <NavBar mode="light" icon={<Icon type="left" />} onLeftClick={() => window.history.back()}>
-                    登录
+                    {title}
                 </NavBar>
-                <Content>
-                    <Result
-                        className={styles.nomatch}
-                        img={
-                            <img
-                                src={"https://gw.alipayobjects.com/zos/rmsportal/GIyMDJnuqmcqPLpHCSkj.svg"}
-                                className={styles.outImg}
-                            />
-                        }
-                        title={title}
-                        message={children}
-                    />
-                </Content>
+                <Content>{loading && children}</Content>
             </Layout>
         );
     }

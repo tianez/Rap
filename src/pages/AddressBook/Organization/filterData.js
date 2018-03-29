@@ -18,10 +18,19 @@ const filterData = (props, searchValue) => {
         list = list.merge({ children, member });
         return list;
     });
-    if (breadcrumbId == 0) {
+    if (breadcrumbId == 0 && !searchValue) {
         return {
             deptlist: deptlists,
             userlist: $arr
+        };
+    }
+    if (breadcrumbId == 0 && searchValue) {
+        userlist = userlist.filter(d => {
+            return d.personname.indexOf(searchValue) != -1;
+        });
+        return {
+            deptlist: deptlists,
+            userlist
         };
     }
     userlist = userlist.filter(mb => {

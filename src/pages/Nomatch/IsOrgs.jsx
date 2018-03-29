@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Toast } from "antd-mobile";
+import { Toast, Result } from "antd-mobile";
 import { contextConsumers } from "Libs/ContextRudex";
 import Nomatch from "./Nomatch";
 
@@ -11,6 +11,9 @@ import Nomatch from "./Nomatch";
     orgInfo: state.orgInfo
 }))
 export default class IsLogin extends React.Component {
+    state = {
+        loading: false
+    };
     componentDidMount() {
         this.getOrgInfo();
     }
@@ -53,6 +56,9 @@ export default class IsLogin extends React.Component {
                 orgInfo: orgInfo
             });
         } else {
+            this.setState({
+                loading: true
+            });
             if (orgInfos.errorCode == 6666) {
                 return;
             }
@@ -64,6 +70,14 @@ export default class IsLogin extends React.Component {
         if (orgInfo) {
             return children;
         }
-        return <Nomatch title="机构信息及权限获取中..." />;
+        let { loading } = this.state;
+        return (
+            <Nomatch title="登录" loading={loading}>
+                <Result
+                    img={<img src={"https://gw.alipayobjects.com/zos/rmsportal/GIyMDJnuqmcqPLpHCSkj.svg"} />}
+                    title={"你还未加入任何机构"}
+                />
+            </Nomatch>
+        );
     }
 }

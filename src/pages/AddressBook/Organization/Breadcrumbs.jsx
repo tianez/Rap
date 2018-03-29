@@ -30,7 +30,7 @@ export default class Breadcrumbs extends Component {
                         }
                         return (
                             <span key={d.id} className={styles.sp}>
-                                <span className={styles.a} onClick={() => onChangeBreadcrumbs(index)}>
+                                <span className={styles.a} onClick={() => onChangeBreadcrumbs(index + 1)}>
                                     {d.name}
                                 </span>
                                 <Icon type="right" className={styles.rightArrow} />
