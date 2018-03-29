@@ -28,9 +28,9 @@ export class Provider extends Component {
             this.handleHashChange();
         }, 10);
     }
-    callBack = async fbc => {
-        let data = await fbc(this.state.data);
-        this.setContext(data);
+    callBack = fbc => {
+        let data = fbc(this.state.data, this.dispatch);
+        // this.setContext(data);
     };
     setContext = payload => {
         let data = this.state.data.merge(seamless(payload));

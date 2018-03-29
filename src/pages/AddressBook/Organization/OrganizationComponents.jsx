@@ -11,8 +11,9 @@ import Content from "Components/Layout/Content";
 import { NavBar, Icon, SearchBar } from "antd-mobile";
 
 import { contextConsumers } from "Libs/ContextRudex";
-import reqdeptlist from "Hoc/Reqdeptlist";
-import reqUserList from "Hoc/ReqUserList";
+
+import reqDeptsAction from "Hoc/reqDeptsAction";
+import reqUsersAction from "Hoc/reqUsersAction";
 
 import styles from "./OrganizationComponents.scss";
 
@@ -24,17 +25,14 @@ import filterData from "./filterData";
 
 @contextConsumers(state => ({
     deptlist: state.getIn(["deptList", localStorage.organizationId]),
-    userlist: state.getIn(["userList", localStorage.organizationId]),
+    userlists: state.getIn(["userList", localStorage.organizationId]),
     breadcrumbs: state.getIn(["Breadcrumbs", localStorage.organizationId, "organizationbreadcrumbs"]) || $arr,
     orgInfo: state.orgInfo
 }))
-@reqdeptlist()
-@reqUserList()
 export default class OrganizationComponents extends Component {
     static defaultProps = {
-        visible: true,
-        multiple: false,
-        selected: [],
+        multiple: true,
+        selectedKeys: [],
         disabled: []
     };
     constructor(props) {
@@ -43,16 +41,23 @@ export default class OrganizationComponents extends Component {
             deptlist: $arr,
             userlist: $arr,
             searchValue: "",
-            selected: [].concat(props.selected),
+            selectedKeys: [].concat(props.selectedKeys),
             selectedDevs: {},
             bk: ""
         };
     }
     static getDerivedStateFromProps(nextProps, prevState) {
-        console.log(prevState);
-
         let state = filterData(nextProps, prevState.searchValue);
         return state;
+    }
+    componentDidMount() {
+        let { deptlist, userlists } = this.props;
+        if (!deptlist) {
+            this.props.dispatch.callBack(reqDeptsAction);
+        }
+        if (!userlists) {
+            this.props.dispatch.callBack(reqUsersAction);
+        }
     }
     /**
      * 创建水印图片
@@ -77,7 +82,6 @@ export default class OrganizationComponents extends Component {
      * 搜索栏变化
      */
     handleSearchChange = searchValue => {
-        console.log(searchValue);
         let state = filterData(this.props, searchValue);
         this.setState({
             ...state,
@@ -90,21 +94,17 @@ export default class OrganizationComponents extends Component {
     handleChangeBreadcrumbs = index => {
         let { breadcrumbs, dispatch } = this.props;
         breadcrumbs = breadcrumbs.slice(0, index);
-        console.log(breadcrumbs);
         dispatch.setIn(["Breadcrumbs", localStorage.organizationId, "organizationbreadcrumbs"], breadcrumbs);
-
-        // this.handleFilter({ breadcrumbs });
     };
     /**
      * 选择操作
      */
-    handleSelect = (data, e) => {
-        e.stopPropagation();
-        let { onSelected, multiple } = this.props;
+    handleClickUser = data => {
+        let { onClickUser, multiple } = this.props;
         if (multiple) {
             this.handleMultipleSelect(data);
         } else {
-            onSelected && onSelected(data);
+            onClickUser && onClickUser(data);
         }
     };
     /**
@@ -132,43 +132,43 @@ export default class OrganizationComponents extends Component {
      * 多选
      */
     handleMultipleSelect = data => {
-        let { selected } = this.state;
-        let index = selected.indexOf(data.get("userId"));
+        let { selectedKeys } = this.state;
+        let index = selectedKeys.indexOf(data.userId);
         if (index == -1) {
-            selected.push(data.get("userId"));
+            selectedKeys.push(data.userId);
         } else {
-            selected.splice(index, 1);
+            selectedKeys.splice(index, 1);
         }
         this.setState({
-            selected
+            selectedKeys
         });
     };
 
     /**
      * 全选部门
      */
-    handleSelectDep = (list, e) => {
-        e.stopPropagation();
-        let { selected, selectedDevs } = this.state;
-        if (selectedDevs[list.get("id")] == 1) {
-            selectedDevs[list.get("id")] = 0;
-            list.get("member").map(data => {
-                let index = selected.indexOf(data.get("userId"));
-                if (index != -1) {
-                    selected.splice(index, 1);
-                }
+    handleSelectDep = data => {
+        console.log(data);
+        let depid = data.id;
+        let { selectedKeys, selectedDevs } = this.state;
+        if (selectedDevs[depid] == 1) {
+            selectedDevs[depid] = 0;
+            data.member.map(d => {
+                selectedKeys = selectedKeys.filter(k => {
+                    return k !== d.userId;
+                });
             });
         } else {
-            selectedDevs[list.get("id")] = 1;
-            list.get("member").map(data => {
-                let index = selected.indexOf(data.get("userId"));
+            selectedDevs[depid] = 1;
+            data.member.map(d => {
+                let index = selectedKeys.indexOf(d.userId);
                 if (index == -1) {
-                    selected.push(data.get("userId"));
+                    selectedKeys.push(d.userId);
                 }
             });
         }
         this.setState({
-            selected,
+            selectedKeys,
             selectedDevs
         });
     };
@@ -201,12 +201,12 @@ export default class OrganizationComponents extends Component {
         console.log(e);
     };
     render() {
-        let { breadcrumbs, orgInfo } = this.props;
-        let { deptlist, userlist, searchValue } = this.state;
-        return (
+        let { breadcrumbs, orgInfo, userlists, title, multiple } = this.props;
+        let { deptlist, userlist, searchValue, selectedDevs, selectedKeys } = this.state;
+        return ReactDOM.createPortal(
             <Layout>
                 <NavBar mode="light" icon={<Icon type="left" />} onLeftClick={() => window.history.back()}>
-                    通讯率
+                    通讯录
                 </NavBar>
                 <SearchBar placeholder="Search" value={searchValue} onChange={this.handleSearchChange} />
                 <Breadcrumbs
@@ -214,13 +214,45 @@ export default class OrganizationComponents extends Component {
                     orgInfo={orgInfo}
                     onChangeBreadcrumbs={this.handleChangeBreadcrumbs}
                 />
+                {multiple && (
+                    <div className={styles.actionStatus}>
+                        <div className={styles.selectAll} onClick={this.handleSelectAll}>
+                            全选
+                        </div>
+                        <div className={styles.selectAll} onClick={this.handleSelectDelAll}>
+                            全部取消
+                        </div>
+                        <div className={styles.selectcount}>
+                            选中{selectedKeys.length}人/共{userlists.length}人
+                        </div>
+                    </div>
+                )}
                 <Content>
-                    {!searchValue && <DepList deptlist={deptlist} onClick={this.handleClickDep} />}
-                    {searchValue && <UserList userlist={userlist} tip="没有搜索到相关用户信息" />}
-                    {breadcrumbs.length > 0 && !searchValue && <UserList userlist={userlist} />}
+                    {!searchValue && (
+                        <DepList
+                            deptlist={deptlist}
+                            multiple={multiple}
+                            selectedDevs={selectedDevs}
+                            selectedKeys={selectedKeys}
+                            onClick={this.handleClickDep}
+                            onSelectDep={this.handleSelectDep}
+                        />
+                    )}
+                    {searchValue && (
+                        <UserList userlist={userlist} onClick={this.handleClickUser} tip="没有搜索到相关用户信息" />
+                    )}
+                    {breadcrumbs.length > 0 &&
+                        !searchValue && (
+                            <UserList
+                                multiple={multiple}
+                                selectedKeys={selectedKeys}
+                                onClick={this.handleClickUser}
+                                userlist={userlist}
+                            />
+                        )}
                 </Content>
-            </Layout>
+            </Layout>,
+            document.getElementById("app")
         );
-        return ReactDOM.createPortal(<div>1111111111111111</div>, document.getElementById("root"));
     }
 }

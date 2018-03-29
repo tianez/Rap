@@ -74,7 +74,6 @@ instance.interceptors.response.use(
         res.success = false;
         console.log(res);
         return res;
-        // return Promise.reject(error);
     }
 );
 

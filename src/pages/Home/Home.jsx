@@ -1,12 +1,17 @@
 import React, { Component } from "react";
 import { contextConsumers } from "Libs/ContextRudex";
 
+import asyncComponent from "Extended/asyncComponent";
 import Layout from "Components/Layout/Layout";
 import Content from "Components/Layout/Content";
 import Header from "./Components/Header";
 import Banner from "./Components/Banner";
-import Notice from "./Components/Notice";
-import Lists from "./Components/Lists";
+// import Notice from "./Components/Notice";
+// import Lists from "./Components/Lists";
+
+// const Banner = asyncComponent(() => import("./Components/Banner"));
+const Notice = asyncComponent(() => import("./Components/Notice"));
+const Lists = asyncComponent(() => import("./Components/Lists"));
 
 import styles from "./Home.scss";
 

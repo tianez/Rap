@@ -15,12 +15,12 @@ export default class AddressBookIndex extends Component {
     }
     handleUserListClick = data => {
         let { history, match } = this.props;
-        history.push(match.url + "/" + data.get("userId"));
+        history.push(match.url + "/" + data.userId);
     };
     render() {
         let { match } = this.props;
         return (
-            <OrganizationComponents onSelected={this.handleUserListClick}>
+            <OrganizationComponents onClickUser={this.handleUserListClick}>
                 <NavBar mode="light" icon={<LeftIcon />}>
                     通讯录
                 </NavBar>
