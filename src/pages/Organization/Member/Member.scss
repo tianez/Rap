@@ -1,0 +1,14 @@
+.extra {
+    font-size: 15px;
+}
+
+.item {
+    &:after {
+        content: '，';
+    }
+    &:last-child {
+        &:after {
+            content: '';
+        }
+    }
+}

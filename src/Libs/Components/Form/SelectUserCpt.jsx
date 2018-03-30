@@ -28,6 +28,7 @@ export default class SelectUserCpt extends Component {
     }
     handleShowOrgCpt = () => {
         let { match, history, name } = this.props;
+        console.log(history);
         history.push(match.url + "?" + name + "=true");
     };
     handleUserListClick = data => {

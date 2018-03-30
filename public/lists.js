@@ -9,8 +9,8 @@ var lists = [
                 style: {
                     background: "#2fb3fe"
                 },
-                url: "/organization",
-                auth: "app.organization"
+                url: "/organization"
+                // auth: "app.organization"
             },
             {
                 name: "我的审批",
