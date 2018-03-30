@@ -6,10 +6,10 @@ const Item = List.Item;
 import styles from "./Departments.scss";
 
 import { contextConsumers } from "Libs/ContextRudex";
-import reqDepartment from "Hoc/reqDepartment";
+import reqDepartment from "Hoc/ReqDeptList";
 
 @contextConsumers(state => ({
-    departments: state.Departments[localStorage.organizationId]
+    departments: state.getIn(["deptList", localStorage.organizationId])
 }))
 @reqDepartment
 export default class Departments extends Component {

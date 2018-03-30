@@ -13,9 +13,12 @@ import Nomatch from "./Nomatch";
 }))
 export default class IsLogin extends React.Component {
     state = {
-        loading: false
+        loading: true
     };
     componentDidMount() {
+        // if (!YSSJ.isApp) {
+        //     return;
+        // }
         // let { sessionKey } = this.props;
         // Toast.loading("获取登录信息中...", 0);
         // if (!sessionKey) {
@@ -33,6 +36,9 @@ export default class IsLogin extends React.Component {
         YSSJ.login();
     };
     render() {
+        // if (!YSSJ.isApp) {
+        //     return <NotInApp />;
+        // }
         let { sessionKey, children } = this.props;
         if (sessionKey) {
             return children;
@@ -49,3 +55,13 @@ export default class IsLogin extends React.Component {
         );
     }
 }
+
+const NotInApp = () => (
+    <Nomatch title="无法完成操作">
+        <Result
+            img={<img src={"https://gw.alipayobjects.com/zos/rmsportal/GIyMDJnuqmcqPLpHCSkj.svg"} />}
+            title="无法完成操作"
+            message="请在云上恩施系列App中打开该应用"
+        />
+    </Nomatch>
+);

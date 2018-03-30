@@ -31,9 +31,8 @@ import filterData from "./filterData";
 }))
 export default class OrganizationComponents extends Component {
     static defaultProps = {
-        multiple: true,
-        selectedKeys: [],
-        disabled: []
+        multiple: false,
+        selectedKeys: $arr
     };
     constructor(props) {
         super(props);
@@ -41,8 +40,8 @@ export default class OrganizationComponents extends Component {
             deptlist: $arr,
             userlist: $arr,
             searchValue: "",
-            selectedKeys: [].concat(props.selectedKeys),
-            selectedDevs: {},
+            selectedKeys: $arr.concat(props.selectedKeys),
+            selectedDevs: $obj,
             bk: ""
         };
     }
@@ -108,15 +107,38 @@ export default class OrganizationComponents extends Component {
         }
     };
     /**
+     * 多选
+     */
+    handleMultipleSelect = data => {
+        let { selectedKeys } = this.state;
+        let index = selectedKeys.indexOf(data.userId);
+        if (index == -1) {
+            selectedKeys = selectedKeys.concat([data.userId]);
+        } else {
+            selectedKeys = selectedKeys.filter(d => {
+                return d != data.userId;
+            });
+        }
+        this.setState({
+            selectedKeys
+        });
+    };
+    /**
      * 全选
      */
     handleSelectAll = e => {
-        let { userlists } = this.props;
+        let { userlists, deptlist } = this.props;
+        let { selectedDevs } = this.state;
         let selectedKeys = userlists.map(user => {
             return user.userId;
         });
+        deptlist = deptlist.map(d => {
+            selectedDevs = selectedDevs.set(d.id, 1);
+            return d;
+        });
         this.setState({
-            selectedKeys
+            selectedKeys,
+            selectedDevs
         });
     };
     /**
@@ -127,42 +149,26 @@ export default class OrganizationComponents extends Component {
             selectedKeys: $arr
         });
     };
-    /**
-     * 多选
-     */
-    handleMultipleSelect = data => {
-        let { selectedKeys } = this.state;
-        let index = selectedKeys.indexOf(data.userId);
-        if (index == -1) {
-            selectedKeys.push(data.userId);
-        } else {
-            selectedKeys.splice(index, 1);
-        }
-        this.setState({
-            selectedKeys
-        });
-    };
 
     /**
      * 全选部门
      */
     handleSelectDep = data => {
-        console.log(data);
         let depid = data.id;
         let { selectedKeys, selectedDevs } = this.state;
         if (selectedDevs[depid] == 1) {
-            selectedDevs[depid] = 0;
+            selectedDevs = selectedDevs.set(depid, 0);
             data.member.map(d => {
                 selectedKeys = selectedKeys.filter(k => {
                     return k !== d.userId;
                 });
             });
         } else {
-            selectedDevs[depid] = 1;
+            selectedDevs = selectedDevs.set(depid, 1);
             data.member.map(d => {
                 let index = selectedKeys.indexOf(d.userId);
                 if (index == -1) {
-                    selectedKeys.push(d.userId);
+                    selectedKeys = selectedKeys.concat([d.userId]);
                 }
             });
         }
@@ -199,9 +205,12 @@ export default class OrganizationComponents extends Component {
     render() {
         let { breadcrumbs, orgInfo, userlists = [], title, multiple, children } = this.props;
         let { deptlist, userlist, searchValue, selectedDevs, selectedKeys } = this.state;
+        let selectedUsers = userlists.filter(user => {
+            return selectedKeys.indexOf(user.userId) > -1;
+        });
         return ReactDOM.createPortal(
             <Layout>
-                {children(selectedKeys, userlists)}
+                {children(selectedKeys, selectedUsers)}
                 <SearchBar placeholder="Search" value={searchValue} onChange={this.handleSearchChange} />
                 <Breadcrumbs
                     breadcrumbs={breadcrumbs}

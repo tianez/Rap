@@ -9,13 +9,13 @@ import styles from "./nomatch.scss";
 
 export default class Nomatch extends React.Component {
     render() {
-        let { title, children, loading } = this.props;
+        let { title, children, loading = false } = this.props;
         return (
             <Layout>
                 <NavBar mode="light" icon={<Icon type="left" />} onLeftClick={() => window.history.back()}>
                     {title}
                 </NavBar>
-                <Content>{loading && children}</Content>
+                <Content>{!loading && children}</Content>
             </Layout>
         );
     }

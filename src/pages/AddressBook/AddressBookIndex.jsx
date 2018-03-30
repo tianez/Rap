@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { NavBar, Icon } from "antd-mobile";
 
-import OrganizationComponents from "./Organization/OrganizationComponents";
+import OrganizationComponents from "Components/Organization/OrganizationComponents";
 import styles from "./AddressBookIndex.scss";
 
 import LeftIcon from "Components/Layout/LeftIcon";
@@ -17,19 +17,19 @@ export default class AddressBookIndex extends Component {
         let { history, match } = this.props;
         history.push(match.url + "/" + data.userId);
     };
-    handleSlect = (selectedKeys, userlists) => {
+    handleSlect = (selectedKeys, selectedUsers) => {
         console.log(selectedKeys);
+        console.log(selectedUsers);
     };
     render() {
-        let { match } = this.props;
         return (
             <OrganizationComponents onClickUser={this.handleUserListClick}>
-                {(selectedKeys, userlists) => {
+                {(selectedKeys, selectedUsers) => {
                     return (
                         <NavBar
                             mode="light"
                             icon={<Icon type="left" />}
-                            onLeftClick={() => this.handleSlect(selectedKeys, userlists)}
+                            onLeftClick={() => this.handleSlect(selectedKeys, selectedUsers)}
                         >
                             通讯录
                         </NavBar>

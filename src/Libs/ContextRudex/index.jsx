@@ -5,6 +5,11 @@ import React, { Component, createContext } from "react";
 import seamless from "seamless-immutable";
 import qs from "qs";
 
+import createHistory from "history/createHashHistory";
+const history = createHistory();
+
+console.log(history);
+
 const ThemeContext = createContext();
 
 export class Provider extends Component {
@@ -18,7 +23,8 @@ export class Provider extends Component {
         this.dispatch = {
             callBack: this.callBack,
             set: this.setContext,
-            setIn: this.setInContext
+            setIn: this.setInContext,
+            history: this.history
         };
         // window.dispatch = this.dispatch;
     }
@@ -52,8 +58,11 @@ export class Provider extends Component {
         let query = {};
         if (hash) {
             query = qs.parse(hash);
-            this.setContext({ query });
         }
+        this.setContext({ query });
+    };
+    history = () => {
+        history.push("/");
     };
     render() {
         let { children } = this.props;

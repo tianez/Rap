@@ -12,7 +12,7 @@ import Nomatch from "./Nomatch";
 }))
 export default class IsLogin extends React.Component {
     state = {
-        loading: false
+        loading: true
     };
     componentDidMount() {
         this.getOrgInfo();
@@ -57,7 +57,7 @@ export default class IsLogin extends React.Component {
             });
         } else {
             this.setState({
-                loading: true
+                loading: false
             });
             if (orgInfos.errorCode == 6666) {
                 return;
