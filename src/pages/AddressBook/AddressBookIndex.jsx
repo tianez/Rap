@@ -17,20 +17,12 @@ export default class AddressBookIndex extends Component {
         let { history, match } = this.props;
         history.push(match.url + "/" + data.userId);
     };
-    handleSlect = (selectedKeys, selectedUsers) => {
-        console.log(selectedKeys);
-        console.log(selectedUsers);
-    };
     render() {
         return (
             <OrganizationComponents onClickUser={this.handleUserListClick}>
-                {(selectedKeys, selectedUsers) => {
+                {() => {
                     return (
-                        <NavBar
-                            mode="light"
-                            icon={<Icon type="left" />}
-                            onLeftClick={() => this.handleSlect(selectedKeys, selectedUsers)}
-                        >
+                        <NavBar mode="light" icon={<LeftIcon />}>
                             通讯录
                         </NavBar>
                     );

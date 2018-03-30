@@ -17,8 +17,9 @@ const InitRoutes = () => (
             <HashRouter>
                 <Switch>
                     <Route path="/" exact component={Home} />
-                    <Route path="/addressbook" component={AddressBook} />
                     <Route path="/notice" component={Notice} />
+                    <Route path="/addressbook" component={AddressBook} />
+                    <Route path="/organization" component={Organization} />
                 </Switch>
             </HashRouter>
         </IsOrgs>

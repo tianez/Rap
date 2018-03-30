@@ -4,6 +4,10 @@ const Item = List.Item;
 
 import styles from "./Breadcrumbs.scss";
 
+import { contextConsumers } from "Libs/ContextRudex";
+@contextConsumers(state => ({
+    orgInfo: state.orgInfo
+}))
 export default class Breadcrumbs extends Component {
     render() {
         let { breadcrumbs, orgInfo, onChangeBreadcrumbs } = this.props;

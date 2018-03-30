@@ -10,24 +10,21 @@ import Layout from "Components/Layout/Layout";
 import Content from "Components/Layout/Content";
 import { SearchBar } from "antd-mobile";
 
-import { contextConsumers } from "Libs/ContextRudex";
-
-import reqDeptsAction from "Hoc/reqDeptsAction";
-import reqUsersAction from "Hoc/reqUsersAction";
-
 import styles from "./OrganizationComponents.scss";
 
 import DepList from "./DepList";
 import UserList from "./UserList";
-import Breadcrumbs from "./Breadcrumbs";
+import Breadcrumbs from "../Breadcrumbs/Breadcrumbs";
 
 import filterData from "./filterData";
 
+import reqDeptsAction from "Hoc/reqDeptsAction";
+import reqUsersAction from "Hoc/reqUsersAction";
+import { contextConsumers } from "Libs/ContextRudex";
 @contextConsumers(state => ({
     deptlist: state.getIn(["deptList", localStorage.organizationId]),
     userlists: state.getIn(["userList", localStorage.organizationId]),
-    breadcrumbs: state.getIn(["Breadcrumbs", localStorage.organizationId, "organizationbreadcrumbs"]) || $arr,
-    orgInfo: state.orgInfo
+    breadcrumbs: state.getIn(["Breadcrumbs", localStorage.organizationId, "organizationbreadcrumbs"]) || $arr
 }))
 export default class OrganizationComponents extends Component {
     static defaultProps = {
@@ -210,7 +207,7 @@ export default class OrganizationComponents extends Component {
         onSelected && onSelected(selected);
     };
     render() {
-        let { breadcrumbs, orgInfo, userlists = [], title, multiple, children } = this.props;
+        let { breadcrumbs, userlists = [], title, multiple, children } = this.props;
         let { deptlist, userlist, searchValue, selectedDevs, selectedKeys } = this.state;
         let selectedUsers = userlists.filter(user => {
             return selectedKeys.indexOf(user.userId) > -1;
@@ -219,11 +216,7 @@ export default class OrganizationComponents extends Component {
             <Layout>
                 {children(selectedKeys, selectedUsers)}
                 <SearchBar placeholder="Search" value={searchValue} onChange={this.handleSearchChange} />
-                <Breadcrumbs
-                    breadcrumbs={breadcrumbs}
-                    orgInfo={orgInfo}
-                    onChangeBreadcrumbs={this.handleChangeBreadcrumbs}
-                />
+                <Breadcrumbs breadcrumbs={breadcrumbs} onChangeBreadcrumbs={this.handleChangeBreadcrumbs} />
                 {multiple && (
                     <div className={styles.actionStatus}>
                         <div className={styles.selectAll} onClick={this.handleSelectAll}>
