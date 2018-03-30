@@ -17,13 +17,24 @@ export default class AddressBookIndex extends Component {
         let { history, match } = this.props;
         history.push(match.url + "/" + data.userId);
     };
+    handleSlect = (selectedKeys, userlists) => {
+        console.log(selectedKeys);
+    };
     render() {
         let { match } = this.props;
         return (
             <OrganizationComponents onClickUser={this.handleUserListClick}>
-                <NavBar mode="light" icon={<LeftIcon />}>
-                    通讯录
-                </NavBar>
+                {(selectedKeys, userlists) => {
+                    return (
+                        <NavBar
+                            mode="light"
+                            icon={<Icon type="left" />}
+                            onLeftClick={() => this.handleSlect(selectedKeys, userlists)}
+                        >
+                            通讯录
+                        </NavBar>
+                    );
+                }}
             </OrganizationComponents>
         );
     }

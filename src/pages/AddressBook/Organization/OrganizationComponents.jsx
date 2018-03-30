@@ -8,7 +8,7 @@ import ReactDOM from "react-dom";
 import { Link } from "react-router-dom";
 import Layout from "Components/Layout/Layout";
 import Content from "Components/Layout/Content";
-import { NavBar, Icon, SearchBar } from "antd-mobile";
+import { SearchBar } from "antd-mobile";
 
 import { contextConsumers } from "Libs/ContextRudex";
 
@@ -111,13 +111,12 @@ export default class OrganizationComponents extends Component {
      * 全选
      */
     handleSelectAll = e => {
-        console.log(e);
-        let { inituserlist } = this.props;
-        let selected = inituserlist.map(user => {
-            return user.get("userId");
+        let { userlists } = this.props;
+        let selectedKeys = userlists.map(user => {
+            return user.userId;
         });
         this.setState({
-            selected: selected.toJS()
+            selectedKeys
         });
     };
     /**
@@ -125,7 +124,7 @@ export default class OrganizationComponents extends Component {
      */
     handleSelectDelAll = () => {
         this.setState({
-            selected: []
+            selectedKeys: $arr
         });
     };
     /**
@@ -197,17 +196,12 @@ export default class OrganizationComponents extends Component {
         let { selected } = this.state;
         onSelected && onSelected(selected);
     };
-    click = e => {
-        console.log(e);
-    };
     render() {
-        let { breadcrumbs, orgInfo, userlists, title, multiple } = this.props;
+        let { breadcrumbs, orgInfo, userlists = [], title, multiple, children } = this.props;
         let { deptlist, userlist, searchValue, selectedDevs, selectedKeys } = this.state;
         return ReactDOM.createPortal(
             <Layout>
-                <NavBar mode="light" icon={<Icon type="left" />} onLeftClick={() => window.history.back()}>
-                    通讯录
-                </NavBar>
+                {children(selectedKeys, userlists)}
                 <SearchBar placeholder="Search" value={searchValue} onChange={this.handleSearchChange} />
                 <Breadcrumbs
                     breadcrumbs={breadcrumbs}
