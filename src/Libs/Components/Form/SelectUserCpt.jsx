@@ -8,47 +8,106 @@ import OrganizationComponents from "Components/Organization/OrganizationComponen
 import styles from "./SelectUserCpt.scss";
 
 import { contextConsumers } from "Libs/ContextRudex";
+import reqUsersAction from "Hoc/reqUsersAction";
+
 @contextConsumers(state => ({
-    query: state.query
+    query: state.query,
+    userlists: state.getIn(["userList", localStorage.organizationId])
 }))
 @withRouter
 export default class SelectUserCpt extends Component {
+    static defaultProps = {
+        step: false,
+        multiple: true
+    };
+    componentDidMount() {
+        let { userlists } = this.props;
+        if (!userlists) {
+            this.props.dispatch.callBack(reqUsersAction);
+        }
+    }
     handleShowOrgCpt = () => {
-        let { match, history } = this.props;
-        history.push(match.url + "?showOrgCpt=true");
+        let { match, history, name } = this.props;
+        history.push(match.url + "?" + name + "=true");
     };
     handleUserListClick = data => {
-        console.log(data);
+        let { name, value, onChange } = this.props;
+        let length = value.length;
+        if (length > 0 && value[length - 1] == data.userId) {
+            return Toast.info("该人员与前一人员是同一人");
+        }
+        value.push(data.userId);
+        onChange(name, value);
+        window.history.back();
     };
+
+    handleSelect = data => {
+        let { name, onChange } = this.props;
+        onChange(name, data);
+        window.history.back();
+    };
+    handleDelItem = e => {
+        let { name, value, onChange } = this.props;
+        let index = e.target.dataset.index;
+        value.splice(index, 1);
+        onChange(name, value);
+    };
+
     render() {
-        let { query } = this.props;
+        let { query, userlists = $arr, title, name, value, multiple, step } = this.props;
+        let selecteditems = value.map(d => {
+            return userlists.find(user => {
+                return user.userId == d;
+            });
+        });
         return (
-            <List renderHeader={() => "审批人"}>
-                <Item>
-                    <div className={styles.steps}>
-                        <div className={styles.addBtn} onClick={this.handleShowOrgCpt}>
-                            +
-                        </div>
+            <List renderHeader={() => title}>
+                <div className={styles.steps}>
+                    {selecteditems.map((d, k) => {
+                        return [
+                            <div key={k} className={styles.avatar} data-index={k} onClick={this.handleDelItem}>
+                                {d.personname}
+                            </div>,
+                            step && <Steps />
+                        ];
+                    })}
+                    <div className={styles.addBtn} onClick={this.handleShowOrgCpt}>
+                        +
                     </div>
-                </Item>
-                {query.showOrgCpt && <UserCpt onClickUser={this.handleUserListClick} />}
+                </div>
+                {query[name] && (
+                    <UserCpt
+                        selectedKeys={value}
+                        multiple={multiple}
+                        onClickUser={this.handleUserListClick}
+                        onSelect={this.handleSelect}
+                    />
+                )}
             </List>
         );
     }
 }
 
-const UserCpt = ({ onClickUser }) => {
+const Steps = () => {
     return (
-        <OrganizationComponents onClickUser={onClickUser}>
+        <div className={styles.iconfont}>
+            <i className={"iconfont icon-iconfontjiantou "} />
+        </div>
+    );
+};
+
+const UserCpt = ({ onClickUser, onSelect, multiple, selectedKeys }) => {
+    return (
+        <OrganizationComponents onClickUser={onClickUser} selectedKeys={selectedKeys} multiple={multiple}>
             {(selectedKeys, selectedUsers) => {
                 return (
                     <NavBar
                         mode="light"
                         icon={<Icon type="left" />}
-                        // onLeftClick={() => this.handleSlect(selectedKeys, selectedUsers)}
                         onLeftClick={() => window.history.back()}
+                        rightContent={<div onClick={() => onSelect(selectedKeys, selectedUsers)}>确定</div>}
                     >
-                        通讯录
+                        选择人员
                     </NavBar>
                 );
             }}

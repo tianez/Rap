@@ -145,8 +145,15 @@ export default class OrganizationComponents extends Component {
      * 全部取消
      */
     handleSelectDelAll = () => {
+        let { deptlist } = this.props;
+        let { selectedDevs } = this.state;
+        deptlist = deptlist.map(d => {
+            selectedDevs = selectedDevs.set(d.id, 0);
+            return d;
+        });
         this.setState({
-            selectedKeys: $arr
+            selectedKeys: $arr,
+            selectedDevs
         });
     };
 

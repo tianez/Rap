@@ -36,15 +36,14 @@ const approvedfield = {
     title: "审批人",
     id: "approver",
     name: "approver",
-    repeat: true
+    step: true,
+    multiple: false
 };
 
 const sendRangeListfield = {
     title: "接收人",
     id: "sendRangeList",
-    name: "sendRangeList",
-    step: false,
-    multiple: true
+    name: "sendRangeList"
 };
 
 export default class NoticePublic extends Component {
@@ -53,7 +52,6 @@ export default class NoticePublic extends Component {
             organization: localStorage.organizationId,
             publisherId: localStorage.userId,
             author: localStorage.userId,
-            cc: "[]",
             sendRangeList: [],
             approver: [],
             title: ""
@@ -80,7 +78,6 @@ export default class NoticePublic extends Component {
             window.history.back();
         }
     };
-
     render() {
         let { data } = this.state;
         return (
@@ -98,8 +95,8 @@ export default class NoticePublic extends Component {
                     <div style={{ fontSize: "12px", color: "#666", lineHeight: "18px", padding: "5px 15px 10px" }}>
                         公告内容目前移动版只支持简单的文字编辑，如要插入图片等复杂操作，请使用PC版
                     </div>
-                    <SelectUserCpt />
-                    {/* <WhiteSpace /> */}
+                    <SelectUserCpt {...approvedfield} value={data.approver} onChange={this.handleChange} />
+                    <SelectUserCpt {...sendRangeListfield} value={data.sendRangeList} onChange={this.handleChange} />
                 </Content>
             </Layout>
         );

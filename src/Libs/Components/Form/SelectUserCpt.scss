@@ -1,8 +1,12 @@
+.steps {
+    padding: 10px;
+    background: #fff;
+}
+
 $widthSize: 54px;
 .addBtn,
-.avatar,
-.iconfont {
-    display: block;
+.avatar {
+    display: inline-block;
     width: $widthSize;
     height: $widthSize;
     font-size: 40px;
@@ -12,4 +16,23 @@ $widthSize: 54px;
     background: #f2f2f2;
     color: #ccc;
     text-align: center;
+    margin: 4px;
+}
+
+.avatar {
+    background: #108ee9;
+    font-size: 16px;
+    color: #fff;
+}
+
+.iconfont {
+    line-height: $widthSize;
+    font-size: 20px;
+    width: 20px;
+    color: #ccc;
+    display: inline-block;
+    height: $widthSize;
+    overflow: hidden;
+    text-align: center;
+    margin: 5px 0;
 }

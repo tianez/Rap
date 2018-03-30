@@ -9,7 +9,6 @@ const formatOut = data => {
             orgId: data.organization
         };
     });
-    // data.sendRangeList = JSON.stringify(sendRangeList);
     data.sendRangeList = sendRangeList;
     return data;
 };
