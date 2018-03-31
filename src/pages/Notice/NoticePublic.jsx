@@ -6,7 +6,7 @@ import Content from "Components/Layout/Content";
 import LeftIcon from "Components/Layout/LeftIcon";
 import TextEditor3 from "Components/TextEditor/TextEditor3";
 
-import SelectUserCpt from "Components/Form/SelectUserCpt";
+import SelectUserCpt from "Components/FormTable/SelectUserCpt";
 import formValidator from "Utils/formValidator";
 
 import styles from "./NoticePublic.scss";

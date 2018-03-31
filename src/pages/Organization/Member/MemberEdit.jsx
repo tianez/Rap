@@ -30,7 +30,7 @@ export default class MemberEdit extends Component {
         });
         if (user.success) {
             this.setState({
-                user: user.data.detail
+                data: user.data.detail
             });
         }
     };
@@ -39,7 +39,6 @@ export default class MemberEdit extends Component {
      */
     handleSubmit = async data => {
         let { id } = this.props.match.params;
-        let { user } = this.state;
         let res = await Request("relation/update", {
             method: "post",
             data: data
@@ -51,9 +50,9 @@ export default class MemberEdit extends Component {
         }
     };
     render() {
-        let { user } = this.state;
-        return user ? (
-            <FormTable fields={fields} data={user} headerTitle="编辑用户信息" onSubmit={this.handleSubmit} />
+        let { data } = this.state;
+        return data ? (
+            <FormTable fields={fields} data={data} headerTitle="编辑用户信息" onSubmit={this.handleSubmit} />
         ) : null;
     }
 }

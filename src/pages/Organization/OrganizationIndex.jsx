@@ -26,7 +26,7 @@ export default class OrganizationIndex extends Component {
         let { match } = this.props;
         return (
             <OrganizationComponents onClickUser={this.handleUserListClick}>
-                {(selectedKeys, selectedUsers) => {
+                {(selectedKeys, selectedRows) => {
                     return (
                         <NavBar
                             mode="light"

@@ -3,43 +3,33 @@
  */
 
 import React, { Component } from "react";
-
 import { Link } from "react-router-dom";
-
-import { NavBar, Icon, List, InputItem, WhiteSpace, Toast, Switch } from "antd-mobile";
-const Item = List.Item;
-
-import Layout from "Components/Layout/Layout";
-import Content from "Components/Layout/Content";
+import { NavBar, Icon, Popover } from "antd-mobile";
 import DepartmentComponents from "Components/Department/DepartmentComponents";
-
-import styles from "./Department.scss";
-
+import LeftIcon from "Components/Layout/LeftIcon";
 class DepartmentIndex extends Component {
     constructor(props) {
         super(props);
         this.state = {};
     }
     /**
-     * 选择部门返回按钮事件
-     */
-    handleDepartmentLeftClick = () => {
-        window.history.back();
-    };
-    /**
      * 选中部门回调
      */
-    handleDepartmentChecked = (keys, data) => {
-        console.log(keys);
-        console.log(data);
+    handleSelected = data => {
+        let { history, match } = this.props;
+        history.push(match.url + "/" + data.id);
     };
     render() {
         return (
-            <DepartmentComponents
-                title="部门管理"
-                onLeftClick={this.handleDepartmentLeftClick}
-                onSelected={this.handleDepartmentChecked}
-            />
+            <DepartmentComponents onSelected={this.handleSelected}>
+                {(selectedKeys, selectedRows) => {
+                    return (
+                        <NavBar mode="light" icon={<LeftIcon />}>
+                            部门管理
+                        </NavBar>
+                    );
+                }}
+            </DepartmentComponents>
         );
     }
 }

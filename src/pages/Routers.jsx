@@ -10,6 +10,7 @@ import Home from "./Home/Home";
 const Notice = asyncComponent(() => import("./Notice/NoticeRouter"), true); //通知公告
 const Organization = asyncComponent(() => import("./Organization/OrganizationRouter"), true); //组织架构
 const AddressBook = asyncComponent(() => import("./AddressBook/AddressBookRouter"), true); //通讯录
+const Attendance = asyncComponent(() => import("./Attendance/AttendanceRouter"), true); //考勤打卡
 
 const InitRoutes = () => (
     <IsLogin>
@@ -20,6 +21,7 @@ const InitRoutes = () => (
                     <Route path="/notice" component={Notice} />
                     <Route path="/addressbook" component={AddressBook} />
                     <Route path="/organization" component={Organization} />
+                    <Route path="/attendance" component={Attendance} />
                 </Switch>
             </HashRouter>
         </IsOrgs>

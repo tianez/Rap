@@ -207,14 +207,14 @@ export default class OrganizationComponents extends Component {
         onSelected && onSelected(selected);
     };
     render() {
-        let { breadcrumbs, userlists = [], title, multiple, children } = this.props;
+        let { breadcrumbs, userlists = $arr, multiple, children } = this.props;
         let { deptlist, userlist, searchValue, selectedDevs, selectedKeys } = this.state;
         let selectedUsers = userlists.filter(user => {
             return selectedKeys.indexOf(user.userId) > -1;
         });
         return ReactDOM.createPortal(
             <Layout>
-                {children(selectedKeys, selectedUsers)}
+                {children && children(selectedKeys, selectedUsers)}
                 <SearchBar placeholder="Search" value={searchValue} onChange={this.handleSearchChange} />
                 <Breadcrumbs breadcrumbs={breadcrumbs} onChangeBreadcrumbs={this.handleChangeBreadcrumbs} />
                 {multiple && (

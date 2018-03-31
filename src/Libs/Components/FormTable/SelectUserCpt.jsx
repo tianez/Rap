@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 
 import { NavBar, List, Toast, InputItem, WhiteSpace, Icon } from "antd-mobile";
 const Item = List.Item;
-
+import LeftIcon from "Components/Layout/LeftIcon";
 import OrganizationComponents from "Components/Organization/OrganizationComponents";
 import styles from "./SelectUserCpt.scss";
 
@@ -28,7 +28,6 @@ export default class SelectUserCpt extends Component {
     }
     handleShowOrgCpt = () => {
         let { match, history, name } = this.props;
-        console.log(history);
         history.push(match.url + "?" + name + "=true");
     };
     handleUserListClick = data => {
@@ -100,13 +99,12 @@ const Steps = () => {
 const UserCpt = ({ onClickUser, onSelect, multiple, selectedKeys }) => {
     return (
         <OrganizationComponents onClickUser={onClickUser} selectedKeys={selectedKeys} multiple={multiple}>
-            {(selectedKeys, selectedUsers) => {
+            {(selectedKeys, selectedRows) => {
                 return (
                     <NavBar
                         mode="light"
-                        icon={<Icon type="left" />}
-                        onLeftClick={() => window.history.back()}
-                        rightContent={<div onClick={() => onSelect(selectedKeys, selectedUsers)}>确定</div>}
+                        icon={<LeftIcon />}
+                        rightContent={<div onClick={() => onSelect(selectedKeys, selectedRows)}>确定</div>}
                     >
                         选择人员
                     </NavBar>

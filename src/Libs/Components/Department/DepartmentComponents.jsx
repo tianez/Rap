@@ -14,7 +14,6 @@ import Content from "Components/Layout/Content";
 
 import Breadcrumbs from "../Breadcrumbs/Breadcrumbs";
 
-import DepartmentHeader from "./DepartmentHeader";
 import SelectedItems from "./SelectedItems";
 import DeptList from "./DeptList";
 
@@ -36,7 +35,7 @@ import { contextConsumers } from "Libs/ContextRudex";
 }))
 class Department extends Component {
     static defaultProps = {
-        multiple: true,
+        multiple: false,
         selectedKeys: $arr
     };
     constructor(props) {
@@ -47,10 +46,10 @@ class Department extends Component {
         };
     }
     componentDidMount() {
-        let { deptlist } = this.props;
-        if (!deptlist) {
-            this.props.dispatch.callBack(reqDeptsAction);
-        }
+        // let { deptlist } = this.props;
+        // if (!deptlist) {
+        this.props.dispatch.callBack(reqDeptsAction);
+        // }
     }
     /**
      * onLeftClick
@@ -76,12 +75,9 @@ class Department extends Component {
      * 新增部门确定
      */
     handleSubmit = async name => {
-        // Toast.info('onPress promise', 1);
-        console.log(`value:${name}`);
-        let { departments, breadcrumbs } = this.props;
-        let { items } = this.state;
-        let size = breadcrumbs.size;
-        let breadcrumbId = size == 0 ? 0 : breadcrumbs.getIn([size - 1, "id"]);
+        let { breadcrumbs } = this.state;
+        let length = breadcrumbs.length;
+        let breadcrumbId = length == 0 ? 0 : breadcrumbs.getIn([length - 1, "id"]);
         let res = await Request("deptment/insertDeptment", {
             method: "post",
             data: {
@@ -90,12 +86,12 @@ class Department extends Component {
                 parent: breadcrumbId
             }
         });
+        console.log(res);
         if (res.success) {
-            departments = departments.push(fromJS(res.data.dc));
-            this.props.dispatch("Departments/setIn", [[localStorage.organizationId], departments]);
-            Toast.info("新增成功", 2);
+            this.props.dispatch.callBack(reqDeptsAction);
+            Toast.info("新增成功");
         } else {
-            Toast.info(res.message, 2);
+            Toast.info(res.message);
         }
     };
     /**
@@ -149,25 +145,12 @@ class Department extends Component {
         });
     };
     /**
-     * 单选完成
+     * 单选
      */
     handleSingleCompleted = data => {
         let { onSelected } = this.props;
         onSelected && onSelected(data);
     };
-
-    /**
-     * 多选完成
-     */
-    handleMultipleCompleted = () => {
-        let { onSelected, deptlist = $arr } = this.props;
-        let { selectedKeys } = this.state;
-        let selectedRows = deptlist.filter(d => {
-            return selectedKeys.indexOf(d.id) > -1;
-        });
-        onSelected && onSelected(selectedKeys, selectedRows);
-    };
-
     handleFilter = (lists, breadcrumbs) => {
         let length = breadcrumbs.length;
         let breadcrumbId = length == 0 ? 0 : breadcrumbs.getIn([length - 1, "id"]);
@@ -177,22 +160,15 @@ class Department extends Component {
         return lists;
     };
     render() {
-        let { deptlist = $arr, multiple, title } = this.props;
+        let { deptlist = $arr, multiple, children } = this.props;
         let { selectedKeys, breadcrumbs } = this.state;
-
-        // let selecteditems = departments.filter(dep => {
-        //     return selected.indexOf(dep.get("id")) != -1;
-        // });
+        let selectedRows = deptlist.filter(d => {
+            return selectedKeys.indexOf(d.id) > -1;
+        });
         deptlist = this.handleFilter(deptlist, breadcrumbs);
         return ReactDOM.createPortal(
             <Layout>
-                <DepartmentHeader
-                    multiple={multiple}
-                    onLeftClick={this.handleLeftClick}
-                    onRightClick={this.handleMultipleCompleted}
-                >
-                    {title}
-                </DepartmentHeader>
+                {children && children(selectedKeys, selectedRows)}
                 <Breadcrumbs onChangeBreadcrumbs={this.handleChangeBreadcrumbs} breadcrumbs={breadcrumbs} />
                 <Content>
                     {/* <SelectedItems multiple={multiple} selecteditems={selecteditems} onClick={this.handleChecked} /> */}

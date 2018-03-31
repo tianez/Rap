@@ -23,8 +23,6 @@ const ListForm = ({ fields, data = {}, onChange }) => {
     return (
         <List renderHeader={() => "表单"} className={styles.listform}>
             {fields.map((field, index) => {
-                console.log(field);
-
                 let props = {
                     ...field,
                     onChange,
