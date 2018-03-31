@@ -5,9 +5,8 @@ import Layout from "Components/Layout/Layout";
 import Content from "Components/Layout/Content";
 import LeftIcon from "Components/Layout/LeftIcon";
 
-import AmapModal from "Components/Amap/AmapModal";
+// import AmapModal from "Components/Amap/AmapModal";
 import AttendanceTimeModal from "Components/AttendanceTime/AttendanceTimeModal";
-import AttendanceAddTimeModal from "Components/AttendanceTime/AttendanceAddTimeModal";
 import AttendanceDateModal from "Components/AttendanceTime/AttendanceDateModal";
 
 import FooterBtn from "Components/Layout/FooterBtn";
@@ -28,15 +27,13 @@ const CloseView = styled.div`
 `;
 
 import styled from "styled-components";
-import Immutable from "seamless-immutable";
 
-import { connect } from "react-redux";
-import reqSchedule from "Action/reqSchedule";
-
-@connect(state => ({
-    schedules: state.getIn(["Attendance", localStorage.organizationId])
+import reqScheduleAction from "Hoc/reqScheduleAction";
+import { contextConsumers } from "Libs/ContextRudex";
+@contextConsumers(state => ({
+    query: state.query,
+    schedules: state.getIn(["schedules", localStorage.organizationId])
 }))
-@reqSchedule("schedules")
 export default class GroupRule extends Component {
     state = {};
     static getDerivedStateFromProps(nextProps, prevState) {
@@ -45,6 +42,9 @@ export default class GroupRule extends Component {
             onChange && onChange("shiftId", schedules.getIn([0, "id"]));
         }
         return null;
+    }
+    componentDidMount() {
+        this.props.dispatch.callBack(reqScheduleAction);
     }
     /**
      * 改变考勤时间
@@ -90,15 +90,15 @@ export default class GroupRule extends Component {
         onChange && onChange("radius", e.target.value);
     };
     render() {
-        let { melocation, data, schedules, onChangeDate, onSave } = this.props;
+        let { history, data, schedules, onChangeDate, onSave } = this.props;
         let { addressList, radius, shiftId } = data;
         let { monShiftId, uesShiftId, wedShiftId, thurShiftId, friShiftId, satShiftId, sunShiftId } = data;
         let schedule = $obj;
         if (schedules) {
             schedule = schedules.find(d => {
-                return d.get("id") == shiftId;
+                return d.id == shiftId;
             });
-            schedule = schedule || schedules.get(0) || $obj;
+            schedule = schedule || schedules[0] || $obj;
         }
         let workDayList = [monShiftId, uesShiftId, wedShiftId, thurShiftId, friShiftId, satShiftId, sunShiftId];
         let selectBcs = workDayList
@@ -115,17 +115,17 @@ export default class GroupRule extends Component {
                     <List renderHeader={() => "设置考勤时间和日期"}>
                         <AttendanceTimeModal
                             id="kqsj"
-                            melocation={melocation}
+                            history={history}
                             selectKey={shiftId}
                             onSave={this.handleChangeTime}
                         >
-                            <Item arrow="horizontal" extra={schedule.get("shiftName")}>
+                            <Item arrow="horizontal" extra={schedule.shiftName}>
                                 考勤时间
                             </Item>
                         </AttendanceTimeModal>
                         <AttendanceDateModal
                             id="kqrq"
-                            melocation={melocation}
+                            history={history}
                             schedules={schedules}
                             bcs={workDayList}
                             defaultbc={shiftId}
@@ -163,12 +163,12 @@ export default class GroupRule extends Component {
                                 </Item>
                             );
                         })}
-                        <Item onClick={this.handleRed}>
+                        {/* <Item onClick={this.handleRed}>
                             <AmapModal id="dkdd" melocation={melocation} onRightClick={this.handleRightClick}>
                                 <i style={{ color: "#8ac007" }} className={"iconfont icon-wuuiconxiangjifangda"} />{" "}
                                 <span style={{ color: "#108ee9" }}>添加办公地点</span>
                             </AmapModal>
-                        </Item>
+                        </Item> */}
                     </List>
                     <WhiteSpace />
                 </Content>

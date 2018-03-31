@@ -12,7 +12,8 @@ Object.assign(window, {
     Immutable,
     $arr: Immutable([]),
     $obj: Immutable({}),
-    userAgents: userAgent()
+    userAgents: userAgent(),
+    rootDom: "app"
 });
 
 window.auths = ["dashboard", "organization", "user", "noticemanagement"];

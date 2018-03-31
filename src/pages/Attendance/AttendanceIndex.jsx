@@ -12,7 +12,7 @@ import styles from "./AttendanceIndex.scss";
 
 import formatDate from "Utils/formatDate";
 
-import { AuthComponent } from "Action/Authorized";
+import { AuthComponent } from "Hoc/Authorized";
 
 import calculateLineDistance from "Utils/calculateLineDistance";
 
@@ -181,9 +181,10 @@ export default class AttendanceIndex extends Component {
                         )}
                     </div>
                 </Content>
-                <AuthComponent auth="app.attendance">
+                <Footer curlink="attendance" />
+                {/* <AuthComponent auth="app.attendance">
                     <Footer curlink="attendance" />
-                </AuthComponent>
+                </AuthComponent> */}
             </Layout>
         );
     }

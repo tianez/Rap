@@ -5,25 +5,22 @@ import GroupRule from "./AddGroup/GroupRule";
 
 import formatOut from "./AddGroup/formatOut";
 
-import onHashChange from "Extended/onHashChange";
-import { connect } from "react-redux";
-import reqSchedule from "Action/reqSchedule";
-
-@connect(state => ({
-    schedules: state.getIn(["Attendance", localStorage.organizationId])
+import reqScheduleAction from "Hoc/reqScheduleAction";
+import { contextConsumers } from "Libs/ContextRudex";
+@contextConsumers(state => ({
+    query: state.query,
+    schedules: state.getIn(["schedules", localStorage.organizationId])
 }))
-@reqSchedule("schedules")
-@onHashChange
 export default class AttendanceGroupAdd extends Component {
     state = {
         shiftId: 0,
         deptList: [],
         userList: [],
         addressList: [],
-        userId: "",
+        userId: [],
         radius: "100",
         workDayList: null,
-        attendanceName: "",
+        attendanceName: "1111111",
         monShiftId: null,
         uesShiftId: null,
         wedShiftId: null,
@@ -35,6 +32,7 @@ export default class AttendanceGroupAdd extends Component {
     };
     componentDidMount() {
         this.handleInitData(this.props);
+        this.props.dispatch.callBack(reqScheduleAction);
     }
     componentDidUpdate() {
         this.handleInitData(this.props);
@@ -73,9 +71,8 @@ export default class AttendanceGroupAdd extends Component {
             Toast.info("考勤组名称不能为空");
             return;
         }
-        this.props.melocation.onPushQuery({
-            step: 1
-        });
+        let { match, history } = this.props;
+        history.push(match.url + "?step=1");
     };
     handleSave = async () => {
         let data = formatOut(this.state);
@@ -91,13 +88,12 @@ export default class AttendanceGroupAdd extends Component {
         }
     };
     render() {
-        let { melocation } = this.props;
-        let { step } = melocation.query;
+        let { step } = this.props.query;
         let props = {
             data: this.state,
             onChange: this.handleChange,
             onChangeDate: this.handleChangeDate,
-            melocation: melocation
+            history: this.props.history
         };
         if (step == 1) {
             return <GroupRule {...props} onSave={this.handleSave} />;

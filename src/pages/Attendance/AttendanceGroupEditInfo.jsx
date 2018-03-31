@@ -9,8 +9,10 @@ import formatOut from "./AddGroup/formatOut";
 
 import { Toast } from "antd-mobile";
 
-import onHashChange from "Extended/onHashChange";
-@onHashChange
+import { contextConsumers } from "Libs/ContextRudex";
+@contextConsumers(state => ({
+    query: state.query
+}))
 export default class AttendanceGroupEdit extends Component {
     constructor(props) {
         super(props);

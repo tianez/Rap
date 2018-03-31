@@ -5,8 +5,10 @@ import Layout from "Components/Layout/Layout";
 import Content from "Components/Layout/Content";
 import LeftIcon from "Components/Layout/LeftIcon";
 
-import Departments from "Components/Form/Departments2";
-import OrganizationAttendance from "Components/Form/OrganizationAttendance";
+// import Departments from "Components/Form/Departments2";
+// import OrganizationAttendance from "Components/Form/OrganizationAttendance";
+
+import SelectUserCpt from "Components/FormTable/SelectUserCpt";
 
 import Footer from "Components/Layout/FooterBtn";
 
@@ -145,29 +147,23 @@ export default class GroupBasicInfo extends Component {
                         考勤组名称
                     </InputItem>
                     <WhiteSpace />
-                    <Departments
+                    {/* <Departments
                         field={deptList}
                         value={data.deptList}
                         onChange={this.handleChangeDeptList}
                         multiple={true}
-                    />
-                    <WhiteSpace />
-                    <OrganizationAttendance
+                    /> */}
+                    <SelectUserCpt
                         name={"userList"}
                         value={data.userList}
                         onChange={this.handleChangeUserList}
                         title="其他参与人员"
-                        step={false}
-                        multiple={true}
                     />
-                    <WhiteSpace />
-                    <OrganizationAttendance
+                    <SelectUserCpt
                         name={"userId"}
                         value={data.userId}
                         onChange={onChange}
                         title="考勤组负责人"
-                        step={false}
-                        multiple={false}
                         single={true}
                     />
                     <WhiteSpace />

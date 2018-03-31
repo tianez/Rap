@@ -8,20 +8,21 @@ import formatIn from "./AddGroup/formatIn";
 import formatOut from "./AddGroup/formatOut";
 
 import { Toast } from "antd-mobile";
-import { connect } from "react-redux";
-import reqSchedule from "Action/reqSchedule";
-import onHashChange from "Extended/onHashChange";
 
-@connect(state => ({
-    schedules: state.getIn(["Attendance", localStorage.organizationId])
+import reqScheduleAction from "Hoc/reqScheduleAction";
+import { contextConsumers } from "Libs/ContextRudex";
+@contextConsumers(state => ({
+    query: state.query,
+    schedules: state.getIn(["schedules", localStorage.organizationId])
 }))
-@reqSchedule("schedules")
-@onHashChange
 export default class AttendanceGroupEditRule extends Component {
     constructor(props) {
         super(props);
         let state = formatIn(props.history.location.state);
         this.state = state;
+    }
+    componentDidMount() {
+        this.props.dispatch.callBack(reqScheduleAction);
     }
     handleChange = (name, value) => {
         let state = this.state;

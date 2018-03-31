@@ -158,7 +158,7 @@ export default class Amap extends Component {
                     )}
                 </ContainerView>
             </Layout>,
-            document.getElementById("root")
+            document.getElementById("app")
         );
     }
 }
