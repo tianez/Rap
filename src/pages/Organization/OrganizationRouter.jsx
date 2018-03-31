@@ -1,5 +1,8 @@
+/**
+ * 组织架构
+ */
 import React from "react";
-import { Route, Switch, Redirect } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 
 import OrganizationIndex from "./OrganizationIndex";
 import MemberAdd from "./Member/MemberAdd";

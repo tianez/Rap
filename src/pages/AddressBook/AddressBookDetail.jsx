@@ -6,7 +6,7 @@ import Layout from "Components/Layout/Layout";
 import Content from "Components/Layout/Content";
 import LeftIcon from "Components/Layout/LeftIcon";
 
-// import Departments from "./Components/Departments";
+import Departments from "./Components/Departments";
 
 export default class AddressBookDetail extends Component {
     constructor(props) {
@@ -45,9 +45,19 @@ export default class AddressBookDetail extends Component {
                 <Content>
                     <List renderHeader={() => "基本信息"}>
                         <Item extra={user.personname}>姓名</Item>
-                        {/* <Item extra={<a href={"tel:" + user.phonenumber1} style={{ color: '#3692fa' }}>{user.phonenumber1}</a>}>电话</Item> */}
+                        <Item
+                            extra={
+                                <a href={"tel:" + user.phonenumber1} style={{ color: "#3692fa" }}>
+                                    {user.phonenumber1}
+                                </a>
+                            }
+                        >
+                            电话
+                        </Item>
+                        <Item extra={user.officePhone}>办公电话</Item>
+                        <Item extra={user.officeRoomNum}>办公房间号</Item>
                         <Item extra={user.jobnumber}>工号</Item>
-                        {/* <Departments value={user.depArr} /> */}
+                        <Departments value={user.depArr} />
                     </List>
                     <List renderHeader={() => "其他信息"}>
                         <Item extra={user.userStatusShow}>用户状态</Item>

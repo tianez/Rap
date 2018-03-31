@@ -5,27 +5,29 @@ const Item = List.Item;
 
 import styles from "./Departments.scss";
 
+import reqDeptsAction from "Hoc/reqDeptsAction";
 import { contextConsumers } from "Libs/ContextRudex";
-import reqDepartment from "Hoc/ReqDeptList";
-
 @contextConsumers(state => ({
-    departments: state.getIn(["deptList", localStorage.organizationId])
+    deptlist: state.getIn(["deptList", localStorage.organizationId])
 }))
-@reqDepartment
 export default class Departments extends Component {
+    componentDidMount() {
+        let { deptlist } = this.props;
+        if (!deptlist) {
+            this.props.dispatch.callBack(reqDeptsAction);
+        }
+    }
     render() {
-        let { departments, value = [] } = this.props;
-        let selecteditems = departments
-            ? departments.filter(dep => {
-                  return value.indexOf(dep.get("id")) != -1;
-              })
-            : [];
+        let { deptlist = $arr, value = [] } = this.props;
+        let selecteditems = deptlist.filter(dep => {
+            return value.indexOf(dep.id) != -1;
+        });
         return (
             <Item
                 extra={selecteditems.map(i => {
                     return (
-                        <span key={i.get("id")} className={styles.item}>
-                            {i.get("name")}
+                        <span key={i.id} className={styles.item}>
+                            {i.name}
                         </span>
                     );
                 })}
