@@ -12,33 +12,53 @@ import Nomatch from "./Nomatch";
     sessionKey: state.sessionKey
 }))
 export default class IsLogin extends React.Component {
-    state = {
-        loading: true
-    };
-    componentDidMount() {
-        // if (!YSSJ.isApp) {
-        //     return;
-        // }
-        // let { sessionKey } = this.props;
-        // Toast.loading("获取登录信息中...", 0);
-        // if (!sessionKey) {
-        //     return;
-        // }
-        // this.setState({
-        //     loading: true
-        // });
-        Toast.hide();
-        this.props.dispatch.set({
-            sessionKey: "sessionKey"
-        });
+    constructor(props) {
+        super(props);
+        this.state = {
+            loading: true
+        };
+        window.infoCallBack = this.infoCallBack;
     }
+    componentDidMount() {
+        if (isDev) {
+            return this.getUser();
+        }
+        if (!YSSJ.isApp) {
+            return;
+        }
+        this.infoCallBack();
+    }
+    getUser = () => {
+        let user = {
+            id: "57b2093a1e8945c79118b3ad5a952441",
+            userName: "田恩仲"
+        };
+        this.initUser(user);
+    };
+    infoCallBack = () => {
+        let user = YSSJ.user();
+        this.initUser(user.data.user);
+    };
+    initUser = user => {
+        if (user) {
+            localStorage.userId = user.id;
+            localStorage.userName = user.userName;
+            this.props.dispatch.set({
+                user,
+                sessionKey: "sessionKey"
+            });
+        } else {
+            localStorage.removeItem("userId");
+            localStorage.removeItem("userName");
+        }
+    };
     login = () => {
         YSSJ.login();
     };
     render() {
-        // if (!YSSJ.isApp) {
-        //     return <NotInApp />;
-        // }
+        if (!YSSJ.isApp && !isDev) {
+            return <NotInApp />;
+        }
         let { sessionKey, children } = this.props;
         if (sessionKey) {
             return children;

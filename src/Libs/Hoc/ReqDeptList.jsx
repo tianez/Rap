@@ -21,7 +21,7 @@ const reqDepartment = (fieldname = "deptList", remoteServer = false) => Componen
             if (data) {
                 return;
             }
-            let organizationId = localStorage.orgId;
+            let organizationId = localStorage.organizationId;
             let res = await Request("deptment/deptList", {
                 params: {
                     id: organizationId,
@@ -33,7 +33,7 @@ const reqDepartment = (fieldname = "deptList", remoteServer = false) => Componen
             }
         };
         reqDataServer = async () => {
-            let orgId = localStorage.orgId;
+            let orgId = localStorage.organizationId;
             let res = await Request("deptment/deptList", {
                 params: {
                     id: orgId,

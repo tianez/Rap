@@ -13,13 +13,10 @@ Object.assign(window, {
     $arr: Immutable([]),
     $obj: Immutable({}),
     userAgents: userAgent(),
-    rootDom: "app"
+    rootDom: "app",
+    auths: [],
+    isDev: true
 });
-
-window.auths = ["dashboard", "organization", "user", "noticemanagement"];
-localStorage.userName = "admin";
-localStorage.userId = "57b2093a1e8945c79118b3ad5a952441";
-localStorage.orgId = "2f48b9f151cf4f48b01030624cd7aac7";
 
 /**
  * 初始化应用数据
@@ -27,7 +24,7 @@ localStorage.orgId = "2f48b9f151cf4f48b01030624cd7aac7";
  */
 import { Provider } from "Libs/ContextRudex";
 import Routers from "./pages/Routers";
-
+localStorage.organizationId = "2f48b9f151cf4f48b01030624cd7aac7";
 let initValue = {
     _site_id: 1,
     _site_name: "云上视界科技有限公司",

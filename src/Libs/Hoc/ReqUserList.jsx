@@ -21,7 +21,7 @@ const reqUserList = (fieldname = "userList", remoteServer = false) => Component 
             if (data) {
                 return;
             }
-            let organizationId = localStorage.orgId;
+            let organizationId = localStorage.organizationId;
             let res = await Request("relation/findList", {
                 params: {
                     organizationId,
@@ -33,7 +33,7 @@ const reqUserList = (fieldname = "userList", remoteServer = false) => Component 
             }
         };
         reqDataServer = async () => {
-            let organizationId = localStorage.orgId;
+            let organizationId = localStorage.organizationId;
             let res = await Request("relation/findList", {
                 params: {
                     organizationId,

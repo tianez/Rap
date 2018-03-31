@@ -26,8 +26,8 @@ instance.interceptors.request.use(config => {
     });
     config.params = {
         timestamp: Date.parse(new Date()),
-        orgId: localStorage.orgId,
-        orgid: localStorage.orgId,
+        orgid: localStorage.organizationId,
+        orgId: localStorage.organizationId,
         ...config.params
     };
     config.headers = {

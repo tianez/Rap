@@ -4,7 +4,7 @@
  * @param {状态操作方法集合} dispatch
  */
 const reqUsersAction = async (state, dispatch) => {
-    let organizationId = localStorage.orgId;
+    let organizationId = localStorage.organizationId;
     let res = await Request("relation/findList", {
         params: {
             organizationId,
