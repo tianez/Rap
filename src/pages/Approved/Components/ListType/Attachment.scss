@@ -1,0 +1,41 @@
+.attachments {
+    padding: 0 15px;
+    position: relative;
+}
+
+.title {
+    color: #999;
+    text-align: left;
+    line-height: 22px;
+    padding: 5px 0;
+    font-size: 16px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.lists {
+    padding: 0 0 10px;
+}
+
+.list {
+    display: flex;
+    line-height: 32px;
+    max-height: 32px;
+    .tb {
+        font-size: 14px;
+        margin-right: 4px;
+    }
+    .name {
+        color: #1890ff;
+    }
+    .size {
+        font-size: 12px;
+        color: #666;
+        margin: 0 5px;
+    }
+}
+
+.name {
+    flex: 1;
+    overflow: hidden;
+}

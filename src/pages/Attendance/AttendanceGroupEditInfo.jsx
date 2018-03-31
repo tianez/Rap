@@ -17,7 +17,6 @@ export default class AttendanceGroupEdit extends Component {
     constructor(props) {
         super(props);
         let state = formatIn(props.history.location.state);
-        console.log(state);
         this.state = state;
     }
     handleChange = (name, value) => {
@@ -27,7 +26,6 @@ export default class AttendanceGroupEdit extends Component {
     };
     handleSave = async () => {
         let data = formatOut(this.state);
-        console.log(data);
         let res = await Request("attendanceGroup/updateMember", {
             method: "post",
             data: data
@@ -40,12 +38,9 @@ export default class AttendanceGroupEdit extends Component {
         }
     };
     render() {
-        let { melocation } = this.props;
         let props = {
             data: this.state,
             onChange: this.handleChange,
-            onChangeDate: this.handleChangeDate,
-            melocation: melocation,
             bartitle: "编辑考勤组"
         };
         return <GroupBasicInfo {...props} onSave={this.handleSave} />;

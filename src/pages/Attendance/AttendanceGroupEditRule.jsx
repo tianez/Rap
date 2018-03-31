@@ -51,12 +51,11 @@ export default class AttendanceGroupEditRule extends Component {
         }
     };
     render() {
-        let { melocation } = this.props;
         let props = {
             data: this.state,
             onChange: this.handleChange,
             onChangeDate: this.handleChangeDate,
-            melocation: melocation
+            history: this.props.history
         };
         return <GroupRule {...props} onSave={this.handleSave} />;
     }

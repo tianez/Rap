@@ -12,6 +12,7 @@ const formatOut = data => {
         };
     });
     data.userList = userList;
+    data.userId = data.userId[0] || "";
     return data;
 };
 

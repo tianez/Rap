@@ -5,7 +5,7 @@ import Layout from "Components/Layout/Layout";
 import Content from "Components/Layout/Content";
 import LeftIcon from "Components/Layout/LeftIcon";
 
-// import AmapModal from "Components/Amap/AmapModal";
+import AmapModal from "Components/Amap/AmapModal";
 import AttendanceTimeModal from "Components/AttendanceTime/AttendanceTimeModal";
 import AttendanceDateModal from "Components/AttendanceTime/AttendanceDateModal";
 
@@ -163,12 +163,12 @@ export default class GroupRule extends Component {
                                 </Item>
                             );
                         })}
-                        {/* <Item onClick={this.handleRed}>
-                            <AmapModal id="dkdd" melocation={melocation} onRightClick={this.handleRightClick}>
+                        <Item onClick={this.handleRed}>
+                            <AmapModal id="dkdd" history={history} onRightClick={this.handleRightClick}>
                                 <i style={{ color: "#8ac007" }} className={"iconfont icon-wuuiconxiangjifangda"} />{" "}
                                 <span style={{ color: "#108ee9" }}>添加办公地点</span>
                             </AmapModal>
-                        </Item> */}
+                        </Item>
                     </List>
                     <WhiteSpace />
                 </Content>

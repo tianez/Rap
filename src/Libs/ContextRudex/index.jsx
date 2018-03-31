@@ -115,7 +115,7 @@ export const contextConsumers = propFunc => Component =>
             return (
                 <ThemeContext.Consumer>
                     {context => {
-                        let contextData = propFunc ? propFunc(context.context) : null;
+                        let contextData = propFunc ? propFunc(context.context, this.props) : null;
                         return (
                             <ComponentShouldUpdate
                                 props={this.props}

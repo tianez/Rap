@@ -8,6 +8,8 @@ const formatInit = data => {
         return user.userId;
     });
     data.userList = userList;
+    let userId = data.userId;
+    data.userId = userId ? [userId] : [];
     return data;
 };
 

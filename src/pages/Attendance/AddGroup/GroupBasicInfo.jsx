@@ -5,10 +5,8 @@ import Layout from "Components/Layout/Layout";
 import Content from "Components/Layout/Content";
 import LeftIcon from "Components/Layout/LeftIcon";
 
-// import Departments from "Components/Form/Departments2";
-// import OrganizationAttendance from "Components/Form/OrganizationAttendance";
-
 import SelectUserCpt from "Components/FormTable/SelectUserCpt";
+import SelectDepCpt from "Components/FormTable/SelectDepCpt";
 
 import Footer from "Components/Layout/FooterBtn";
 
@@ -132,10 +130,6 @@ export default class GroupBasicInfo extends Component {
     };
     render() {
         let { onChange, data, onSave, title, bartitle } = this.props;
-        let deptList = {
-            name: "deptList",
-            title: "考勤部门"
-        };
         return (
             <Layout>
                 <NavBar mode="light" icon={<LeftIcon />}>
@@ -147,12 +141,12 @@ export default class GroupBasicInfo extends Component {
                         考勤组名称
                     </InputItem>
                     <WhiteSpace />
-                    {/* <Departments
-                        field={deptList}
+                    <SelectDepCpt
+                        name={"deptList"}
                         value={data.deptList}
                         onChange={this.handleChangeDeptList}
                         multiple={true}
-                    /> */}
+                    />
                     <SelectUserCpt
                         name={"userList"}
                         value={data.userList}
