@@ -64,7 +64,8 @@ const custfields = {
             id: "approved",
             name: "approved",
             type: "organizations",
-            repeat: true,
+            step: true,
+            multiple: false,
             rules: [{ required: true, message: "必须选择审批人" }]
         },
         {
@@ -75,9 +76,7 @@ const custfields = {
             id: "cc",
             name: "cc",
             type: "organizations",
-            step: false,
-            tip: "审批通过后，通知抄送人",
-            multiple: true
+            tip: "审批通过后，通知抄送人"
         }
     ],
     custfields2: [
@@ -90,7 +89,6 @@ const custfields = {
             name: "cc",
             type: "organizations",
             step: false,
-            multiple: true,
             rules: [{ required: true, message: "必须选择抄送人" }]
         }
     ]
@@ -169,19 +167,19 @@ export default class ApprovedSubmit extends Component {
                 reqData[key] = data[key];
             }
         }
-        if (mod.custfields == "custfields1") {
-            if (!data.approved || data.approved.length == 0) {
-                return Toast.info("必须选择审批人", 2);
-            }
-        } else if (mod.custfields == "custfields2") {
-            if (!data.cc || data.cc.length == 0) {
-                return Toast.info("必须选择抄送人", 2);
-            }
-        }
+        // if (mod.custfields == "custfields1") {
+        //     if (!data.approved || data.approved.length == 0) {
+        //         return Toast.info("必须选择审批人", 2);
+        //     }
+        // } else if (mod.custfields == "custfields2") {
+        //     if (!data.cc || data.cc.length == 0) {
+        //         return Toast.info("必须选择抄送人", 2);
+        //     }
+        // }
         let postdata = {
             orgId: localStorage.organizationId,
             userId: localStorage.userId,
-            formId: jsondata.get("id"),
+            formId: jsondata.id,
             data: reqData
         };
         let res = await Request("form/save", {
@@ -208,8 +206,8 @@ export default class ApprovedSubmit extends Component {
         return (
             <FormTable
                 onSubmit={this.handleSubmit}
-                title={title}
                 rightTitle={rightTitle}
+                headerTitle={title}
                 moduleId={moduleId}
                 fields={fields}
                 datajson={jsondata}

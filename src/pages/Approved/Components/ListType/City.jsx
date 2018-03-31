@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import Warper from "./Warper";
-// import datajson from 'Components/Form/PickerCityJson';
+import datajson from "Components/FormTable/PickerCityJson";
 
-import asyncComponent from "Extended/asyncComponent";
-const datajson = asyncComponent(() => import("Components/Form/PickerCityJson"));
+// import asyncComponent from "Extended/asyncComponent";
+// const datajson = asyncComponent(() => import("Components/FormTable/PickerCityJson"));
 
 const City = props => {
     let citys = JSON.parse(props.filedValue);

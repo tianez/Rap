@@ -57,7 +57,7 @@ export default class Originate extends Component {
                 <NavBar mode="light" icon={<LeftIcon />}>
                     我的审批
                 </NavBar>
-                <Content className={styles.content}>
+                <Content>
                     <Tabs tabs={tabs} initialPage={initialPage} onChange={this.handleChange}>
                         {tabs &&
                             tabs.map((list, index) => {

@@ -167,8 +167,8 @@ export default class OnlineExamDetail extends Component {
                         score ? (
                             <div onClick={this.handleShowScore}>成绩单</div>
                         ) : (
-                                <div onClick={this.handleShowSheet}>答题卡</div>
-                            )
+                            <div onClick={this.handleShowSheet}>答题卡</div>
+                        )
                     }
                 >
                     {timeout != 0 && (
@@ -181,7 +181,7 @@ export default class OnlineExamDetail extends Component {
                         />
                     )}
                 </NavBar>
-                <Content className={styles.content}>
+                <Content>
                     <Steps cur={cur} curItem={curItem} list={list} />
                     <div className={styles.topic}>{curItem.subjectname}</div>
                     <Options curItem={curItem} curAnswer={curAnswer} onChange={this.handleChange} />
@@ -200,19 +200,19 @@ export default class OnlineExamDetail extends Component {
                         <Btn onClick={this.handleSubmit}>提交答案</Btn>
                     </Footer>
                 ) : (
-                        <Footer>
-                            <Btn border disabled={cur == 0} onClick={this.handlePre}>
-                                上一题
+                    <Footer>
+                        <Btn border disabled={cur == 0} onClick={this.handlePre}>
+                            上一题
                         </Btn>
-                            {cur + 1 != list.length || score ? (
-                                <Btn disabled={cur + 1 == list.length} onClick={this.handleNext}>
-                                    下一题
+                        {cur + 1 != list.length || score ? (
+                            <Btn disabled={cur + 1 == list.length} onClick={this.handleNext}>
+                                下一题
                             </Btn>
-                            ) : (
-                                    <Btn onClick={this.handleSubmit}>提交答案</Btn>
-                                )}
-                        </Footer>
-                    )}
+                        ) : (
+                            <Btn onClick={this.handleSubmit}>提交答案</Btn>
+                        )}
+                    </Footer>
+                )}
             </Layout>
         );
     }

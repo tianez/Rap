@@ -41,17 +41,6 @@ $titleSize: 44px;
     margin-left: 2px;
 }
 
-.steps {
-    display: inline-block;
-    text-align: center;
-    margin: 0 5px 10px;
-}
-
-.userdetail,
-.step {
-    display: inline-block;
-}
-
 $widthSize: 54px;
 .avatar,
 .iconfont {
@@ -70,7 +59,9 @@ $widthSize: 54px;
     background: #108ee9;
     font-size: 17px;
     color: #fff;
-
+    display: inline-block;
+    text-align: center;
+    margin: 0 5px 10px;
 }
 
 .username {

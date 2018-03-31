@@ -3,6 +3,8 @@
  */
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
+import { NavBar } from "antd-mobile";
+
 import OrganizationComponents from "Components/Organization/OrganizationComponents";
 import LeftIcon from "Components/Layout/LeftIcon";
 
@@ -18,14 +20,13 @@ export default class Footer extends Component {
         history.push(match.url + "?user=true");
     };
     handleHandOver = data => {
-        window.history.back();
         let { history, match, formRecordVo } = this.props;
         let { approvers } = this.props.workflowVo;
         let approverIndex = approvers.findIndex(d => {
             return d.approverId == localStorage.userId && d.approveState == 1;
         });
         let ApprovedId = approvers[approverIndex].approveId;
-        history.push({
+        history.replace({
             pathname: match.url + "/attitude",
             state: {
                 action: 2,
@@ -66,7 +67,7 @@ export default class Footer extends Component {
                 >
                     拒绝
                 </Link>
-                <div className={styles.action} onSelected={this.handleShowOrgCpt}>
+                <div className={styles.action} onClick={this.handleShowOrgCpt}>
                     转交
                 </div>
                 {query.user && (

@@ -178,7 +178,7 @@ export default class OnlineExamDetail extends Component {
                         />
                     )}
                 </NavBar>
-                <Content className={styles.content}>
+                <Content>
                     <Steps cur={cur} curItem={curItem} totalscore={detail.totalscore} list={list} />
                     <div className={styles.topic}>{curItem.subjectname}</div>
                     <Options curItem={curItem} curAnswer={curAnswer} onChange={this.handleChange} />

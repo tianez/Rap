@@ -11,11 +11,8 @@ export default class ApprovedUsers extends Component {
                 <div>
                     {users.map((d, index) => {
                         return (
-                            <div key={index} className={styles.steps}>
-                                <div className={styles.userdetail}>
-                                    <div className={styles.avatar}>{d.userName.slice(-2)}</div>
-                                    <div className={styles.username}>{d.userName}</div>
-                                </div>
+                            <div key={d.userId} className={styles.avatar}>
+                                {d.userName}
                             </div>
                         );
                     })}

@@ -7,6 +7,8 @@ import { NavBar, Icon, TextareaItem, WingBlank, WhiteSpace, Button, Toast } from
 import Layout from "Components/Layout/Layout";
 import Content from "Components/Layout/Content";
 
+import { contextConsumers } from "Libs/ContextRudex";
+@contextConsumers()
 export default class ApprovedAttitude extends Component {
     constructor() {
         super();
@@ -15,7 +17,6 @@ export default class ApprovedAttitude extends Component {
             loading: false
         };
     }
-
     componentWillMount() {
         let { history, location } = this.props;
         let urls = location.pathname.split("/");
@@ -63,11 +64,11 @@ export default class ApprovedAttitude extends Component {
         this.setState({
             loading: false
         });
+        Toast.info(res.message);
         if (res.success) {
-            store.dispatch("init/save", { ApprovedDetailReolad: true });
+            this.props.dispatch.setIn(["init", "ApprovedDetailReolad"], true);
             window.history.back();
         }
-        Toast.info(res.message, 2);
     };
     /**
      * 转交
@@ -87,16 +88,14 @@ export default class ApprovedAttitude extends Component {
         this.setState({
             loading: false
         });
+        Toast.info(res.message);
         if (res.success) {
-            store.dispatch("init/save", { ApprovedDetailReolad: true });
+            this.props.dispatch.setIn(["init", "ApprovedDetailReolad"], true);
             window.history.back();
         }
-        Toast.info(res.message, 2);
     };
     render() {
         let { state } = this.props.location;
-        console.log(state);
-
         if (!state) {
             return null;
         }
