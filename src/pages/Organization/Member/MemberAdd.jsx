@@ -3,7 +3,8 @@
  */
 
 import React, { Component } from "react";
-import FormTable from "Components/FormTable/FormTable";
+import asyncComponent from "Extended/asyncComponent";
+const FormTable = asyncComponent(() => import("Components/FormTable/FormTable"), true);
 import fields from "./fieldJson";
 
 export default class MemberAdd extends Component {

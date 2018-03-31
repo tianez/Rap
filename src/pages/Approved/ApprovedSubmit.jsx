@@ -3,8 +3,8 @@
  */
 import React, { Component } from "react";
 import { Toast } from "antd-mobile";
-
-import Form from "Components/FormTable/FormTable";
+import asyncComponent from "Extended/asyncComponent";
+const FormTable = asyncComponent(() => import("Components/FormTable/FormTable"), true);
 
 const formlist = {
     chuchai: {
@@ -57,24 +57,24 @@ const formlist = {
 const custfields = {
     custfields1: [
         {
-            controlType: "WhiteSpace"
+            type: "WhiteSpace"
         },
         {
             title: "审批人",
             id: "approved",
             name: "approved",
-            controlType: "organizations",
+            type: "organizations",
             repeat: true,
-            controlCheckRule: [{ required: true, message: "必须选择审批人" }]
+            rules: [{ required: true, message: "必须选择审批人" }]
         },
         {
-            controlType: "WhiteSpace"
+            type: "WhiteSpace"
         },
         {
             title: "抄送人",
             id: "cc",
             name: "cc",
-            controlType: "organizations",
+            type: "organizations",
             step: false,
             tip: "审批通过后，通知抄送人",
             multiple: true
@@ -82,17 +82,16 @@ const custfields = {
     ],
     custfields2: [
         {
-            controlType: "WhiteSpace"
+            type: "WhiteSpace"
         },
         {
             title: "抄送人",
             id: "cc",
             name: "cc",
-            controlType: "organizations",
+            type: "organizations",
             step: false,
-            // tip: '审批通过后，通知抄送人',
             multiple: true,
-            controlCheckRule: [{ required: true, message: "必须选择抄送人" }]
+            rules: [{ required: true, message: "必须选择抄送人" }]
         }
     ]
 };
@@ -136,14 +135,12 @@ export default class ApprovedSubmit extends Component {
                 let controlItems = {};
                 if (field.controlItems && field.controlItems.length > 0) {
                     let fids = field.controlItems;
-                    // fids = fids.replace(new RegExp(' ', 'g'), '')
-                    // fids = fids.replace(new RegExp(/\\/, 'g'), '')
                     controlItems = JSON.parse(fids);
                 }
                 field = {
                     name: field.id + "," + field.filedName,
                     title: field.filedTitle,
-                    controlType: field.controlType,
+                    type: field.controlType,
                     placeholder: field.controlTips,
                     rules: field.controlCheckRule ? JSON.parse(field.controlCheckRule) : null,
                     ...controlItems
@@ -205,16 +202,16 @@ export default class ApprovedSubmit extends Component {
     };
     render() {
         let { jsondata, mod, moduleId } = this.props;
-        jsondata = jsondata ? jsondata.toJS() : null;
-        console.log(jsondata);
         let rightTitle = mod ? "提交" : "";
         let title = mod ? mod.title : "该模块不存在";
+        let fields = jsondata ? jsondata.fields : $arr;
         return (
-            <Form
+            <FormTable
                 onSubmit={this.handleSubmit}
                 title={title}
                 rightTitle={rightTitle}
                 moduleId={moduleId}
+                fields={fields}
                 datajson={jsondata}
             />
         );

@@ -18,6 +18,7 @@ export default class Footer extends Component {
         history.push(match.url + "?user=true");
     };
     handleHandOver = data => {
+        window.history.back();
         let { history, match, formRecordVo } = this.props;
         let { approvers } = this.props.workflowVo;
         let approverIndex = approvers.findIndex(d => {
@@ -29,7 +30,7 @@ export default class Footer extends Component {
             state: {
                 action: 2,
                 ApprovedId: ApprovedId,
-                user: data.toJS(),
+                user: data,
                 recordId: formRecordVo.id
             }
         });

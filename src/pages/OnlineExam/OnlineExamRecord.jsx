@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import { connect } from "react-redux";
 import { NavBar, Icon, List, Flex, WhiteSpace, Tabs, Toast } from "antd-mobile";
 
 const Item = List.Item;

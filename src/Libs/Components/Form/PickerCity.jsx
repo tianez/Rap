@@ -4,7 +4,9 @@ import handleChange from "./handleChange";
 
 import styles from "./Form.scss";
 
-import datajson from "./PickerCityJson";
+// import datajson from "./PickerCityJson";
+import asyncComponent from "Extended/asyncComponent";
+const datajson = asyncComponent(() => import("Components/Form/PickerCityJson"));
 
 const PickerCity = ({ getFieldProps, field, value, onChange }) => {
     value = value || field.defaultValue || ["42", "4228", "422801"];

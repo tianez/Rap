@@ -20,7 +20,7 @@ export default class Form extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: {},
+            data: $obj,
             isinit: false
         };
     }
@@ -28,11 +28,13 @@ export default class Form extends Component {
         let { onChange } = this.props;
         if (onChange) {
             let { data } = this.props;
-            data[name] = value;
+            data = $obj.merge(data);
+            data = data.set(name, value);
             onChange(data);
         } else {
             let { data } = this.state;
-            data[name] = value;
+            data = $obj.merge(data);
+            data = data.set(name, value);
             this.setState({ data });
         }
     };
@@ -40,15 +42,15 @@ export default class Form extends Component {
      * 提交表单
      */
     handleSubmit = () => {
-        let { fields, onSubmit, onChange, data } = this.props;
+        let { fields = $arr, onSubmit, onChange, data } = this.props;
         data = onChange ? data : this.state.data;
-        let initdata = {};
+        let initdata = $obj;
         fields.map(f => {
             if (f.defaultValue) {
-                initdata[f.name] = f.defaultValue;
+                initdata = initdata.set(f.name, f.defaultValue);
             }
         });
-        data = Object.assign(initdata, data);
+        data = initdata.merge(data);
         let res = formValidator(fields, data);
         if (res.length > 0) {
             return Toast.info(res[0]);

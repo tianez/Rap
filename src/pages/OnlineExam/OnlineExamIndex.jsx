@@ -1,33 +1,32 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { NavBar, Icon, Tabs } from 'antd-mobile';
+import React, { Component } from "react";
+import { NavBar, Icon, Tabs } from "antd-mobile";
 
-import Layout from 'Components/Layout/Layout'
-import Content from 'Components/Layout/Content'
-import LeftIcon from 'Components/Layout/LeftIcon'
+import Layout from "Components/Layout/Layout";
+import Content from "Components/Layout/Content";
+import LeftIcon from "Components/Layout/LeftIcon";
 
-import PaperList from './OnlineExamIndex/PaperList';
-import RecordList from './OnlineExamIndex/RecordList';
+import PaperList from "./OnlineExamIndex/PaperList";
+import RecordList from "./OnlineExamIndex/RecordList";
 
-@connect(state => ({
-    initialPage: state.getIn(['init', 'initialPageExam'])
+import { contextConsumers } from "Libs/ContextRudex";
+@contextConsumers(state => ({
+    initialPage: state.getIn(["init", "initialPageExam"])
 }))
 export default class OnlineExamIndex extends Component {
     static defaultProps = {
-        initialPage: 0,
-    }
+        initialPage: 0
+    };
     handleChange = (tab, index) => {
-        this.props.dispatch('init/save', { initialPageExam: index })
-    }
+        this.props.dispatch.setIn(["init", "initialPageExam"], index);
+    };
     render() {
-        const tabs = [
-            { title: '试卷库', sub: '0' },
-            { title: '考试记录', sub: '1' },
-        ];
-        let { initialPage, history } = this.props
+        const tabs = [{ title: "试卷库", sub: "0" }, { title: "考试记录", sub: "1" }];
+        let { initialPage, history } = this.props;
         return (
             <Layout>
-                <NavBar mode="light" icon={<LeftIcon />}>在线考试</NavBar>
+                <NavBar mode="light" icon={<LeftIcon />}>
+                    在线考试
+                </NavBar>
                 <Content>
                     <Tabs tabs={tabs} initialPage={initialPage} onChange={this.handleChange}>
                         <PaperList index={0} cur={initialPage} history={history} />
@@ -35,6 +34,6 @@ export default class OnlineExamIndex extends Component {
                     </Tabs>
                 </Content>
             </Layout>
-        )
+        );
     }
 }

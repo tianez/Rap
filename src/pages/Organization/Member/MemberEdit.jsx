@@ -5,7 +5,8 @@
 import React, { Component } from "react";
 import { Toast } from "antd-mobile";
 
-import FormTable from "Components/FormTable/FormTable";
+import asyncComponent from "Extended/asyncComponent";
+const FormTable = asyncComponent(() => import("Components/FormTable/FormTable"), true);
 import fields from "./fieldJson";
 
 import { contextConsumers } from "Libs/ContextRudex";

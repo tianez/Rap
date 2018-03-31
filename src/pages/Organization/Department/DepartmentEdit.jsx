@@ -8,7 +8,8 @@ import { Link } from "react-router-dom";
 import { NavBar, Icon, List, InputItem, WhiteSpace, Toast } from "antd-mobile";
 const Item = List.Item;
 
-import FormTable from "Components/FormTable/FormTable";
+import asyncComponent from "Extended/asyncComponent";
+const FormTable = asyncComponent(() => import("Components/FormTable/FormTable"), true);
 import fields from "./fieldJson";
 
 import ParentDep from "./Components/ParentDep";

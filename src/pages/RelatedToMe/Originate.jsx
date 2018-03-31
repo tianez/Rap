@@ -2,7 +2,6 @@
  * 我的发起
  */
 import React, { Component } from "react";
-import { connect } from "react-redux";
 import { NavBar, Icon, List, WhiteSpace, Tabs, Badge } from "antd-mobile";
 const Item = List.Item;
 const Brief = Item.Brief;
@@ -19,7 +18,8 @@ import ThumbView from "Components/Views/ApprovedProgress/ThumbView";
 
 import styles from "./RelatedToMe.scss";
 
-@connect(state => ({
+import { contextConsumers } from "Libs/ContextRudex";
+@contextConsumers(state => ({
     initialPage: state.getIn(["init", "initialPageOriginate"])
 }))
 export default class Originate extends Component {
@@ -30,7 +30,7 @@ export default class Originate extends Component {
         counts: {}
     };
     handleChange = (tab, index) => {
-        this.props.dispatch("init/save", { initialPageOriginate: index });
+        this.props.dispatch.setIn(["init", "initialPageOriginate"], index);
     };
     handleCount = (index, count) => {
         let { counts } = this.state;

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import styles from "./Attachment.scss";
 
-import uploadAttachment from "Action/uploadAttachment";
+import uploadAttachment from "Hoc/uploadAttachment";
 
 @uploadAttachment
 export default class Attachment extends Component {

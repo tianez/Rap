@@ -2,7 +2,6 @@
  * 我的抄送
  */
 import React, { Component } from "react";
-import { connect } from "react-redux";
 import { NavBar, Icon, List, WhiteSpace, Tabs, Toast, Badge } from "antd-mobile";
 const Item = List.Item;
 const Brief = Item.Brief;
@@ -22,7 +21,8 @@ import ThumbView from "Components/Views/ApprovedProgress/ThumbView";
 import StatusView from "Components/Views/ApprovedProgress/StatusView";
 import BjView from "Components/Views/ApprovedProgress/BjView";
 
-@connect(state => ({
+import { contextConsumers } from "Libs/ContextRudex";
+@contextConsumers(state => ({
     initialPage: state.getIn(["init", "initialPageCopys"])
 }))
 export default class Originate extends Component {
@@ -33,7 +33,7 @@ export default class Originate extends Component {
         counts: {}
     };
     handleChange = (tab, index) => {
-        this.props.dispatch("init/save", { initialPageCopys: index });
+        this.props.dispatch.setIn(["init", "initialPageCopys"], index);
     };
     handleCount = (index, count) => {
         let { counts } = this.state;

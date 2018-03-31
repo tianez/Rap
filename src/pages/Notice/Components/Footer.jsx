@@ -3,12 +3,22 @@
  */
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
-import OrganizationModal from "Components/Organization/OrganizationModal";
+import OrganizationComponents from "Components/Organization/OrganizationComponents";
+import LeftIcon from "Components/Layout/LeftIcon";
 
 import styles from "./Footer.scss";
-
+import { contextConsumers } from "Libs/ContextRudex";
+@contextConsumers(state => ({
+    query: state.query
+}))
+@withRouter
 class Footer extends Component {
+    handleShowOrgCpt = () => {
+        let { match, history } = this.props;
+        history.push(match.url + "?user=true");
+    };
     handleHandOver = data => {
+        window.history.back();
         let { history, match } = this.props;
         let { approvers } = this.props.workflowVo;
         let approverIndex = approvers.findIndex(d => {
@@ -20,13 +30,13 @@ class Footer extends Component {
             state: {
                 action: 2,
                 ApprovedId: ApprovedId,
-                user: data.toJS(),
+                user: data,
                 recordId: match.params.id
             }
         });
     };
     render() {
-        let { approvers } = this.props.workflowVo;
+        let { approvers, query } = this.props.workflowVo;
         let approverIndex = approvers.findIndex(d => {
             return d.approverId == localStorage.userId && d.approveState == 1;
         });
@@ -55,9 +65,20 @@ class Footer extends Component {
                 >
                     拒绝
                 </Link>
-                <OrganizationModal className={styles.action} onSelected={this.handleHandOver} title={"选择转交人员"}>
+                <div className={styles.action} onSelected={this.handleShowOrgCpt}>
                     转交
-                </OrganizationModal>
+                </div>
+                {query.user && (
+                    <OrganizationComponents onClickUser={this.handleHandOver} multiple={false}>
+                        {() => {
+                            return (
+                                <NavBar mode="light" icon={<LeftIcon />}>
+                                    选择转交人员
+                                </NavBar>
+                            );
+                        }}
+                    </OrganizationComponents>
+                )}
             </div>
         );
     }

@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import { connect } from "react-redux";
 import { NavBar, Icon, List, Checkbox, Flex, WhiteSpace, Tabs, Toast, Modal } from "antd-mobile";
 
 const CheckboxItem = Checkbox.CheckboxItem;
