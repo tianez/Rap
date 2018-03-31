@@ -19,7 +19,8 @@ export default class SelectUserCpt extends Component {
     static defaultProps = {
         step: false,
         single: false, //是否只能选择一个,为true时 multiple=true 无效
-        multiple: true
+        multiple: true,
+        value: $arr
     };
     componentDidMount() {
         let { userlists } = this.props;
@@ -32,7 +33,6 @@ export default class SelectUserCpt extends Component {
         history.push(match.url + "?" + name + "=true");
     };
     handleUserListClick = data => {
-        console.log(data);
         let { name, value, onChange, single } = this.props;
         if (single) {
             onChange(name, [data.userId]);
@@ -43,7 +43,7 @@ export default class SelectUserCpt extends Component {
         if (length > 0 && value[length - 1] == data.userId) {
             return Toast.info("该人员与前一人员是同一人");
         }
-        value.push(data.userId);
+        value = value.concat([data.userId]);
         onChange(name, value);
         window.history.back();
     };
@@ -61,7 +61,7 @@ export default class SelectUserCpt extends Component {
     };
 
     render() {
-        let { query, userlists = $arr, title, name, value = [], single, multiple, step } = this.props;
+        let { query, userlists = $arr, title, name, value, single, multiple, step } = this.props;
         multiple = !single && multiple;
         let selecteditems = value.map(d => {
             return userlists.find(user => {
@@ -69,7 +69,10 @@ export default class SelectUserCpt extends Component {
             });
         });
         return (
-            <List renderHeader={() => title}>
+            <List>
+                <Item>
+                    {title}({selecteditems.length}人)
+                </Item>
                 <div className={styles.steps}>
                     {selecteditems.map((d, k) => {
                         return [

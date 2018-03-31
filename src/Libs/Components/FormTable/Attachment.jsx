@@ -12,12 +12,12 @@ export default class Attachment extends Component {
         this.inputfile.value = "";
     };
     render() {
-        let { field, attachments, value, onChange, size } = this.props;
+        let { title, tip, attachments, value, onChange, size } = this.props;
         return (
             <div className={styles.attachments}>
                 <div className={styles.title}>
-                    {field.title}
-                    {field.tip && <span className={styles.tip}>{field.tip}</span>}
+                    {title}
+                    {tip && <span className={styles.tip}>{tip}</span>}
                 </div>
                 <div className={"iconfont icon-fujian " + styles.uploadbtn}>
                     <input

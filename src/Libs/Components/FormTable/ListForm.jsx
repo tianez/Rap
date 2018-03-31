@@ -4,22 +4,20 @@ import { List, WhiteSpace } from "antd-mobile";
 
 import InputItem from "./InputItem";
 import Images from "./Images";
+import TextareaItem2 from "./TextareaItem2";
+import Select from "./Select";
+import PickerCity from "./PickerCity";
+import Attachment from "./Attachment";
+import DatePicker from "./DatePicker";
+import Radio from "./Radio";
 
-import Department from "../Department/DepartmentComponents";
-import Organization from "../Organization/OrganizationComponents";
+import SelectDepCpt from "./SelectDepCpt";
+import SelectUserCpt from "./SelectUserCpt";
 
-import DatePicker from "../Form/DatePicker";
+import Switch from "./Switch";
+import Slider from "./Slider";
 
-import TextareaItem from "../Form/TextareaItem";
-import TextareaItem2 from "../Form/TextareaItem2";
-import Switch from "../Form/Switch";
-import Radio from "../Form/Radio";
-import Slider from "../Form/Slider";
-import Select from "../Form/Select";
-import Attachment from "../Form/Attachment";
-import PickerCity from "../Form/PickerCity";
-
-import styles from "../Form/Form.scss";
+import styles from "./Form.scss";
 
 const ListForm = ({ fields = $arr, data = {}, onChange }) => {
     return (
@@ -69,10 +67,10 @@ const ListForm = ({ fields = $arr, data = {}, onChange }) => {
                         return <Images {...props} />;
                         break;
                     case "departments":
-                        return <Department {...props} />;
+                        return <SelectDepCpt {...props} />;
                         break;
                     case "organizations":
-                        return <Organization {...props} />;
+                        return <SelectUserCpt {...props} />;
                         break;
                     case "WhiteSpace":
                         return <WhiteSpace key={index} className={styles.whiteSpace} />;

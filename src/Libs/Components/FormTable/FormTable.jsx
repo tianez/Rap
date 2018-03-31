@@ -15,7 +15,8 @@ import ListForm from "./ListForm";
 export default class Form extends Component {
     static defaultProps = {
         rightTitle: "保存",
-        headerTitle: "模块名称"
+        headerTitle: "模块名称",
+        fields: $arr
     };
     constructor(props) {
         super(props);
@@ -42,7 +43,7 @@ export default class Form extends Component {
      * 提交表单
      */
     handleSubmit = () => {
-        let { fields = $arr, onSubmit, onChange, data } = this.props;
+        let { fields, onSubmit, onChange, data } = this.props;
         data = onChange ? data : this.state.data;
         let initdata = $obj;
         fields.map(f => {

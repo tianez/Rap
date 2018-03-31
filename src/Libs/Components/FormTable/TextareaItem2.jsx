@@ -12,10 +12,10 @@ class ExportComponent extends Component {
         }
     }
     render() {
-        let { field, value, onChange } = this.props;
+        let { title, value, onChange } = this.props;
         return (
             <div className="am-list-item am-textarea-item">
-                <div className="am-textarea-label am-textarea-label-5">{field.title}</div>
+                <div className="am-textarea-label am-textarea-label-5">{title}</div>
                 <div className="am-textarea-control">
                     <div
                         ref={ele => (this.texta = ele)}
