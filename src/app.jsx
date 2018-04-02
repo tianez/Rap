@@ -1,12 +1,12 @@
 "use strict";
 
-import "./style/app.less";
 import React from "react";
 import ReactDOM from "react-dom";
 import Immutable from "seamless-immutable";
 import Request from "Utils/axios";
 import userAgent from "Utils/userAgent";
 
+import "./style/app.less";
 Object.assign(window, {
     Request,
     Immutable,
@@ -33,9 +33,12 @@ let initValue = {
     _menus: {}
 };
 
+const App = () => {
+    return <div>11111111111</div>;
+};
 ReactDOM.render(
     <Provider value={initValue}>
-        <Routers />
+        <App />
     </Provider>,
     document.getElementById("app")
 );
