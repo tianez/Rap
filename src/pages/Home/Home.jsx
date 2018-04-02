@@ -4,8 +4,17 @@ import { NavBar } from "antd-mobile";
 import { contextConsumers } from "Libs/ContextRudex";
 
 import asyncComponent from "Extended/asyncComponent";
-import Layout from "Components/Layout/Layout";
+import LayoutView from "Views/Layout/LayoutView";
 import Content from "Components/Layout/Content";
+
+import styled from "styled-components";
+
+const ViewAvatar = styled.div`
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    color: #f00;
+`;
 
 import styles from "./Home.scss";
 
@@ -26,10 +35,12 @@ class Home extends Component {
     };
     render() {
         return (
-            <Layout>
+            <LayoutView>
                 <NavBar mode="light">首页</NavBar>
-                <Content>11111111111111</Content>
-            </Layout>
+                <Content>
+                    <ViewAvatar className={styles.scrollDiv}>11111111111111</ViewAvatar>
+                </Content>
+            </LayoutView>
         );
     }
 }

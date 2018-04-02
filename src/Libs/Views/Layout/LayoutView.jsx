@@ -7,9 +7,10 @@ const LayoutView = styled.div`
     left: 0;
     right: 0;
     bottom: 0;
-    overflow: hidden;
+    overflow: hidden auto;
     display: flex;
     flex-direction: column;
+    z-index: 99;
 `;
 
-export default LayoutView
+export default LayoutView;

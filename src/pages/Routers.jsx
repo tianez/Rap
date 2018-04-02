@@ -3,7 +3,9 @@ import { HashRouter, Switch, Route } from "react-router-dom";
 
 import PrivateRoute from "Extended/privateRoute";
 import asyncComponent from "Extended/asyncComponent";
-import Home from "./Home/Home";
+// import Home from "./Home/Home";
+const Home = asyncComponent(() => import("./Home/Home"), true);
+
 const InitRoutes = () => (
     <HashRouter>
         <Switch>
