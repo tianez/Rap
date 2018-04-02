@@ -11,11 +11,11 @@ module.exports = {
         filename: "[name].bundle.js",
         path: path.resolve(__dirname, "dist")
     },
-    // externals: {
-    //     react: "React",
-    //     "react-dom": "ReactDOM",
-    //     axios: "axios"
-    // },
+    externals: {
+        react: "React",
+        "react-dom": "ReactDOM",
+        axios: "axios"
+    },
     resolve: {
         extensions: [".ts", ".js", ".jsx", ".web.js", "json", ".react.js"],
         alias: {

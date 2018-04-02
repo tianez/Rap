@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import styles from "./Layout.scss";
+import styles from "./Content.scss";
 
 const Content = ({ children, ...props }) => (
     <div className={styles.content} {...props}>
