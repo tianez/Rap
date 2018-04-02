@@ -1,10 +1,14 @@
 import React, { Component } from "react";
 import { NavBar, Icon } from "antd-mobile";
+import styled from "styled-components";
 
-import Layout from "Components/Layout/Layout";
-import Content from "Components/Layout/Content";
+import LayoutView from "Views/Layout/LayoutView";
+import ContentView from "Views/Layout/ContentView";
 
-import styles from "./asyncComponent.scss";
+const LoadingView = styled.div`
+    text-align: center;
+    line-height: 30rem;
+`;
 
 const Loading = () => {
     return <div>组件加载中...</div>;
@@ -12,14 +16,14 @@ const Loading = () => {
 
 const LoadingFarmeWork = () => {
     return (
-        <Layout>
+        <LayoutView>
             <NavBar mode="light" icon={<Icon type="left" />} onLeftClick={() => window.history.back()} />
-            <Content>
-                <div className={styles.content}>
+            <ContentView>
+                <LoadingView>
                     <Icon type={"loading"} size={"lg"} />
-                </div>
-            </Content>
-        </Layout>
+                </LoadingView>
+            </ContentView>
+        </LayoutView>
     );
 };
 

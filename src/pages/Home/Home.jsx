@@ -5,16 +5,9 @@ import { contextConsumers } from "Libs/ContextRudex";
 
 import asyncComponent from "Extended/asyncComponent";
 import LayoutView from "Views/Layout/LayoutView";
-import Content from "Components/Layout/Content";
+import ContentView from "Views/Layout/ContentView";
 
 import styled from "styled-components";
-
-const ViewAvatar = styled.div`
-    width: 100%;
-    height: 100%;
-    overflow-y: auto;
-    color: #f00;
-`;
 
 import styles from "./Home.scss";
 
@@ -38,7 +31,7 @@ class Home extends Component {
             <LayoutView>
                 <NavBar mode="light">首页</NavBar>
                 <Content>
-                    <ViewAvatar className={styles.scrollDiv}>11111111111111</ViewAvatar>
+                    <div className={styles.scrollDiv}>11111111111111</div>
                 </Content>
             </LayoutView>
         );
