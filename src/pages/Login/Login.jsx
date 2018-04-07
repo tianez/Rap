@@ -3,8 +3,9 @@ import { NavBar, Icon, Result } from "antd-mobile";
 import { Redirect } from "react-router-dom";
 import { contextConsumers } from "Libs/ContextRudex";
 
-import Layout from "Components/Layout/Layout";
-import Content from "Components/Layout/Content";
+import LayoutView from "Views/Layout/LayoutView";
+import ContentView from "Views/Layout/ContentView";
+
 import styles from "./login.scss";
 
 /**
@@ -33,30 +34,16 @@ export default class Login extends React.Component {
     };
     render() {
         let { sessionKey, location } = this.props;
-        console.log(sessionKey);
-
         if (sessionKey) {
             return <Redirect to={location.state || "/"} />;
         }
         return (
-            <Layout>
+            <LayoutView>
                 <NavBar mode="light" icon={<Icon type="left" />} onLeftClick={() => window.history.back()}>
                     登录
                 </NavBar>
-                <Content>
-                    <Result
-                        className={styles.nologin}
-                        img={
-                            <img
-                                src={"https://gw.alipayobjects.com/zos/rmsportal/GIyMDJnuqmcqPLpHCSkj.svg"}
-                                className={styles.outImg}
-                            />
-                        }
-                        title="你还未登录"
-                        message={<div onClick={this.login}>前往登录</div>}
-                    />
-                </Content>
-            </Layout>
+                <ContentView>前往登录</ContentView>
+            </LayoutView>
         );
     }
 }

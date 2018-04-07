@@ -5,11 +5,8 @@ import React, { Component, createContext } from "react";
 import seamless from "seamless-immutable";
 import qs from "qs";
 
-import createHistory from "history/createHashHistory";
-const history = createHistory();
-
-console.log(history);
-
+// import createHistory from "history/createHashHistory";
+// const history = createHistory();
 const ThemeContext = createContext();
 
 export class Provider extends Component {
@@ -34,8 +31,8 @@ export class Provider extends Component {
             this.handleHashChange();
         }, 10);
     }
-    callBack = fbc => {
-        let data = fbc(this.state.data, this.dispatch);
+    callBack = (fbc, opt) => {
+        let data = fbc(this.state.data, this.dispatch, opt);
         // this.setContext(data);
     };
     setContext = payload => {
