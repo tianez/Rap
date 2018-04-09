@@ -7,7 +7,7 @@ const UglifyJSPlugin = require("uglifyjs-webpack-plugin");
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 const common = require("./webpack.common.js");
 module.exports = merge(common, {
-    // devtool: "source-map",
+    devtool: "source-map",
     mode: "production",
     output: {
         path: path.resolve(__dirname, "dist2"),
@@ -32,7 +32,7 @@ module.exports = merge(common, {
             manifest: require("./dll/vendor-manifest.json")
         }),
         new UglifyJSPlugin({
-            // sourceMap: true
+            sourceMap: true
         }),
         new BundleAnalyzerPlugin()
     ]

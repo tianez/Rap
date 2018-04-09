@@ -20,8 +20,7 @@ export class Provider extends Component {
         this.dispatch = {
             callBack: this.callBack,
             set: this.setContext,
-            setIn: this.setInContext,
-            history: this.history
+            setIn: this.setInContext
         };
         // window.dispatch = this.dispatch;
     }
@@ -58,9 +57,6 @@ export class Provider extends Component {
         }
         this.setContext({ query });
     };
-    history = () => {
-        history.push("/");
-    };
     render() {
         let { children } = this.props;
         let contextData = {
@@ -84,28 +80,6 @@ export const contextConsumer = Component =>
         }
     };
 
-class ComponentShouldUpdate extends Component {
-    // shouldComponentUpdate(nextProps, nextState) {
-    //     let { props, context } = this.props;
-    //     if (nextProps.props != props) {
-    //         return true;
-    //     }
-    //     let thiscontext = Object.keys(context).sort();
-    //     let nextcontext = Object.keys(nextProps.context).sort();
-    //     if (thiscontext.length != nextcontext.length) {
-    //         return true;
-    //     }
-    //     let isd = thiscontext.filter((d, index) => {
-    //         return d != nextcontext[index];
-    //     });
-    //     return true;
-    // }
-    render() {
-        let { _component: Components, props, context, dispatch } = this.props;
-        return <Components {...props} {...context} dispatch={dispatch} />;
-    }
-}
-
 export const contextConsumers = propFunc => Component =>
     class extends React.Component {
         render() {
@@ -113,14 +87,7 @@ export const contextConsumers = propFunc => Component =>
                 <ThemeContext.Consumer>
                     {context => {
                         let contextData = propFunc ? propFunc(context.context, this.props) : null;
-                        return (
-                            <ComponentShouldUpdate
-                                props={this.props}
-                                context={contextData}
-                                dispatch={context.dispatch}
-                                _component={Component}
-                            />
-                        );
+                        return <Component {...this.props} {...contextData} dispatch={context.dispatch} />;
                     }}
                 </ThemeContext.Consumer>
             );
