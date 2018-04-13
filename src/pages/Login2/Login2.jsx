@@ -6,8 +6,6 @@ import { contextConsumers } from "Libs/ContextRudex";
 import LayoutView from "Views/Layout/LayoutView";
 import ContentView from "Views/Layout/ContentView";
 
-import LeftIcon from "Components/Layout/LeftIcon";
-
 import styles from "./login.scss";
 
 /**
@@ -41,12 +39,11 @@ export default class Login extends React.Component {
         }
         return (
             <LayoutView>
-                <NavBar mode="light" icon={<LeftIcon />}>
+                <NavBar mode="light" icon={<Icon type="left" />} onLeftClick={() => window.history.back()}>
                     登录
                 </NavBar>
                 <ContentView>
                     前往登录
-                    <Link to="/">Home22</Link>
                     <Link to="/home">Home</Link>
                 </ContentView>
             </LayoutView>

@@ -17,26 +17,18 @@ import styled from "styled-components";
 import styles from "./Home.scss";
 
 @contextConsumers(state => ({
-    homeScrollTop: state.homeScrollTop || 0,
     test: state.test
 }))
 class Home extends Component {
-    componentDidMount() {
-        this.props.dispatch.callBack(reqTest, true);
-    }
-    /**
-     * 监听事件，返回组件滚动信息到父级组件
-     */
-    handleScroll = e => {
-        let endTime = new Date();
-        if (this.startTime && endTime - this.startTime < 50) {
-            return;
-        }
-        this.startTime = endTime;
-        this.props.dispatch.set({ homeScrollTop: e.target.scrollTop });
+    // componentDidMount() {
+    //     this.props.dispatch.callBack(reqTest, true);
+    // }
+    handleClick = () => {
+        this.props.dispatch.set({
+            init: "/login2"
+        });
     };
     render() {
-        console.log(this.props.test);
         return (
             <LayoutView>
                 <NavBar mode="light">首页</NavBar>
@@ -45,7 +37,9 @@ class Home extends Component {
                     <ErrorBoundary>
                         <Test />
                     </ErrorBoundary>
+                    <button onClick={this.handleClick}>tiaoz</button>
                     <Link to="/login">登录</Link>
+                    <Link to="/">首页</Link>
                 </ContentView>
             </LayoutView>
         );
@@ -56,29 +50,21 @@ export default Home;
 
 class Test extends Component {
     state = {
-        op: [1, 2, 3],
         throw: false
     };
     handleClick = () => {
         this.setState({
-            throw: true,
-            op: {
-                id: 1
-            }
+            throw: true
         });
     };
     render() {
-        let { op } = this.state;
-        console.log(op);
         // if (this.state.throw) {
         //     throw new Error("YOLO");
         // }
+        console.log("11111");
         return (
             <div>
                 <button onClick={this.handleClick}> dianji </button>
-                {op.map(d => {
-                    return <div key={d}>{d}</div>;
-                })}
             </div>
         );
     }

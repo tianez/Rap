@@ -1,30 +1,9 @@
 import React, { Component } from "react";
-import { NavBar, Icon } from "antd-mobile";
-import styled from "styled-components";
 
-import LayoutView from "Views/Layout/LayoutView";
-import ContentView from "Views/Layout/ContentView";
-
-const LoadingView = styled.div`
-    text-align: center;
-    line-height: 30rem;
-`;
+import LoadingFarmeWork from "Components/Layout/LoadingFarmeWork";
 
 const Loading = () => {
     return <div>组件加载中...</div>;
-};
-
-const LoadingFarmeWork = () => {
-    return (
-        <LayoutView>
-            <NavBar mode="light" icon={<Icon type="left" />} onLeftClick={() => window.history.back()} />
-            <ContentView>
-                <LoadingView>
-                    <Icon type={"loading"} size={"lg"} />
-                </LoadingView>
-            </ContentView>
-        </LayoutView>
-    );
 };
 
 const asyncComponent = (importComponent, isRouter = false) =>
