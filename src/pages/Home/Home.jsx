@@ -15,21 +15,33 @@ import styled from "styled-components";
 import styles from "./Home.scss";
 
 @contextConsumers(state => ({
-    test: state.test
+    test: state.test,
+    init: state.init
 }))
 class Home extends Component {
     // componentDidMount() {
     //     this.props.dispatch.callBack(reqTest, true);
     // }
     handleClick = () => {
-        this.props.dispatch.setIn(["init", "redUrl"], "/login2");
+        let { init } = this.props;
+        let nInit = {
+            redUrl: "/login2",
+            title: "测试",
+            hos: {
+                tm: new Date()
+            }
+        };
+        localStorage.init = JSON.stringify(nInit);
+        init = init.merge(nInit);
+        this.props.dispatch.set({ init });
     };
     render() {
+        let { init } = this.props;
         return (
             <LayoutView>
                 <NavBar mode="light">首页</NavBar>
                 <ContentView>
-                    <div className={styles.scrollDiv}>11111111111111</div>
+                    <div className={styles.scrollDiv}>11111111111111{init.title}</div>
                     <ErrorBoundary>
                         <Test />
                     </ErrorBoundary>

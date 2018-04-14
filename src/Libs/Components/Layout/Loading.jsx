@@ -14,7 +14,7 @@ const Loading = ({ loading, loadingTitle = "数据加载中", error, errorAction
     if (error) {
         return <div className={styles.loading}>{errorAction || "出错了"}</div>;
     }
-    return children;
+    return children || null;
 };
 
 export default Loading;
