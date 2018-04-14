@@ -5,40 +5,34 @@ import RootRoutes from "./pages/RootRoutes";
 
 import { contextConsumers } from "Libs/ContextRudex";
 @contextConsumers(state => ({
-    redUrl: state.getIn(["init", "redUrl"])
+    redUrl: state.getIn(["init", "redUrl"]),
+    isChangeChannal: state.isChangeChannal
 }))
 export default class InitRoutes extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isRedirect: true,
             loading: true,
             error: false
         };
     }
-    static getDerivedStateFromProps(nextProps, prevState) {
-        return {
-            redUrl: nextProps.redUrl,
-            isRedirect: prevState.redUrl != nextProps.redUrl
-        };
-    }
+    // static getDerivedStateFromProps(nextProps, prevState) {
+    //     return {
+    //         redUrl: nextProps.redUrl,
+    //         isRedirect: prevState.redUrl != nextProps.redUrl
+    //     };
+    // }
     componentDidMount() {
         this.getInit();
     }
     componentDidUpdate() {
-        let { redUrl, isRedirect } = this.state;
-        if (isRedirect) {
+        let { redUrl, isChangeChannal } = this.props;
+        if (redUrl && isChangeChannal) {
             this.props.history.push(redUrl);
+            this.props.dispatch.set({ isChangeChannal: false });
         }
     }
     getInit = () => {
-        let init = localStorage.init;
-        if (init) {
-            init = JSON.parse(init);
-            this.props.dispatch.set({ init });
-        } else {
-            init = {};
-        }
         this.setState({
             loading: true,
             error: false
@@ -48,7 +42,7 @@ export default class InitRoutes extends Component {
                 loading: false,
                 error: true
             });
-            init.redUrl = "/login";
+            let init = { redUrl: "/home" };
             localStorage.init = JSON.stringify(init);
             this.props.dispatch.set({ init });
         }, 3000);

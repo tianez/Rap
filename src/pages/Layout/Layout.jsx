@@ -1,10 +1,19 @@
 import React, { Component } from "react";
-import styles from "./Layout.scss";
-const Layout = ({ children, message }) => (
-    <div className={styles.Layout}>
-        <div className={styles.message} id="message" />
-        <div className={styles.content}>{children}</div>
-    </div>
-);
+import { NavBar } from "antd-mobile";
 
+import asyncComponent from "Extended/asyncComponent";
+
+import LayoutView from "Views/Layout/LayoutView";
+import ContentView from "Views/Layout/ContentView";
+
+import Footer from "./Footer";
+const Layout = ({ title, selectedTab, children }) => {
+    return (
+        <LayoutView>
+            <NavBar mode="light">{title}</NavBar>
+            {children}
+            <Footer selectedTab={selectedTab} />
+        </LayoutView>
+    );
+};
 export default Layout;

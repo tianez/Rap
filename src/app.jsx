@@ -26,15 +26,16 @@ Object.assign(window, {
 import { Provider } from "Libs/ContextRudex";
 import InitRoutes from "./InitRoutes";
 localStorage.organizationId = "2f48b9f151cf4f48b01030624cd7aac7";
+
+let init = localStorage.init ? JSON.parse(localStorage.init) : {};
 let initValue = {
     _site_id: 1,
     _site_name: "云上视界科技有限公司",
     _logoText: "云上视界科技有限公司OA系统",
     _logoSrc: null,
     _menus: {},
-    init: {
-        _v: 0
-    }
+    init,
+    isChangeChannal: false
 };
 
 ReactDOM.render(
