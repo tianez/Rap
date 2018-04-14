@@ -1,0 +1,16 @@
+.Layout {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.message {
+    position: relative;
+}
+
+.content {
+    position: relative;
+    flex: 1;
+}
