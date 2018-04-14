@@ -2,7 +2,7 @@
  * Context Api状态管理
  */
 import React, { Component, createContext } from "react";
-import seamless from "seamless-immutable";
+import Immutable from "seamless-immutable";
 import qs from "qs";
 
 // import createHistory from "history/createHashHistory";
@@ -15,7 +15,7 @@ export class Provider extends Component {
         let initValue = props.value || {};
         initValue.query = {};
         this.state = {
-            data: seamless(initValue)
+            data: Immutable(initValue)
         };
         this.dispatch = {
             callBack: this.callBack,
@@ -35,7 +35,7 @@ export class Provider extends Component {
         // this.setContext(data);
     };
     setContext = payload => {
-        let data = this.state.data.merge(seamless(payload));
+        let data = this.state.data.merge(Immutable(payload));
         this.setState({
             data
         });
@@ -44,7 +44,7 @@ export class Provider extends Component {
         if (typeof payload == "string") {
             payload = [payload];
         }
-        data = this.state.data.setIn(payload, seamless(data));
+        data = this.state.data.setIn(payload, Immutable(data));
         this.setState({
             data
         });

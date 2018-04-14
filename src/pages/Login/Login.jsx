@@ -36,6 +36,8 @@ export default class Login extends React.Component {
     };
     render() {
         let { sessionKey, location } = this.props;
+        console.log(this.props);
+
         if (sessionKey) {
             return <Redirect to={location.state || "/"} />;
         }

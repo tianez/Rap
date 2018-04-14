@@ -2,6 +2,7 @@
 
 import React from "react";
 import ReactDOM from "react-dom";
+import { HashRouter, Route } from "react-router-dom";
 import Immutable from "seamless-immutable";
 import Request from "Utils/axios";
 import userAgent from "Utils/userAgent";
@@ -35,7 +36,9 @@ let initValue = {
 
 ReactDOM.render(
     <Provider value={initValue}>
-        <Routers />
+        <HashRouter>
+            <Route component={Routers} />
+        </HashRouter>
     </Provider>,
     document.getElementById("app")
 );

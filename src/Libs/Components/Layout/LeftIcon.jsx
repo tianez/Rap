@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Icon } from "antd-mobile";
 
-class LeftIcons extends Component {
+export default class LeftIcons extends Component {
     handleBack = () => {
         window.history.back();
     };
@@ -9,5 +9,3 @@ class LeftIcons extends Component {
         return <Icon key={"back"} type="left" onClick={this.handleBack} />;
     }
 }
-
-export default LeftIcons;

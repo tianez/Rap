@@ -11,9 +11,7 @@ import LayoutView from "Views/Layout/LayoutView";
 import ContentView from "Views/Layout/ContentView";
 
 import reqTest from "Hoc/reqTest";
-
 import styled from "styled-components";
-
 import styles from "./Home.scss";
 
 @contextConsumers(state => ({

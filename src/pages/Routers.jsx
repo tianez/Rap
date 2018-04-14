@@ -10,26 +10,35 @@ const Login = asyncComponent(() => import("./Login/Login"), true);
 const Login2 = asyncComponent(() => import("./Login2/Login2"), true);
 import { contextConsumers } from "Libs/ContextRudex";
 
-const InitRoutes = ({ redt }) => {
-    console.log(redt);
+const RootRoutes = ({ redt }) => {
     return (
         <HashRouter>
             <Switch>
-                <Redirect path="/" exact to={redt} />
                 <Route path="/home" component={Home} />
                 <Route path="/login" component={Login} />
                 <Route path="/login2" component={Login2} />
+                <Redirect path="/" exact to={redt} />
             </Switch>
         </HashRouter>
     );
 };
 
-// InitRoutes;
-
 @contextConsumers(state => ({
     init: state.init
 }))
-export default class Init extends Component {
+export default class InitRoutes extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            init: "/",
+            isfrist: true
+        };
+    }
+    static getDerivedStateFromProps(nextProps, prevState) {
+        return {
+            init: nextProps.init
+        };
+    }
     componentDidMount() {
         setTimeout(() => {
             this.props.dispatch.set({
@@ -38,16 +47,26 @@ export default class Init extends Component {
         }, 3000);
     }
     shouldComponentUpdate(nextProps, nextState) {
-        if (this.props.init) {
+        if (this.props.init == nextProps.init) {
             return false;
         }
         return true;
+    }
+    componentDidUpdate() {
+        let { init, isfrist } = this.state;
+        if (isfrist) {
+            this.setState({
+                isfrist: false
+            });
+        } else {
+            this.props.history.push(init);
+        }
     }
     render() {
         let { init } = this.props;
         if (!init) {
             return <LoadingFarmeWork>初始化中</LoadingFarmeWork>;
         }
-        return <InitRoutes redt={this.props.init} />;
+        return <RootRoutes redt={this.props.init} />;
     }
 }
