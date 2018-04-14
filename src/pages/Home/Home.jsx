@@ -22,9 +22,7 @@ class Home extends Component {
     //     this.props.dispatch.callBack(reqTest, true);
     // }
     handleClick = () => {
-        this.props.dispatch.set({
-            init: "/login2"
-        });
+        this.props.dispatch.setIn(["init", "redUrl"], "/login2");
     };
     render() {
         return (

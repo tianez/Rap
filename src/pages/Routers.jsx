@@ -10,14 +10,14 @@ const Login = asyncComponent(() => import("./Login/Login"), true);
 const Login2 = asyncComponent(() => import("./Login2/Login2"), true);
 import { contextConsumers } from "Libs/ContextRudex";
 
-const RootRoutes = ({ redt }) => {
+const RootRoutes = ({ redUrl }) => {
     return (
         <HashRouter>
             <Switch>
                 <Route path="/home" component={Home} />
                 <Route path="/login" component={Login} />
                 <Route path="/login2" component={Login2} />
-                <Redirect path="/" exact to={redt} />
+                <Redirect path="/" exact to={redUrl} />
             </Switch>
         </HashRouter>
     );
@@ -30,7 +30,7 @@ export default class InitRoutes extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            init: "/",
+            init: $obj,
             isfrist: true
         };
     }
@@ -41,13 +41,11 @@ export default class InitRoutes extends Component {
     }
     componentDidMount() {
         setTimeout(() => {
-            this.props.dispatch.set({
-                init: "/home"
-            });
+            this.props.dispatch.setIn(["init", "redUrl"], "/home");
         }, 3000);
     }
     shouldComponentUpdate(nextProps, nextState) {
-        if (this.props.init == nextProps.init) {
+        if (this.props.init.redUrl == nextProps.init.redUrl) {
             return false;
         }
         return true;
@@ -59,14 +57,14 @@ export default class InitRoutes extends Component {
                 isfrist: false
             });
         } else {
-            this.props.history.push(init);
+            this.props.history.push(init.redUrl);
         }
     }
     render() {
         let { init } = this.props;
-        if (!init) {
+        if (!init.redUrl) {
             return <LoadingFarmeWork>初始化中</LoadingFarmeWork>;
         }
-        return <RootRoutes redt={this.props.init} />;
+        return <RootRoutes redUrl={this.props.init.redUrl} />;
     }
 }
