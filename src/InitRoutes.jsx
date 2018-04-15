@@ -3,6 +3,34 @@ import LoadingFarmeWork from "Components/Layout/LoadingFarmeWork";
 import Loading from "Components/Layout/Loading";
 import RootRoutes from "./pages/RootRoutes";
 
+let init = {
+    redUrl: "/home",
+    footerTabs: [
+        {
+            title: "首页",
+            key: "home",
+            icon: "iconfont icon-shouye",
+            badge: 1
+        },
+        {
+            title: "新闻",
+            key: "news",
+            icon: "iconfont icon-news"
+        },
+        {
+            title: "好友",
+            key: "friend",
+            icon: "iconfont icon-tongxun",
+            dot: true
+        },
+        {
+            title: "个人中心",
+            key: "ucenter",
+            icon: "iconfont icon-gerenzhongxin"
+        }
+    ]
+};
+
 import { contextConsumers } from "Libs/ContextRudex";
 @contextConsumers(state => ({
     redUrl: state.getIn(["init", "redUrl"]),
@@ -42,7 +70,7 @@ export default class InitRoutes extends Component {
                 loading: false,
                 error: true
             });
-            let init = { redUrl: "/home" };
+
             localStorage.init = JSON.stringify(init);
             this.props.dispatch.set({ init });
         }, 3000);

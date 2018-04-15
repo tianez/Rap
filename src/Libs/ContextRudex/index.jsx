@@ -44,8 +44,6 @@ export class Provider extends Component {
         if (typeof payload == "string") {
             payload = [payload];
         }
-        console.log(payload);
-        console.log(data);
         data = this.state.data.setIn(payload, Immutable(data));
         this.setState({
             data

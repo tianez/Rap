@@ -3,13 +3,18 @@ import React, { Component } from "react";
 import { TabBar } from "antd-mobile";
 import styles from "./Footer.scss";
 
+import { contextConsumers } from "Libs/ContextRudex";
 import { withRouter } from "react-router-dom";
-class Footer extends Component {
+@contextConsumers(state => ({
+    footerTabs: state.getIn(["init", "footerTabs"]) || $arr
+}))
+@withRouter
+export default class Footer extends Component {
     handlePress = url => {
         this.props.history.replace(url);
     };
     render() {
-        let { selectedTab } = this.props;
+        let { selectedTab, footerTabs } = this.props;
         return (
             <div>
                 <TabBar
@@ -19,44 +24,22 @@ class Footer extends Component {
                     style={{ height: "0.5rem" }}
                     noRenderContent={true}
                 >
-                    <TabBar.Item
-                        title="首页"
-                        key="home"
-                        icon={<div className={"iconfont icon-shouye " + styles.icon} />}
-                        selectedIcon={<div className={"iconfont icon-shouye " + styles.selectedIcon} />}
-                        badge={1}
-                        selected={selectedTab === "home"}
-                        onPress={() => this.handlePress("home")}
-                    />
-                    <TabBar.Item
-                        title="新闻"
-                        key="news"
-                        icon={<div className={"iconfont icon-news " + styles.icon} />}
-                        selectedIcon={<div className={"iconfont icon-news " + styles.selectedIcon} />}
-                        selected={selectedTab === "news"}
-                        onPress={() => this.handlePress("news")}
-                    />
-                    <TabBar.Item
-                        title="好友"
-                        key="friend"
-                        dot
-                        icon={<div className={"iconfont icon-tongxun " + styles.icon} />}
-                        selectedIcon={<div className={"iconfont icon-tongxun " + styles.selectedIcon} />}
-                        selected={selectedTab === "friend"}
-                        onPress={() => this.handlePress("friend")}
-                    />
-                    <TabBar.Item
-                        title="个人中心"
-                        key="my"
-                        icon={<div className={"iconfont icon-gerenzhongxin " + styles.icon} />}
-                        selectedIcon={<div className={"iconfont icon-gerenzhongxin " + styles.selectedIcon} />}
-                        selected={selectedTab === "ucenter"}
-                        onPress={() => this.handlePress("ucenter")}
-                    />
+                    {footerTabs.map(tab => {
+                        return (
+                            <TabBar.Item
+                                title={tab.title}
+                                key={tab.key}
+                                icon={<div className={`${tab.icon} ${styles.icon}`} />}
+                                selectedIcon={<div className={`${tab.icon} ${styles.selectedIcon}`} />}
+                                badge={tab.badge}
+                                dot={tab.dot}
+                                selected={selectedTab === tab.key}
+                                onPress={() => this.handlePress(tab.key)}
+                            />
+                        );
+                    })}
                 </TabBar>
             </div>
         );
     }
 }
-
-export default withRouter(Footer);
