@@ -4,8 +4,7 @@ import { TabBar } from "antd-mobile";
 import styles from "./Footer.scss";
 
 import { withRouter } from "react-router-dom";
-@withRouter
-export default class Footer extends Component {
+class Footer extends Component {
     handlePress = url => {
         this.props.history.replace(url);
     };
@@ -59,3 +58,5 @@ export default class Footer extends Component {
         );
     }
 }
+
+export default withRouter(Footer);

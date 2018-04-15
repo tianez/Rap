@@ -7,10 +7,10 @@ import LayoutView from "Views/Layout/LayoutView";
 import ContentView from "Views/Layout/ContentView";
 
 import Footer from "./Footer";
-const Layout = ({ title, selectedTab, children }) => {
+const Layout = ({ headerShow = true, title, selectedTab, children }) => {
     return (
         <LayoutView>
-            <NavBar mode="light">{title}</NavBar>
+            {headerShow && <NavBar mode="light">{title}</NavBar>}
             {children}
             <Footer selectedTab={selectedTab} />
         </LayoutView>

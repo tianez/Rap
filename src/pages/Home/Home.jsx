@@ -25,7 +25,10 @@ export default class Home extends Component {
         let { init, history } = this.props;
         return (
             <Layout title="首页" selectedTab="home">
-                <ContentView>首页</ContentView>
+                <ContentView>
+                    首页
+                    <input type="file" name="" id="" />
+                </ContentView>
             </Layout>
         );
     }

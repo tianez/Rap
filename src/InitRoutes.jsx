@@ -48,7 +48,7 @@ export default class InitRoutes extends Component {
         }, 3000);
     };
     render() {
-        let { redUrl } = this.props;
+        let { redUrl, location } = this.props;
         let { error, loading } = this.state;
         if (!redUrl) {
             return (
@@ -62,6 +62,6 @@ export default class InitRoutes extends Component {
                 </LoadingFarmeWork>
             );
         }
-        return <RootRoutes redUrl={this.props.redUrl} />;
+        return <RootRoutes location={location} redUrl={redUrl} />;
     }
 }

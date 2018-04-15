@@ -9,6 +9,7 @@ const LayoutView = styled.div`
     bottom: 0;
     overflow: hidden auto;
     display: flex;
+    flex: 1;
     flex-direction: column;
     z-index: 99;
 `;

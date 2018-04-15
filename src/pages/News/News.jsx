@@ -1,11 +1,14 @@
 import React, { Component } from "react";
-import asyncComponent from "Extended/asyncComponent";
 import ContentView from "Views/Layout/ContentView";
 import Layout from "../Layout/Layout";
+import asyncComponent from "Extended/asyncComponent";
+const NewsComponent = asyncComponent(() => import("./Components/NewsComponent"));
 const News = () => {
     return (
         <Layout title="新闻" selectedTab="news">
-            <ContentView>news</ContentView>
+            <ContentView>
+                <NewsComponent />
+            </ContentView>
         </Layout>
     );
 };
