@@ -5,12 +5,16 @@ import asyncComponent from "Extended/asyncComponent";
 
 import LayoutView from "Views/Layout/LayoutView";
 import ContentView from "Views/Layout/ContentView";
-
 import Footer from "./Footer";
-const Layout = ({ headerShow = true, title, selectedTab, children }) => {
+import styles from "./Layout.scss";
+const Layout = ({ headerShow = true, border = true, title, selectedTab, children }) => {
     return (
         <LayoutView>
-            {headerShow && <NavBar mode="light">{title}</NavBar>}
+            {headerShow && (
+                <NavBar mode="light" className={border && styles.header}>
+                    {title}
+                </NavBar>
+            )}
             {children}
             <Footer selectedTab={selectedTab} />
         </LayoutView>

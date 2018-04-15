@@ -25,7 +25,7 @@ Object.assign(window, {
  */
 import { Provider } from "Libs/ContextRudex";
 import InitRoutes from "./InitRoutes";
-localStorage.organizationId = "2f48b9f151cf4f48b01030624cd7aac7";
+localStorage.site_id = "2f48b9f151cf4f48b01030624cd7aac7";
 
 let init = localStorage.init ? JSON.parse(localStorage.init) : {};
 let initValue = {

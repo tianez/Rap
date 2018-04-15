@@ -2,7 +2,7 @@ var cacheStorageKey = "cacheStorage-v8";
 
 var cacheList = [
     "/",
-    "index.html",
+    // "index.html",
     "manifest.json",
     "dll/vendor.dll.js",
     "public/bower/react/umd/react.production.min.js",

@@ -5,7 +5,7 @@ import asyncComponent from "Extended/asyncComponent";
 const UcenterComponent = asyncComponent(() => import("./UcenterComponent"));
 const Ucenter = () => {
     return (
-        <Layout title="个人中心" selectedTab="ucenter">
+        <Layout title="个人中心" border={false} selectedTab="ucenter">
             <ContentView>
                 <UcenterComponent />
             </ContentView>

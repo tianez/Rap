@@ -9,6 +9,9 @@ import Layout from "../Layout/Layout";
 
 import reqTest from "Hoc/reqTest";
 
+import { CSSTransition, TransitionGroup } from "react-transition-group";
+import { Switch, Redirect, Route } from "react-router-dom";
+
 import { contextConsumers } from "Libs/ContextRudex";
 @contextConsumers(state => ({
     init: state.init
@@ -18,18 +21,70 @@ export default class Home extends Component {
         super(props);
         this.state = {
             hidden: false,
-            fullScreen: false
+            fullScreen: false,
+            show: false,
+            items: [
+                { id: 1, text: "Buy eggs" },
+                { id: 2, text: "Pay bills" },
+                { id: 3, text: "Invite friends over" },
+                { id: 4, text: "Fix the TV" }
+            ]
         };
     }
     render() {
-        let { init, history } = this.props;
+        let { init, history, location } = this.props;
+        const { items, show } = this.state;
         return (
             <Layout title="首页" selectedTab="home">
-                <ContentView>
+                <ContentView style={{ height: "100%", background: "#fff" }}>
                     首页
+                    <button
+                        className="remove-btn"
+                        onClick={() => {
+                            this.setState(state => ({
+                                show: !state.show
+                            }));
+                        }}
+                    >
+                        点击
+                    </button>
+                    <Link to="/home/1">home1</Link>
+                    <Link to="/home/2">home2</Link>
+                    <TransitionGroup className="todo-list">
+                        {show && (
+                            <CSSTransition key={"show"} timeout={5000} classNames="fade">
+                                <div>show</div>
+                            </CSSTransition>
+                        )}
+                        {items.map(({ id, text }) => (
+                            <CSSTransition key={id} timeout={5000} classNames="fade">
+                                <div>
+                                    <button
+                                        className="remove-btn"
+                                        onClick={() => {
+                                            this.setState(state => ({
+                                                items: state.items.filter(item => item.id !== id)
+                                            }));
+                                        }}
+                                    >
+                                        &times;
+                                    </button>
+                                    {text}
+                                </div>
+                            </CSSTransition>
+                        ))}
+                    </TransitionGroup>
                     <input type="file" name="" id="" />
                 </ContentView>
             </Layout>
         );
     }
 }
+
+const Home1 = () => {
+    return <div>Home1</div>;
+};
+
+const Home2 = () => {
+    return <div>Home2</div>;
+};
