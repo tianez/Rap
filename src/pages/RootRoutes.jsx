@@ -10,18 +10,30 @@ import Friend from "./Friend/Friend";
 import Ucenter from "./Ucenter/Ucenter";
 const Qrcode = asyncComponent(() => import("./Qrcode/Qrcode"), true);
 
-const RootRoutes = ({ location, redUrl }) => {
+import LayoutView from "Views/Layout/LayoutView";
+import ContentView from "Views/Layout/ContentView";
+import Toptip from "./Layout/Toptip";
+
+import { contextConsumers } from "Libs/ContextRudex";
+const RootRoutes = ({ location, redUrl, onLine }) => {
     return (
-        <Switch location={location}>
-            <Route path="/home" component={Home} />
-            <Route path="/news" component={News} />
-            <Route path="/friend" component={Friend} />
-            <Route path="/login" component={Login} />
-            <Route path="/ucenter" component={Ucenter} />
-            <Route path="/qrcode" component={Qrcode} />
-            <Redirect path="/" exact to={redUrl} />
-        </Switch>
+        <LayoutView>
+            {!onLine && <Toptip>网络连接不可用</Toptip>}
+            <ContentView>
+                <Switch location={location}>
+                    <Route path="/home" component={Home} />
+                    <Route path="/news" component={News} />
+                    <Route path="/friend" component={Friend} />
+                    <Route path="/login" component={Login} />
+                    <Route path="/ucenter" component={Ucenter} />
+                    <Route path="/qrcode" component={Qrcode} />
+                    <Redirect path="/" exact to={redUrl} />
+                </Switch>
+            </ContentView>
+        </LayoutView>
     );
 };
 
-export default RootRoutes;
+export default contextConsumers(state => ({
+    onLine: state.onLine
+}))(RootRoutes);

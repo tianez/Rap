@@ -35,7 +35,8 @@ let initValue = {
     _logoSrc: null,
     _menus: {},
     init,
-    isChangeChannal: false
+    isChangeChannal: false,
+    onLine: navigator.onLine
 };
 
 ReactDOM.render(

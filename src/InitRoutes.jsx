@@ -46,11 +46,13 @@ export default class InitRoutes extends Component {
     }
     // static getDerivedStateFromProps(nextProps, prevState) {
     //     return {
-    //         redUrl: nextProps.redUrl,
-    //         isRedirect: prevState.redUrl != nextProps.redUrl
+    //         onLineChange: nextProps.onLine != prevState.onLine,
+    //         onLine: nextProps.onLine
     //     };
     // }
     componentDidMount() {
+        window.addEventListener("offline", this.handleChangeOnline);
+        window.addEventListener("online", this.handleChangeOnline);
         this.getInit();
     }
     componentDidUpdate() {
@@ -60,6 +62,9 @@ export default class InitRoutes extends Component {
             this.props.dispatch.set({ isChangeChannal: false });
         }
     }
+    handleChangeOnline = onLine => {
+        this.props.dispatch.set({ onLine: navigator.onLine });
+    };
     getInit = () => {
         this.setState({
             loading: true,
