@@ -24,17 +24,14 @@ self.addEventListener("install", e => {
 self.addEventListener("activate", function(e) {
     console.log("activate");
     e.waitUntil(
-        Promise.all(
-            caches.keys().then(cacheNames => {
-                return cacheNames.map(name => {
-                    if (name !== cacheStorageKey) {
-                        return caches.delete(name);
-                    }
-                });
+        caches
+            .keys()
+            .then(keylist => {
+                return Promise.all(keylist.filter(key => key !== cacheStorageKey).map(key => caches.delete(key)));
             })
-        ).then(() => {
-            return self.clients.claim();
-        })
+            .then(() => {
+                return self.clients.claim();
+            })
     );
 });
 

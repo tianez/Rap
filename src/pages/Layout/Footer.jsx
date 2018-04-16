@@ -11,7 +11,7 @@ import { withRouter } from "react-router-dom";
 @withRouter
 export default class Footer extends Component {
     handlePress = url => {
-        this.props.history.replace(url);
+        this.props.history.replace(`/${url}`);
     };
     render() {
         let { selectedTab, footerTabs } = this.props;

@@ -1,8 +1,8 @@
-var cacheStorageKey = "cacheStorage-v5";
+var cacheStorageKey = "cacheStorage-v2";
 
 var cacheList = [
     "/",
-    // "index.html",
+    "index.html",
     "manifest.json",
     "dll/vendor.dll.js",
     "public/bower/react/umd/react.production.min.js",
@@ -24,17 +24,24 @@ self.addEventListener("install", e => {
 self.addEventListener("activate", function(e) {
     console.log("activate");
     e.waitUntil(
-        Promise.all(
-            caches.keys().then(cacheNames => {
-                return cacheNames.map(name => {
-                    if (name !== cacheStorageKey) {
-                        return caches.delete(name);
-                    }
-                });
+        caches
+            .keys()
+            .then(keylist => {
+                return Promise.all(keylist.filter(key => key !== cacheStorageKey).map(key => caches.delete(key)));
             })
-        ).then(() => {
-            return self.clients.claim();
-        })
+            .then(() => {
+                return self.clients.claim();
+            })
+        // .then(() => {
+        //     return self.clients.matchAll().then(function(clients) {
+        //         console.log(clients.length);
+        //         if (clients && clients.length) {
+        //             clients.forEach(function(client, i) {
+        //                 client.postMessage("sw.update");
+        //             });
+        //         }
+        //     });
+        // })
     );
 });
 
@@ -44,7 +51,6 @@ self.addEventListener("fetch", function(e) {
             if (response != null) {
                 return response;
             }
-            // return fetch(e.request);
             var requestToCache = e.request.clone();
             return fetch(requestToCache).then(function(response) {
                 if (!response || response.status !== 200) {

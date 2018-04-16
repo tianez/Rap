@@ -40,17 +40,17 @@
             YapiUrl: ' http://10.114.20.106:8888/mock/17/',
             baseUrl: "http://10.114.20.143:9002/api/",
         }
-        // if (navigator.serviceWorker != null) {
-        //     navigator.serviceWorker.register('sw_dev.js')
-        //         .then(function (registration) {
-        //             console.log('Registered events at scope: ', registration.scope);
-        //         }).catch((err => {
-        //             console.log('Registered events at scope: ', err);
-        //         }));
-        // }
         // document.body.addEventListener('touchmove', (ev) => {
         //     ev.preventDefault();
         // });
+        window.onload = function () {
+            var script = document.createElement('script');
+            var firstScript = document.getElementsByTagName('script')[0];
+            script.type = 'text/javascript';
+            script.async = true;
+            script.src = '/sw_register.js?v=' + Date.now();
+            firstScript.parentNode.insertBefore(script, firstScript);
+        };
     </script>
 </body>
 
