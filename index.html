@@ -40,10 +40,12 @@
             var firstScript = document.getElementsByTagName('script')[0];
             script.type = 'text/javascript';
             script.async = true;
-            script.src = '/sw_register.js?v=' + Date.now();
+            script.src = 'sw_register.js?v=' + Date.now();
             firstScript.parentNode.insertBefore(script, firstScript);
         };
     </script>
-<script type="text/javascript" src="./dist2/vendors~app-aae0b8b5dc324c287bae.js"></script><script type="text/javascript" src="./dist2/app-e5fae9649d49cebf2acd.js"></script></body>
+    <script type="text/javascript" src="./dist2/vendors~app-aae0b8b5dc324c287bae.js"></script>
+    <script type="text/javascript" src="./dist2/app-e5fae9649d49cebf2acd.js"></script>
+</body>
 
 </html>
