@@ -38,7 +38,7 @@ export default class UcenterComponent extends Component {
                         thumb={
                             <i
                                 className="iconfont icon-gerenzhongxin"
-                                style={{ fontSize: "22px", color: "rgb(51, 163, 244)" }}
+                                style={{ fontSize: "20px", color: "rgb(51, 163, 244)" }}
                             />
                         }
                     >
