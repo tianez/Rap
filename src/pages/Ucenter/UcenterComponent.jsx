@@ -34,17 +34,17 @@ export default class UcenterComponent extends Component {
                     >
                         钱包
                     </Item>
+                    <Item thumb="https://zos.alipayobjects.com/rmsportal/UmbJMbWOejVOpxe.png" arrow="horizontal">
+                        设置
+                    </Item>
                     <Item
                         thumb={
                             <i
                                 className="iconfont icon-gerenzhongxin"
-                                style={{ fontSize: "20px", color: "rgb(51, 163, 244)" }}
+                                style={{ fontSize: "22px", color: "rgb(51, 163, 244)" }}
                             />
                         }
                     >
-                        设置
-                    </Item>
-                    <Item thumb="https://zos.alipayobjects.com/rmsportal/UmbJMbWOejVOpxe.png" arrow="horizontal">
                         设置
                     </Item>
                     <Item
