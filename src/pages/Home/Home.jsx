@@ -49,6 +49,9 @@ export default class Home extends Component {
                         点击
                     </button>
                     <Link to="/home/1">home1</Link>
+                    <div>
+                        <Link to="/login">登录</Link>
+                    </div>
                     <Link to="/home/2">home2</Link>
                     <TransitionGroup className="todo-list">
                         {show && (

@@ -4,6 +4,9 @@ const Item = List.Item;
 
 import styles from "./Ucenter.scss";
 export default class UcenterComponent extends Component {
+    handleLink = url => {
+        this.props.history.push(url);
+    };
     render() {
         return (
             <div>
@@ -33,13 +36,24 @@ export default class UcenterComponent extends Component {
                     </Item>
                     <Item
                         thumb={
-                            <i className="iconfont icon-gerenzhongxin" style={{ fontSize: "22px", color: "rgb(51, 163, 244)" }} />
+                            <i
+                                className="iconfont icon-gerenzhongxin"
+                                style={{ fontSize: "22px", color: "rgb(51, 163, 244)" }}
+                            />
                         }
                     >
                         设置
                     </Item>
                     <Item thumb="https://zos.alipayobjects.com/rmsportal/UmbJMbWOejVOpxe.png" arrow="horizontal">
                         设置
+                    </Item>
+                    <Item
+                        className={styles.item}
+                        thumb="https://zos.alipayobjects.com/rmsportal/dNuvNrtqUztHCwM.png"
+                        arrow="horizontal"
+                        onClick={() => this.handleLink("/qrcode")}
+                    >
+                        下载
                     </Item>
                 </List>
                 <WhiteSpace />

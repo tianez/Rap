@@ -1,14 +1,14 @@
 import React, { Component } from "react";
-import { NavBar, Icon, Result } from "antd-mobile";
+import { NavBar, Icon } from "antd-mobile";
 import { Link, Redirect } from "react-router-dom";
 import { contextConsumers } from "Libs/ContextRudex";
 
 import LayoutView from "Views/Layout/LayoutView";
 import ContentView from "Views/Layout/ContentView";
-
 import LeftIcon from "Components/Layout/LeftIcon";
 
 import styles from "./login.scss";
+import QRCode from "qrcode";
 
 /**
  * 系统登录模块
@@ -36,7 +36,6 @@ export default class Login extends React.Component {
     };
     render() {
         let { sessionKey, location } = this.props;
-        console.log(this.props);
 
         if (sessionKey) {
             return <Redirect to={location.state || "/"} />;

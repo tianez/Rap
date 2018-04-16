@@ -3,11 +3,11 @@ import ContentView from "Views/Layout/ContentView";
 import Layout from "../Layout/Layout";
 import asyncComponent from "Extended/asyncComponent";
 const UcenterComponent = asyncComponent(() => import("./UcenterComponent"));
-const Ucenter = () => {
+const Ucenter = ({ history }) => {
     return (
         <Layout title="个人中心" border={false} selectedTab="ucenter">
             <ContentView>
-                <UcenterComponent />
+                <UcenterComponent history={history} />
             </ContentView>
         </Layout>
     );

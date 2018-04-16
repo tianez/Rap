@@ -8,6 +8,7 @@ import Home from "./Home/Home";
 import News from "./News/News";
 import Friend from "./Friend/Friend";
 import Ucenter from "./Ucenter/Ucenter";
+const Qrcode = asyncComponent(() => import("./Qrcode/Qrcode"), true);
 
 const RootRoutes = ({ location, redUrl }) => {
     return (
@@ -17,6 +18,7 @@ const RootRoutes = ({ location, redUrl }) => {
             <Route path="/friend" component={Friend} />
             <Route path="/login" component={Login} />
             <Route path="/ucenter" component={Ucenter} />
+            <Route path="/qrcode" component={Qrcode} />
             <Redirect path="/" exact to={redUrl} />
         </Switch>
     );
