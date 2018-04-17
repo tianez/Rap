@@ -1,0 +1,15 @@
+.iframe,
+.nourl {
+    border: none;
+    flex: 1;
+    overflow-x: hidden;
+    overflow-y: auto;
+    position: relative;
+}
+
+.nourl {
+    text-align: center;
+    line-height: 48px;
+    font-size: 32px;
+    padding: 30px;
+}
