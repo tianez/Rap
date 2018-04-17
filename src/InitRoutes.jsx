@@ -60,7 +60,7 @@ export default class InitRoutes extends Component {
         window.addEventListener("online", this.handleChangeOnline);
         navigator.connection.addEventListener("typechange", this.handleChangeConnection);
         this.handleChangeConnection();
-        this.getCurrentPosition();
+        // this.getCurrentPosition();
         this.getInit();
     }
     componentDidUpdate() {

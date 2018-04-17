@@ -10,7 +10,6 @@ import style from "./iframe.scss";
 import { contextConsumers } from "Libs/ContextRudex";
 
 const Iframe = ({ query }) => {
-    alert(query);
     return (
         <LayoutView>
             <NavBar mode="light" icon={<LeftIcon />}>

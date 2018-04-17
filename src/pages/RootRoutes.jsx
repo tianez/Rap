@@ -11,6 +11,7 @@ import Ucenter from "./Ucenter/Ucenter";
 const Qrcode = asyncComponent(() => import("./Qrcode/Qrcode"), true);
 const Setting = asyncComponent(() => import("./Setting/Setting"), true);
 const Iframe = asyncComponent(() => import("./Iframe/Iframe"), true);
+const FriendAdd = asyncComponent(() => import("./Friend/FriendAdd"), true);
 
 import LayoutView from "Views/Layout/LayoutView";
 import ContentView from "Views/Layout/ContentView";
@@ -25,7 +26,8 @@ const RootRoutes = ({ location, redUrl, onLine }) => {
                 <Switch location={location}>
                     <Route path="/home" component={Home} />
                     <Route path="/news" component={News} />
-                    <Route path="/friend" component={Friend} />
+                    <Route path="/friend" exact component={Friend} />
+                    <Route path="/friend/add" exact component={FriendAdd} />
                     <Route path="/login" component={Login} />
                     <Route path="/ucenter" component={Ucenter} />
                     <Route path="/qrcode" component={Qrcode} />

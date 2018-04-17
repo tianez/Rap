@@ -1,11 +1,19 @@
 import React, { Component } from "react";
-import asyncComponent from "Extended/asyncComponent";
+import { List, WhiteSpace } from "antd-mobile";
+const Item = List.Item;
+
 import ContentView from "Views/Layout/ContentView";
 import Layout from "../Layout/Layout";
-const Friend = () => {
+
+import asyncComponent from "Extended/asyncComponent";
+const FriendComponent = asyncComponent(() => import("./FriendComponent"));
+
+const Friend = props => {
     return (
         <Layout title="好友" selectedTab="friend">
-            <ContentView>Friend</ContentView>
+            <ContentView>
+                <FriendComponent {...props} />
+            </ContentView>
         </Layout>
     );
 };

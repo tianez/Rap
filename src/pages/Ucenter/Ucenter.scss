@@ -1,14 +1,15 @@
-.item {
-    position: relative;
-    display: flex;
-    padding-left: 15px;
-    min-height: 44px;
-    background-color: rgb(255, 255, 255);
-    vertical-align: middle;
-    -webkit-box-align: center;
-    align-items: center;
-    overflow: hidden;
-    transition: background-color 0.2s;
+.avatar {
+    width: 60px !important;
+    height: 60px !important;
+    margin: 10px 0;
+}
+
+.ewm {
+    color: #888;
+    width: 22px;
+    height: 22px;
+    font-size: 22px;
+    display: inline-block;
 }
 
 .thumb {

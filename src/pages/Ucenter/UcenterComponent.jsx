@@ -1,8 +1,11 @@
 import React, { Component } from "react";
-import { List, Card, WhiteSpace } from "antd-mobile";
+import { Link, Redirect } from "react-router-dom";
+import { List, WhiteSpace } from "antd-mobile";
 const Item = List.Item;
+const Brief = Item.Brief;
 
 import styles from "./Ucenter.scss";
+
 export default class UcenterComponent extends Component {
     handleLink = url => {
         this.props.history.push(url);
@@ -11,20 +14,15 @@ export default class UcenterComponent extends Component {
         return (
             <div>
                 <WhiteSpace />
-                <Card full>
-                    <Card.Header
-                        title={
-                            <div>
-                                <div>This is title</div>
-                                <div>This is title</div>
-                            </div>
-                        }
-                        thumb={
-                            <img src="https://cloud.githubusercontent.com/assets/1698185/18039916/f025c090-6dd9-11e6-9d86-a4d48a1bf049.png" />
-                        }
-                        extra={<span>this is extra</span>}
-                    />
-                </Card>
+                <List>
+                    <Item
+                        extra={<Link className={`iconfont icon-erweima ${styles.ewm}`} to="/qrcode" />}
+                        thumb={<img className={styles.avatar} src="./public/images/avatar/0.jpg" />}
+                    >
+                        <div>找不到北</div>
+                        <Brief>微信号：tianjuezhiyi</Brief>
+                    </Item>
+                </List>
                 <WhiteSpace />
                 <List>
                     <Item thumb="https://zos.alipayobjects.com/rmsportal/dNuvNrtqUztHCwM.png" onClick={() => {}}>
