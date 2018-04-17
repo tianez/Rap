@@ -11,6 +11,9 @@ import { withRouter } from "react-router-dom";
 @withRouter
 export default class Footer extends Component {
     handlePress = url => {
+        if (url.indexOf("https://") == 0 || url.indexOf("http://") == 0) {
+            return this.props.history.push(`/iframe?outlink=${url}`);
+        }
         this.props.history.replace(`/${url}`);
     };
     render() {

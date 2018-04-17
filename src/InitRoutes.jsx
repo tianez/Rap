@@ -27,6 +27,11 @@ let init = {
             title: "个人中心",
             key: "ucenter",
             icon: "iconfont icon-gerenzhongxin"
+        },
+        {
+            title: "百度",
+            key: "https://www.baidu.com/",
+            icon: "iconfont icon-gerenzhongxin"
         }
     ]
 };
@@ -53,6 +58,9 @@ export default class InitRoutes extends Component {
     componentDidMount() {
         window.addEventListener("offline", this.handleChangeOnline);
         window.addEventListener("online", this.handleChangeOnline);
+        navigator.connection.addEventListener("typechange", this.handleChangeConnection);
+        this.handleChangeConnection();
+        this.getCurrentPosition();
         this.getInit();
     }
     componentDidUpdate() {
@@ -62,8 +70,40 @@ export default class InitRoutes extends Component {
             this.props.dispatch.set({ isChangeChannal: false });
         }
     }
-    handleChangeOnline = onLine => {
+    handleChangeOnline = () => {
         this.props.dispatch.set({ onLine: navigator.onLine });
+    };
+    handleChangeConnection = () => {
+        let { connection } = navigator;
+        let connectionType = "none";
+        if (connection.type == "wifi") {
+            connectionType = "wifi";
+        } else if (connection.type == "cellular") {
+            if (connection.effectiveType) {
+                connectionType = connection.effectiveType;
+            } else {
+                connectionType = "cellular";
+            }
+        }
+        this.props.dispatch.set({ connectionType });
+    };
+    getCurrentPosition = () => {
+        let options = {
+            enableHighAccuracy: true,
+            timeout: 5000,
+            maximumAge: 0
+        };
+        navigator.geolocation.getCurrentPosition(this.success, this.error, options);
+    };
+    success = pos => {
+        let crd = pos.coords;
+        console.log("Your current position is:");
+        console.log("Latitude : " + crd.latitude);
+        console.log("Longitude: " + crd.longitude);
+        console.log("More or less " + crd.accuracy + " meters.");
+    };
+    error = err => {
+        console.warn("ERROR(" + err.code + "): " + err.message);
     };
     getInit = () => {
         this.setState({
