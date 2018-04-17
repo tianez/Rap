@@ -31,6 +31,23 @@ export default class Home extends Component {
             ]
         };
     }
+    componentDidMount() {
+        // this.handleDb();
+    }
+    handleDb = async () => {
+        let res = await db.friends.add({
+            name: "Camilla",
+            age: 25
+        });
+        console.log(res);
+        let res2 = await db.friends.put({ id: 100, name: "Foo22", age: 43 });
+        console.log(res2);
+        let res3 = await db.friends
+            .where("age")
+            .above(25)
+            .toArray();
+        console.log(res3);
+    };
     render() {
         let { init, history, location } = this.props;
         const { items, show } = this.state;

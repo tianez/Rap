@@ -9,6 +9,7 @@ import News from "./News/News";
 import Friend from "./Friend/Friend";
 import Ucenter from "./Ucenter/Ucenter";
 const Qrcode = asyncComponent(() => import("./Qrcode/Qrcode"), true);
+const Setting = asyncComponent(() => import("./Setting/Setting"), true);
 
 import LayoutView from "Views/Layout/LayoutView";
 import ContentView from "Views/Layout/ContentView";
@@ -27,6 +28,7 @@ const RootRoutes = ({ location, redUrl, onLine }) => {
                     <Route path="/login" component={Login} />
                     <Route path="/ucenter" component={Ucenter} />
                     <Route path="/qrcode" component={Qrcode} />
+                    <Route path="/setting" component={Setting} />
                     <Redirect path="/" exact to={redUrl} />
                 </Switch>
             </ContentView>

@@ -3,11 +3,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { HashRouter, Route } from "react-router-dom";
+import "./style/app.less";
+
 import Immutable from "seamless-immutable";
 import Request from "Utils/axios";
 import userAgent from "Utils/userAgent";
-import "./style/app.less";
-
+import db from "./dexie";
 Object.assign(window, {
     Request,
     Immutable,
@@ -16,7 +17,8 @@ Object.assign(window, {
     userAgents: userAgent(),
     rootDom: "app",
     auths: [],
-    isDev: true
+    isDev: true,
+    db
 });
 
 /**
