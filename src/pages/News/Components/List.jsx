@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
+
 import LazyWarper from "Components/Layout/LazyWarper";
 import Loading from "Components/Layout/Loading";
 import styles from "./List.scss";
@@ -9,17 +11,28 @@ import { contextConsumers } from "Libs/ContextRudex";
 }))
 export default class List extends Component {
     componentDidMount() {
-        let { tab, dispatch, data } = this.props;
+        let { tab, data } = this.props;
         if (data.loaded) {
             return;
         }
-        data = data.set("loaded", true);
-        setTimeout(() => {
-            dispatch.setIn([localStorage.site_id, "news", tab.id], data);
-        }, Math.random());
+        this.getData();
     }
+    getData = async () => {
+        let { tab, dispatch, data } = this.props;
+        let res = await Request("http://cloudhubei.estv.com.cn/api/front/content/list", {
+            params: {
+                channelIds: tab.id
+            }
+        });
+        if (res.success) {
+            data = data.set("loaded", true);
+            data = data.set("list", res.body);
+            dispatch.setIn([localStorage.site_id, "news", tab.id], data);
+        }
+    };
     render() {
-        let { tab, data } = this.props;
+        let { tab, data, match } = this.props;
+        console.log(data);
         if (tab.id == 3) {
             return (
                 <LazyWarper className={styles.list}>
@@ -43,16 +56,23 @@ export default class List extends Component {
             );
         }
         return (
-            <LazyWarper
-                style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    height: "100%",
-                    backgroundColor: "#fff"
-                }}
-            >
-                <p>Content of {tab.title}</p>
+            <LazyWarper className={styles.list}>
+                <div style={{ height: "100%" }}>
+                    {data.list &&
+                        data.list.map(d => {
+                            return (
+                                <Link to={`${match.url}/${d.id}`} key={d.id} className={styles.item}>
+                                    {d.titleImg && (
+                                        <div className={styles.img} style={{ backgroundImage: `url(${d.titleImg})` }} />
+                                    )}
+                                    <div className={styles.detail}>
+                                        <div className={styles.title}>{d.title}</div>
+                                        <div className={styles.info}>{d.releaseDate}</div>
+                                    </div>
+                                </Link>
+                            );
+                        })}
+                </div>
             </LazyWarper>
         );
     }

@@ -1,20 +1,18 @@
 import React, { Component } from "react";
 import { NavBar } from "antd-mobile";
 import LayoutView from "Views/Layout/LayoutView";
+import LeftIcon from "Components/Layout/LeftIcon";
 import ContentView from "Views/Layout/ContentView";
 import Footer from "./Footer";
 import styles from "./Layout.scss";
-const Layout = ({ headerShow = true, border = true, title, selectedTab, children }) => {
+const BaseLayout = ({ border = true, title, children }) => {
     return (
         <LayoutView>
-            {headerShow && (
-                <NavBar mode="light" className={border && styles.header}>
-                    {title}
-                </NavBar>
-            )}
+            <NavBar mode="light" icon={<LeftIcon />} className={border && styles.header}>
+                {title}
+            </NavBar>
             {children}
-            <Footer selectedTab={selectedTab} />
         </LayoutView>
     );
 };
-export default Layout;
+export default BaseLayout;

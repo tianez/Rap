@@ -3,7 +3,63 @@
     overflow-y: auto;
     background: #fff;
     line-height: 28px;
-    padding: 15px;
     font-size: 16px;
     color: #3a3a3a;
+}
+
+.item {
+    display: flex;
+    margin: 0;
+    padding: 8px 15px;
+    background: #fff;
+    color: #000;
+    border-bottom: 1px solid #f4f4f4;
+}
+
+.img {
+    width: 80px;
+    height: 60px;
+    background-size: cover;
+    background-position: center;
+    margin: 0 10px 0 0;
+}
+
+.detail {
+    flex: 1;
+}
+
+.title {
+    font-size: 17px;
+    line-height: 22px;
+    height: auto;
+}
+
+.detail {
+    margin: 5px 0;
+}
+
+.info {
+    display: block;
+    color: #999;
+    font-size: 13px;
+    line-height: 16px;
+    margin: 5px 0 0;
+}
+
+.img + .detail {
+    margin: 0;
+    .title {
+        height: 44px;
+    }
+    .info {
+        margin: 0;
+    }
+}
+
+.nodata {
+    padding: 20px;
+    text-align: center;
+    background: #fff;
+    color: #666;
+    font-size: 17px;
 }

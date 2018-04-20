@@ -34,8 +34,6 @@
     <script src="./public/bower/axios/dist/axios.min.js"></script>
     <script src="./public/bower/dexie/dist/dexie.min.js"></script>
     <script src="./dll/vendor.dll.js"></script>
-    <script src="./public/js/yssjsdk.js?21"></script>
-    <script src="./public/lists.js?121"></script>
     <script>
         var AppConfig = {
             ApiUrl: 'http://cloudhubeioa.estv.com.cn/yssj_OA/a/rest/',
@@ -55,6 +53,12 @@
         //     script.src = '/sw_register.js?v=' + Date.now();
         //     firstScript.parentNode.insertBefore(script, firstScript);
         // };
+        // if ('serviceWorker' in navigator) {
+        //     // 为了保证首屏渲染性能，可以在页面 load 完之后注册 Service Worker
+        //     window.onload = function () {
+        //         navigator.serviceWorker.register('/sw_dev.js');
+        //     };
+        // }
     </script>
 </body>
 

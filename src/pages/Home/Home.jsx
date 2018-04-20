@@ -65,6 +65,7 @@ export default class Home extends Component {
                     >
                         点击
                     </button>
+                    {/* <img src="http://yyyweb.qiniudn.com/uploads/2014/06/ff46474bd73acfd4295da9213b3d3e1b.jpg" alt="" /> */}
                     <Link to="/home/1">home1</Link>
                     <div>
                         <Link to="/login">登录</Link>

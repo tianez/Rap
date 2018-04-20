@@ -19,22 +19,22 @@ instance.interceptors.request.use(config => {
     if (config.url.indexOf("https://") != 0 && config.url.indexOf("http://") != 0) {
         config.url = AppConfig.ApiUrl + config.url;
         // config.url = AppConfig.YapiUrl + config.url;
+        config.params = {
+            timestamp: Date.parse(new Date()),
+            orgid: localStorage.organizationId,
+            orgId: localStorage.organizationId,
+            ...config.params
+        };
+        config.headers = {
+            // orgid: "2f48b9f151cf4f48b01030624cd7aac7",
+            userId: localStorage.userId,
+            ...config.headers
+        };
     }
     config.cancelToken = new CancelToken(c => {
         // executor 函数接收一个 cancel 函数作为参数
         window.axiosCancel = c;
     });
-    config.params = {
-        timestamp: Date.parse(new Date()),
-        orgid: localStorage.organizationId,
-        orgId: localStorage.organizationId,
-        ...config.params
-    };
-    config.headers = {
-        // orgid: "2f48b9f151cf4f48b01030624cd7aac7",
-        userId: localStorage.userId,
-        ...config.headers
-    };
     return config;
 });
 
