@@ -4,13 +4,13 @@ import { stringify } from "qs";
 
 const Links = ({ to, iframe, children, staticContext, ...props }) => {
     if (typeof to === "string" && (to.indexOf("https://") == 0 || to.indexOf("http://") == 0)) {
-        if (iframe) {
+        if (!iframe) {
             return (
                 <Link
                     {...props}
                     to={{
                         pathname: "/iframe",
-                        search: stringify({ model: "iframe", red: to }),
+                        search: stringify({ outlink: to }),
                         state: { outlink: to }
                     }}
                 >

@@ -18,6 +18,11 @@ let init = {
             icon: "iconfont icon-news"
         },
         {
+            title: "服务",
+            key: "service",
+            icon: "iconfont icon-gerenzhongxin"
+        },
+        {
             title: "好友",
             key: "friend",
             icon: "iconfont icon-tongxun",
@@ -26,11 +31,6 @@ let init = {
         {
             title: "个人中心",
             key: "ucenter",
-            icon: "iconfont icon-gerenzhongxin"
-        },
-        {
-            title: "百度",
-            key: "https://www.baidu.com/",
             icon: "iconfont icon-gerenzhongxin"
         }
     ]
@@ -51,8 +51,7 @@ export default class InitRoutes extends Component {
     }
     // static getDerivedStateFromProps(nextProps, prevState) {
     //     return {
-    //         onLineChange: nextProps.onLine != prevState.onLine,
-    //         onLine: nextProps.onLine
+    //         footerTabs: nextProps.footerTabs
     //     };
     // }
     componentDidMount() {
@@ -106,6 +105,7 @@ export default class InitRoutes extends Component {
         console.warn("ERROR(" + err.code + "): " + err.message);
     };
     getInit = () => {
+        let { footerTabs } = this.props;
         this.setState({
             loading: true,
             error: false
@@ -115,7 +115,6 @@ export default class InitRoutes extends Component {
                 loading: false,
                 error: true
             });
-
             localStorage.init = JSON.stringify(init);
             this.props.dispatch.set({ init });
         }, 3000);

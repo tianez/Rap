@@ -8,6 +8,7 @@ import Home from "./Home/Home";
 import News from "./News/News";
 import Friend from "./Friend/Friend";
 import Ucenter from "./Ucenter/Ucenter";
+import Service from "./Service/Service";
 const Qrcode = asyncComponent(() => import("./Qrcode/Qrcode"), true);
 const Setting = asyncComponent(() => import("./Setting/Setting"), true);
 const Iframe = asyncComponent(() => import("./Iframe/Iframe"), true);
@@ -30,6 +31,7 @@ const RootRoutes = ({ location, redUrl, onLine }) => {
                     <Route path="/friend/add" exact component={FriendAdd} />
                     <Route path="/login" component={Login} />
                     <Route path="/ucenter" component={Ucenter} />
+                    <Route path="/service" component={Service} />
                     <Route path="/qrcode" component={Qrcode} />
                     <Route path="/setting" component={Setting} />
                     <Route path="/iframe" component={Iframe} />
