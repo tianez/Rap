@@ -32,8 +32,7 @@ export default class List extends Component {
     };
     render() {
         let { tab, data, match } = this.props;
-        console.log(data);
-        if (tab.id == 3) {
+        if (tab.id == 6) {
             return (
                 <LazyWarper className={styles.list}>
                     <Loading loading={true}>sdsds</Loading>
