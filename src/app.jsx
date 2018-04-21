@@ -7,10 +7,13 @@ import "./style/app.less";
 
 import Immutable from "seamless-immutable";
 import Request from "Utils/axios";
+import Apicloud from "Utils/apicloud";
+
 import userAgent from "Utils/userAgent";
 import db from "./dexie";
 Object.assign(window, {
     Request,
+    Apicloud,
     Immutable,
     $arr: Immutable([]),
     $obj: Immutable({}),
