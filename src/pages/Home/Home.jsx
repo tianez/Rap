@@ -8,8 +8,6 @@ import ContentView from "Views/Layout/ContentView";
 import Layout from "../Layout/Layout";
 
 import reqTest from "Hoc/reqTest";
-import Apicloud2 from "Utils/Apicloud2";
-
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { Switch, Redirect, Route } from "react-router-dom";
 
@@ -33,27 +31,17 @@ export default class Home extends Component {
         };
     }
     async componentDidMount() {
-        // this.handleDb();
         let filter = {
             where: {},
             skip: 0,
             limit: 20
         };
-        Apicloud2.get(
-            "article",
-            filter,
-            function(err, res) {
-                let data = JSON.parse(res.text);
-                console.log(data);
-            }.bind(this)
-        );
-
-        // let res = await Apicloud("article", {
-        //     params: {
-        //         filter
-        //     }
-        // });
-        // console.log(res);
+        let res = await Apicloud("article", {
+            params: {
+                filter
+            }
+        });
+        console.log(res);
     }
     handleDb = async () => {
         let res = await db.friends.add({

@@ -8,7 +8,7 @@
 import axios from "axios";
 // import SHA1 from "./SHA1";
 
-let AppId = "A6065581285444";
+let AppId = "A6984077246442";
 let AppKey = "7F7872C0-8EB2-D116-C9AF-AF02A4B65BA0";
 let AppUrl = "https://d.apicloud.com/mcm/api/";
 
@@ -37,6 +37,43 @@ apicloud.interceptors.request.use(config => {
     }
     return config;
 });
+
+/**
+ * 响应拦截器
+ */
+apicloud.interceptors.response.use(
+    response => {
+        let data = {
+            success: response.status == 200,
+            message: response.statusText,
+            data: response.data
+        };
+        return data;
+    },
+    error => {
+        // 对响应错误做点什么
+        let res = {};
+        if (error.response) {
+            let err = error.response;
+            let data = isJson(err.data) ? err.data : {};
+            res = {
+                message: data.message || data.msg || err.statusText,
+                status: err.status,
+                ...data
+            };
+        } else if (error.request) {
+            res.message = "网络错误，请检查你的网络状态";
+        } else {
+            console.log("Error", error.message);
+        }
+        if (res.status == 401) {
+            localStorage.removeItem("authorization");
+        }
+        res.success = false;
+        console.log(res);
+        return res;
+    }
+);
 
 export default apicloud;
 

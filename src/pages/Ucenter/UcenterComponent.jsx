@@ -45,6 +45,15 @@ export default class UcenterComponent extends Component {
                         设置
                     </Item>
                 </List>
+                <WhiteSpace />
+                <List>
+                    <Item
+                        thumb="https://zos.alipayobjects.com/rmsportal/UmbJMbWOejVOpxe.png"
+                        onClick={() => this.handleLink("/login")}
+                    >
+                        登录
+                    </Item>
+                </List>
             </div>
         );
     }
