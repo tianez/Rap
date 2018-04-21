@@ -4,11 +4,11 @@ import LayoutView from "Views/Layout/LayoutView";
 import ContentView from "Views/Layout/ContentView";
 import Footer from "./Footer";
 import styles from "./Layout.scss";
-const Layout = ({ headerShow = true, border = true, title, selectedTab, children }) => {
+const Layout = ({ headerShow = true, border = true, title, selectedTab, rightContent, children }) => {
     return (
         <LayoutView>
             {headerShow && (
-                <NavBar mode="light" className={border && styles.header}>
+                <NavBar mode="light" className={border && styles.header} rightContent={rightContent}>
                     {title}
                 </NavBar>
             )}

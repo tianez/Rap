@@ -44,8 +44,6 @@ export default class FriendComponent extends Component {
     };
     deleteFriend = async id => {
         let res = await Apicloud.delete("Friend/" + id);
-        console.log(res);
-
         if (res.success) {
             let friends = this.props.friends.filter(d => {
                 return d.id !== id;
@@ -68,10 +66,10 @@ export default class FriendComponent extends Component {
                 </List>
                 <div className={styles.title}>DB</div>
                 <List>
-                    {friends.map(d => {
+                    {friends.map((d, i) => {
                         return (
                             <Item key={d.id} onClick={() => this.deleteFriend(d.id)}>
-                                <img className={styles.avatar} src="./public/images/avatar/0.jpg" />
+                                <img className={styles.avatar} src={`./public/images/avatar/${i % 6}.jpg`} />
                                 <span>{d.username}</span>
                             </Item>
                         );

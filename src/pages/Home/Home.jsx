@@ -22,12 +22,7 @@ export default class Home extends Component {
             hidden: false,
             fullScreen: false,
             show: false,
-            items: [
-                { id: 1, text: "Buy eggs" },
-                { id: 2, text: "Pay bills" },
-                { id: 3, text: "Invite friends over" },
-                { id: 4, text: "Fix the TV" }
-            ]
+            items: []
         };
     }
     async componentDidMount() {
@@ -41,70 +36,39 @@ export default class Home extends Component {
                 filter
             }
         });
-        console.log(res);
-    }
-    handleDb = async () => {
-        let res = await db.friends.add({
-            name: "Camilla",
-            age: 25
+        this.setState({
+            items: res.data
         });
-        console.log(res);
-        let res2 = await db.friends.put({ id: 100, name: "Foo22", age: 43 });
-        console.log(res2);
-        let res3 = await db.friends
-            .where("age")
-            .above(25)
-            .toArray();
-        console.log(res3);
-    };
+    }
     render() {
-        let { init, history, location } = this.props;
-        const { items, show } = this.state;
+        let { init, history, location, match } = this.props;
+        const { items } = this.state;
+        console.log(items);
+
         return (
-            <Layout title="首页" selectedTab="home">
+            <Layout
+                title="首页"
+                selectedTab="home"
+                rightContent={
+                    <Link to="/news" style={{ color: "#108ee9" }}>
+                        写文章
+                    </Link>
+                }
+            >
                 <ContentView style={{ height: "100%", background: "#fff" }}>
-                    首页
-                    <button
-                        className="remove-btn"
-                        onClick={() => {
-                            this.setState(state => ({
-                                show: !state.show
-                            }));
-                        }}
-                    >
-                        点击
-                    </button>
-                    {/* <img src="http://yyyweb.qiniudn.com/uploads/2014/06/ff46474bd73acfd4295da9213b3d3e1b.jpg" alt="" /> */}
-                    <Link to="/home/1">home1</Link>
-                    <div>
-                        <Link to="/login">登录</Link>
-                    </div>
-                    <Link to="/home/2">home2</Link>
-                    <TransitionGroup className="todo-list">
-                        {show && (
-                            <CSSTransition key={"show"} timeout={5000} classNames="fade">
-                                <div>show</div>
-                            </CSSTransition>
-                        )}
-                        {items.map(({ id, text }) => (
-                            <CSSTransition key={id} timeout={5000} classNames="fade">
-                                <div>
-                                    <button
-                                        className="remove-btn"
-                                        onClick={() => {
-                                            this.setState(state => ({
-                                                items: state.items.filter(item => item.id !== id)
-                                            }));
-                                        }}
-                                    >
-                                        &times;
-                                    </button>
-                                    {text}
+                    {items.map(d => {
+                        return (
+                            <Link to={`${match.url}/${d.id}`} key={d.id} className="listitem">
+                                {d.titleImg && (
+                                    <div className="img" style={{ backgroundImage: `url(${d.titleImg})` }} />
+                                )}
+                                <div className="detail">
+                                    <div className="title">{d.title}</div>
+                                    <div className="info">{d.createdAt}</div>
                                 </div>
-                            </CSSTransition>
-                        ))}
-                    </TransitionGroup>
-                    <input type="file" name="" id="" />
+                            </Link>
+                        );
+                    })}
                 </ContentView>
             </Layout>
         );
