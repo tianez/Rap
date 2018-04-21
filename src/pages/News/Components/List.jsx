@@ -18,12 +18,14 @@ export default class List extends Component {
         this.getData();
     }
     getData = async () => {
+        console.time("testForEach2");
         let { tab, dispatch, data } = this.props;
         let res = await Request("http://cloudhubei.estv.com.cn/api/front/content/list", {
             params: {
                 channelIds: tab.id
             }
         });
+        console.timeEnd("testForEach2");
         if (res.success) {
             data = data.set("loaded", true);
             data = data.set("list", res.body);

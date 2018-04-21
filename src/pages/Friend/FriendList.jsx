@@ -9,7 +9,7 @@ import { contextConsumers } from "Libs/ContextRudex";
 @contextConsumers(state => ({
     friends: state.friends
 }))
-export default class FriendComponent extends Component {
+export default class FriendList extends Component {
     state = {
         friends: []
     };

@@ -6,13 +6,13 @@ import ContentView from "Views/Layout/ContentView";
 import Layout from "../Layout/Layout";
 
 import asyncComponent from "Extended/asyncComponent";
-const FriendComponent = asyncComponent(() => import("./FriendComponent"));
+const FriendList = asyncComponent(() => import("./FriendList"));
 
 const Friend = props => {
     return (
         <Layout title="好友" selectedTab="friend">
             <ContentView>
-                <FriendComponent {...props} />
+                <FriendList {...props} />
             </ContentView>
         </Layout>
     );

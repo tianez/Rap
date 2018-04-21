@@ -25,26 +25,38 @@ export default class Home extends Component {
             items: []
         };
     }
-    async componentDidMount() {
+    componentDidMount() {
+        this.getData();
+    }
+    getData = async () => {
+        console.time("testForEach");
+        let dbData = await db.news.toArray();
+        if (dbData) {
+            this.setState({
+                items: dbData
+            });
+        }
         let filter = {
             where: {},
             skip: 0,
-            limit: 20
+            limit: 20,
+            // fields: { id: true, title: true, createdAt: true }
+            fields: ["id", "title", "createdAt"]
         };
         let res = await Apicloud("article", {
             params: {
                 filter
             }
         });
+        console.timeEnd("testForEach");
+        db.news.bulkPut(res.data);
         this.setState({
             items: res.data
         });
-    }
+    };
     render() {
         let { init, history, location, match } = this.props;
         const { items } = this.state;
-        console.log(items);
-
         return (
             <Layout
                 title="首页"
@@ -58,7 +70,7 @@ export default class Home extends Component {
                 <ContentView style={{ height: "100%", background: "#fff" }}>
                     {items.map(d => {
                         return (
-                            <Link to={`${match.url}/${d.id}`} key={d.id} className="listitem">
+                            <Link to={`/p/${d.id}`} key={d.id} className="listitem">
                                 {d.titleImg && (
                                     <div className="img" style={{ backgroundImage: `url(${d.titleImg})` }} />
                                 )}

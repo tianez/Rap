@@ -14,6 +14,7 @@ const NewDetail = asyncComponent(() => import("./News/Detail"), true);
 const Setting = asyncComponent(() => import("./Setting/Setting"), true);
 const Iframe = asyncComponent(() => import("./Iframe/Iframe"), true);
 const FriendAdd = asyncComponent(() => import("./Friend/FriendAdd"), true);
+const ArticleDetail = asyncComponent(() => import("./Article/Detail"), true);
 
 import LayoutView from "Views/Layout/LayoutView";
 import ContentView from "Views/Layout/ContentView";
@@ -37,6 +38,7 @@ const RootRoutes = ({ location, redUrl, onLine }) => {
                     <Route path="/qrcode" component={Qrcode} />
                     <Route path="/setting" component={Setting} />
                     <Route path="/iframe" component={Iframe} />
+                    <Route path="/p/:id" component={ArticleDetail} />
                     <Redirect path="/" exact to={redUrl} />
                 </Switch>
             </ContentView>

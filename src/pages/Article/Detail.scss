@@ -1,0 +1,25 @@
+.title {
+    font-size: 24px;
+    line-height: 32px;
+}
+
+.info {
+    display: block;
+    color: #999;
+    font-size: 14px;
+    margin: 15px 0 10px;
+}
+
+.content {
+    font-size: 16px;
+    line-height: 26px;
+    p {
+        padding: 5px 0;
+        text-indent: 2em;
+    }
+    img {
+        display: block;
+        max-width: 100%;
+        margin: 0 auto;
+    }
+}
