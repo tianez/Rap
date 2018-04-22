@@ -30,8 +30,8 @@ const RootRoutes = ({ location, redUrl, onLine }) => {
                     <Route path="/home" component={Home} />
                     <Route path="/news" exact component={News} />
                     <Route path="/news/:id" exact component={NewDetail} />
-                    <Route path="/friend" exact component={Friend} />
-                    <Route path="/friend/add" exact component={FriendAdd} />
+                    <PrivateRoute path="/friend" exact component={Friend} />
+                    <PrivateRoute path="/friend/add" exact component={FriendAdd} />
                     <Route path="/login" component={Login} />
                     <Route path="/ucenter" component={Ucenter} />
                     <Route path="/service" component={Service} />
@@ -39,7 +39,8 @@ const RootRoutes = ({ location, redUrl, onLine }) => {
                     <Route path="/setting" component={Setting} />
                     <Route path="/iframe" component={Iframe} />
                     <Route path="/p/:id" component={ArticleDetail} />
-                    <Redirect path="/" exact to={redUrl} />
+                    {/* <Redirect path="/" exact to={redUrl} /> */}
+                    <Redirect path="*" to={redUrl} />
                 </Switch>
             </ContentView>
         </LayoutView>

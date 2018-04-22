@@ -94,44 +94,6 @@ export default class FriendList extends Component {
                         <span>可见光</span>
                     </Item>
                 </List>
-                <div className={styles.title}>B</div>
-                <List>
-                    <Item onClick={() => {}}>
-                        <img className={styles.avatar} src="./public/images/avatar/4.jpg" />
-                        <span>情诗和</span>
-                    </Item>
-                    <Item onClick={() => {}}>
-                        <img className={styles.avatar} src="./public/images/avatar/5.jpg" />
-                        <span>哈耶克</span>
-                    </Item>
-                    <Item onClick={() => {}}>
-                        <img className={styles.avatar} src="./public/images/avatar/6.jpg" />
-                        <span>乌拉拉</span>
-                    </Item>
-                    <Item onClick={() => {}}>
-                        <img className={styles.avatar} src="./public/images/avatar/3.jpg" />
-                        <span>可见光</span>
-                    </Item>
-                </List>
-                <div className={styles.title}>C</div>
-                <List>
-                    <Item onClick={() => {}}>
-                        <img className={styles.avatar} src="./public/images/avatar/0.jpg" />
-                        <span>情诗和</span>
-                    </Item>
-                    <Item onClick={() => {}}>
-                        <img className={styles.avatar} src="./public/images/avatar/1.jpg" />
-                        <span>哈耶克</span>
-                    </Item>
-                    <Item onClick={() => {}}>
-                        <img className={styles.avatar} src="./public/images/avatar/2.jpg" />
-                        <span>乌拉拉</span>
-                    </Item>
-                    <Item onClick={() => {}}>
-                        <img className={styles.avatar} src="./public/images/avatar/3.jpg" />
-                        <span>可见光</span>
-                    </Item>
-                </List>
             </ContentView>
         );
     }

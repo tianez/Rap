@@ -1,23 +1,78 @@
 import React, { Component } from "react";
+import ContentView from "Views/Layout/ContentView";
+import BaseLayout from "../Layout/BaseLayout";
 
-import ReqData from "../Layout/ReqData";
+import Loading from "Components/Layout/Loading";
+
 import styles from "./Detail.scss";
-
 export default class Detail extends Component {
-    render() {
+    state = {
+        data: {},
+        detailStatus: {
+            loading: false,
+            error: false,
+            errorMsg: ""
+        }
+    };
+    componentDidMount() {
+        this.getData();
+    }
+    getData = async () => {
+        this.setState({
+            detailStatus: {
+                loading: true,
+                error: false,
+                errorMsg: ""
+            }
+        });
         let { match } = this.props;
+        let dbData = await db.news
+            .where("id")
+            .equalsIgnoreCase(match.params.id)
+            .toArray();
+        if (dbData[0]) {
+            this.setState({
+                data: dbData[0],
+                detailStatus: {
+                    loading: false,
+                    error: false,
+                    errorMsg: ""
+                }
+            });
+        }
+        let res = await Apicloud(`article/${match.params.id}`);
+        if (res.success) {
+            db.news.put(res.data);
+            this.setState({
+                data: res.data,
+                detailStatus: {
+                    loading: false,
+                    error: false,
+                    errorMsg: ""
+                }
+            });
+        } else {
+            this.setState({
+                detailStatus: {
+                    loading: false,
+                    error: true,
+                    errorMsg: res.message
+                }
+            });
+        }
+    };
+    render() {
+        let { data, detailStatus } = this.state;
         return (
-            <ReqData title="文章详情" url={`article/${match.params.id}`} id={match.params.id}>
-                {data => {
-                    return (
-                        <div>
-                            <div className={styles.title}>{data.title}</div>
-                            <div className={styles.info}>{data.createdAt}</div>
-                            <div className={styles.content} dangerouslySetInnerHTML={{ __html: data.content }} />
-                        </div>
-                    );
-                }}
-            </ReqData>
+            <BaseLayout title={"文章详情"}>
+                <ContentView style={{ padding: "15px", background: "#fff" }}>
+                    <Loading {...detailStatus} errorAction={<div onClick={this.getData}>出错了，点击重试！</div>}>
+                        <div className={styles.title}>{data.title}</div>
+                        <div className={styles.info}>{data.createdAt}</div>
+                        <div className={styles.content} dangerouslySetInnerHTML={{ __html: data.content }} />
+                    </Loading>
+                </ContentView>
+            </BaseLayout>
         );
     }
 }

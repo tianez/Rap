@@ -16,12 +16,23 @@ export default class FriendAdd extends Component {
     };
     handleChange = value => {
         this.setState({
-            username: value
+            username: value,
+            loading: false
         });
     };
     handleAdd = async () => {
         let { username } = this.state;
-        let res = await Apicloud.post("Friend", { username, userid: localStorage.userId });
+        this.setState({
+            loading: true
+        });
+        let res = await Apicloud.post("Friend", {
+            username,
+            userid: localStorage.userId,
+            userinfo: {
+                id: 123,
+                sex: "woman"
+            }
+        });
         if (res.success) {
             let { friends = $arr } = this.props;
             friends = friends.concat(res.data);
@@ -30,6 +41,9 @@ export default class FriendAdd extends Component {
             });
             window.history.back();
         }
+        this.setState({
+            loading: false
+        });
         // let res = await db.friends.add({
         //     name: username,
         //     age: 25
@@ -40,6 +54,7 @@ export default class FriendAdd extends Component {
         console.log(res);
     };
     render() {
+        let { loading } = this.state;
         return (
             <LayoutView>
                 <NavBar mode="light" icon={<LeftIcon />}>
@@ -51,7 +66,7 @@ export default class FriendAdd extends Component {
                             用户名
                         </InputItem>
                         <Item>
-                            <Button type="primary" size="small" inline onClick={this.handleAdd}>
+                            <Button type="primary" loading={loading} onClick={this.handleAdd}>
                                 提交
                             </Button>
                         </Item>

@@ -41,7 +41,7 @@ export default class Home extends Component {
             skip: 0,
             limit: 20,
             // fields: { id: true, title: true, createdAt: true }
-            fields: ["id", "title", "createdAt"]
+            fields: ["id", "title", "content", "createdAt"]
         };
         let res = await Apicloud("article", {
             params: {
