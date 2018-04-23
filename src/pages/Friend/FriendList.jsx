@@ -68,31 +68,12 @@ export default class FriendList extends Component {
                 <List>
                     {friends.map((d, i) => {
                         return (
-                            <Item key={d.id} onClick={() => this.deleteFriend(d.id)}>
-                                <img className={styles.avatar} src={`./public/images/avatar/${i % 6}.jpg`} />
+                            <Item key={d.id} onClick={() => history.push(`${match.url}/${d.id}`)}>
+                                <img className={styles.img} src={`./public/images/avatar/${i % 6}.jpg`} />
                                 <span>{d.username}</span>
                             </Item>
                         );
                     })}
-                </List>
-                <div className={styles.title}>A</div>
-                <List>
-                    <Item onClick={() => {}}>
-                        <img className={styles.avatar} src="./public/images/avatar/0.jpg" />
-                        <span>情诗和</span>
-                    </Item>
-                    <Item onClick={() => {}}>
-                        <img className={styles.avatar} src="./public/images/avatar/1.jpg" />
-                        <span>哈耶克</span>
-                    </Item>
-                    <Item onClick={() => {}}>
-                        <img className={styles.avatar} src="./public/images/avatar/2.jpg" />
-                        <span>乌拉拉</span>
-                    </Item>
-                    <Item onClick={() => {}}>
-                        <img className={styles.avatar} src="./public/images/avatar/3.jpg" />
-                        <span>可见光</span>
-                    </Item>
                 </List>
             </ContentView>
         );

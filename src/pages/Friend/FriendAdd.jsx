@@ -30,7 +30,8 @@ export default class FriendAdd extends Component {
             userid: localStorage.userId,
             userinfo: {
                 id: 123,
-                sex: "woman"
+                sex: "woman",
+                avatar: `./public/images/avatar/${parseInt(5 * Math.random())}.jpg`
             }
         });
         if (res.success) {

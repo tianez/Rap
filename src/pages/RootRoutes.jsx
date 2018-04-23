@@ -14,6 +14,7 @@ const NewDetail = asyncComponent(() => import("./News/Detail"), true);
 const Setting = asyncComponent(() => import("./Setting/Setting"), true);
 const Iframe = asyncComponent(() => import("./Iframe/Iframe"), true);
 const FriendAdd = asyncComponent(() => import("./Friend/FriendAdd"), true);
+const FriendDetail = asyncComponent(() => import("./Friend/FriendDetail"), true);
 const ArticleDetail = asyncComponent(() => import("./Article/Detail"), true);
 
 import LayoutView from "Views/Layout/LayoutView";
@@ -32,6 +33,7 @@ const RootRoutes = ({ location, redUrl, onLine }) => {
                     <Route path="/news/:id" exact component={NewDetail} />
                     <PrivateRoute path="/friend" exact component={Friend} />
                     <PrivateRoute path="/friend/add" exact component={FriendAdd} />
+                    <PrivateRoute path="/friend/:id" exact component={FriendDetail} />
                     <Route path="/login" component={Login} />
                     <Route path="/ucenter" component={Ucenter} />
                     <Route path="/service" component={Service} />
