@@ -39,12 +39,6 @@ export default class FriendDetail extends Component {
                     <WhiteSpace />
                     <List>
                         <Item onClick={() => {}}>设置备注和标签</Item>
-                        <Item
-                            thumb="https://zos.alipayobjects.com/rmsportal/UmbJMbWOejVOpxe.png"
-                            onClick={() => this.handleLink("/qrcode")}
-                        >
-                            下载
-                        </Item>
                     </List>
                 </ContentView>
             </LayoutView>

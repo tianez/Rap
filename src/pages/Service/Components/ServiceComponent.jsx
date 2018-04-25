@@ -44,7 +44,58 @@ const data = [
         url: "https://weibo.com/"
     }
 ];
+
+import Loading from "Components/Layout/Loading";
+
+import { contextConsumers } from "Libs/ContextRudex";
+@contextConsumers(state => ({
+    serviceList: state.getIn(["init", "serviceList"])
+}))
 export default class ServiceComponent extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            loading: false,
+            error: false
+        };
+    }
+    componentDidMount() {
+        this.getData();
+    }
+    getData = async () => {
+        let { serviceList } = this.props;
+        if (serviceList) {
+            return;
+        }
+        this.setState({
+            loading: true,
+            error: false
+        });
+        let res = await Apicloud("config", {
+            params: {
+                filter: {
+                    where: {
+                        name: "serviceList",
+                        site_id: 1
+                    }
+                }
+            }
+        });
+        if (res.success) {
+            this.setState({
+                loading: false
+            });
+            let serviceList = res.data[0].data.serviceList;
+            if (serviceList) {
+                this.props.dispatch.setIn(["init", "serviceList"], serviceList);
+            }
+        } else {
+            this.setState({
+                loading: false,
+                error: true
+            });
+        }
+    };
     handleClick = ({ url }) => {
         if (url.indexOf("https://") == 0 || url.indexOf("http://") == 0) {
             return this.props.history.push(`/iframe?outlink=${url}`);
@@ -52,11 +103,17 @@ export default class ServiceComponent extends Component {
         this.props.history.replace(`/${url}`);
     };
     render() {
+        let { serviceList } = this.props;
+        let { error, loading } = this.state;
         return (
-            <div>
-                <WhiteSpace />
+            <Loading
+                loading={loading}
+                loadingTitle="获取服务列表中..."
+                error={error}
+                errorAction={<div onClick={this.getData}>获取服务列表失败，点击重试</div>}
+            >
                 <Grid
-                    data={data}
+                    data={serviceList}
                     columnNum={3}
                     // hasLine={false}
                     onClick={this.handleClick}
@@ -67,7 +124,7 @@ export default class ServiceComponent extends Component {
                         </GridView>
                     )}
                 />
-            </div>
+            </Loading>
         );
     }
 }

@@ -33,6 +33,8 @@ import InitRoutes from "./InitRoutes";
 localStorage.site_id = "2f48b9f151cf4f48b01030624cd7aac7";
 
 let init = localStorage.init ? JSON.parse(localStorage.init) : {};
+console.log(init);
+
 let initValue = {
     _site_id: 1,
     _site_name: "云上视界科技有限公司",
