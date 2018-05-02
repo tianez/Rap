@@ -7,7 +7,7 @@ const formatDate = timestamp => {
     let jsdate = new Date();
     if (timestamp) {
         if (timestamp.length == 10) {
-            timestamp = timestamp * 1 * 1000;
+            timestamp = timestamp * 1000;
         }
         jsdate = new Date(timestamp);
     }

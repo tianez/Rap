@@ -11,6 +11,8 @@ import reqTest from "Hoc/reqTest";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { Switch, Redirect, Route } from "react-router-dom";
 
+import getWeekOfYear from "Utils/getWeekOfYear";
+
 import { contextConsumers } from "Libs/ContextRudex";
 @contextConsumers(state => ({
     init: state.init
@@ -26,6 +28,8 @@ export default class Home extends Component {
         };
     }
     componentDidMount() {
+        let weeks = getWeekOfYear();
+        console.log(weeks);
         this.getData();
     }
     getData = async () => {
