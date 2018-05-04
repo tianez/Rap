@@ -8,7 +8,7 @@ import LeftIcon from "./LeftIcon";
 
 const LoadingView = styled.div`
     text-align: center;
-    line-height: 30rem;
+    line-height: 3rem;
 `;
 
 const LoadingFarmeWork = ({ children }) => {

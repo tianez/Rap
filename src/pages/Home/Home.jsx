@@ -47,15 +47,11 @@ export default class Home extends Component {
             limit: 20,
             fields: ["id", "title", "content", "createdAt"]
         };
-        this.props.getData(
-            "article",
-            {
-                params: {
-                    filter
-                }
-            },
-            3000
-        );
+        this.props.getData("article", {
+            params: {
+                filter
+            }
+        });
         let res = await Apicloud("article", {
             params: {
                 filter

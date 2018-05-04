@@ -22,7 +22,6 @@ const asyncComponent = (importComponent, isRouter = false) =>
         }
         render() {
             const C = this.state.component;
-            // return <LoadingFarmeWork />;
             return C ? <C {...this.props} /> : isRouter ? <LoadingFarmeWork /> : <Loading />;
         }
     };
