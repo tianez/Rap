@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 
 import asyncComponent from "Extended/asyncComponent";
 import ContentView from "Views/Layout/ContentView";
+import Loading from "Components/Layout/Loading";
+
 import Layout from "../Layout/Layout";
 
 import reqTest from "Hoc/reqTest";
@@ -14,16 +16,15 @@ import { Switch, Redirect, Route } from "react-router-dom";
 import getWeekOfYear from "Utils/getWeekOfYear";
 
 import { contextConsumers } from "Libs/ContextRudex";
+import GetData from "Hoc/GetData";
 @contextConsumers(state => ({
     init: state.init
 }))
+@GetData
 export default class Home extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            hidden: false,
-            fullScreen: false,
-            show: false,
             items: []
         };
     }
@@ -44,9 +45,17 @@ export default class Home extends Component {
             where: {},
             skip: 0,
             limit: 20,
-            // fields: { id: true, title: true, createdAt: true }
             fields: ["id", "title", "content", "createdAt"]
         };
+        this.props.getData(
+            "article",
+            {
+                params: {
+                    filter
+                }
+            },
+            3000
+        );
         let res = await Apicloud("article", {
             params: {
                 filter
@@ -59,7 +68,7 @@ export default class Home extends Component {
         });
     };
     render() {
-        let { init, history, location, match } = this.props;
+        let { init, data, loadState } = this.props;
         const { items } = this.state;
         return (
             <Layout
@@ -72,6 +81,12 @@ export default class Home extends Component {
                 }
             >
                 <ContentView style={{ height: "100%", background: "#fff" }}>
+                    <Loading
+                        {...loadState}
+                        loadingTitle={"刷新中"}
+                        errorAction={<div onClick={this.getData}>出错了，点击重试！</div>}
+                    />
+                    {/* <Loading {...loadState} errorAction={<div onClick={this.getData}>出错了，点击重试！</div>}> */}
                     {items.map(d => {
                         return (
                             <Link to={`/p/${d.id}`} key={d.id} className="listitem">
@@ -85,6 +100,7 @@ export default class Home extends Component {
                             </Link>
                         );
                     })}
+                    {/* </Loading> */}
                 </ContentView>
             </Layout>
         );

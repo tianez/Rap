@@ -5,72 +5,54 @@ import BaseLayout from "../Layout/BaseLayout";
 import Loading from "Components/Layout/Loading";
 
 import styles from "./Detail.scss";
+
+import GetData from "Hoc/GetData";
+@GetData
 export default class Detail extends Component {
     state = {
         data: {},
-        detailStatus: {
-            loading: false,
-            error: false,
-            errorMsg: ""
-        }
+        isCache: false,
+        loadState: {}
     };
+    static getDerivedStateFromProps(nextProps, prevState) {
+        // let data = Object.keys(nextProps.data).length > 0 ? nextProps.data : prevState.data;
+        return {
+            // data: data,
+            data: nextProps.data,
+            loadState: nextProps.loadState
+        };
+    }
     componentDidMount() {
-        this.getData();
+        this.props.getData(`article/${this.props.match.params.id}`);
+        // this.getData();
     }
     getData = async () => {
-        this.setState({
-            detailStatus: {
-                loading: true,
-                error: false,
-                errorMsg: ""
-            }
-        });
-        let { match } = this.props;
+        let { id } = this.props.match.params;
         let dbData = await db.news
             .where("id")
-            .equalsIgnoreCase(match.params.id)
+            .equalsIgnoreCase(id)
             .toArray();
         if (dbData[0]) {
             this.setState({
                 data: dbData[0],
-                detailStatus: {
-                    loading: false,
-                    error: false,
-                    errorMsg: ""
-                }
+                isCache: true
             });
         }
-        let res = await Apicloud(`article/${match.params.id}`);
-        if (res.success) {
-            db.news.put(res.data);
-            this.setState({
-                data: res.data,
-                detailStatus: {
-                    loading: false,
-                    error: false,
-                    errorMsg: ""
-                }
-            });
-        } else {
-            this.setState({
-                detailStatus: {
-                    loading: false,
-                    error: true,
-                    errorMsg: res.message
-                }
-            });
-        }
+        this.props.getData(`article/${id}`);
     };
     render() {
-        let { data, detailStatus } = this.state;
+        let { data, loadState, isCache } = this.state;
         return (
             <BaseLayout title={"文章详情"}>
                 <ContentView style={{ padding: "15px", background: "#fff" }}>
-                    <Loading {...detailStatus} errorAction={<div onClick={this.getData}>出错了，点击重试！</div>}>
-                        <div className={styles.title}>{data.title}</div>
-                        <div className={styles.info}>{data.createdAt}</div>
-                        <div className={styles.content} dangerouslySetInnerHTML={{ __html: data.content }} />
-                    </Loading>
+                    <Loading
+                        {...loadState}
+                        loadingTitle={isCache ? "刷新中..." : "获取数据中..."}
+                        errorAction={<div onClick={this.props.getData}>出错了，点击重试！</div>}
+                    />
+                    <div className={styles.title}>{data.title}</div>
+                    <div className={styles.info}>{data.createdAt}</div>
+                    <div className={styles.content} dangerouslySetInnerHTML={{ __html: data.content }} />
                 </ContentView>
             </BaseLayout>
         );
