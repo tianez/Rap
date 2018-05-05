@@ -77,8 +77,8 @@ export default class Home extends Component {
         let filter = {
             where: {},
             skip: page * pageSize,
-            limit: pageSize,
-            fields: ["id", "title", "content", "createdAt"]
+            limit: pageSize
+            // fields: ["id", "title", "content", "createdAt"]
         };
         let res = await Apicloud("article", {
             params: {
@@ -149,9 +149,7 @@ export default class Home extends Component {
                         {data.map(d => {
                             return (
                                 <Link to={`/p/${d.id}`} key={d.id} className="listitem">
-                                    {d.titleImg && (
-                                        <div className="img" style={{ backgroundImage: `url(${d.titleImg})` }} />
-                                    )}
+                                    {d.thumb && <div className="img" style={{ backgroundImage: `url(${d.thumb})` }} />}
                                     <div className="detail">
                                         <div className="title">{d.title}</div>
                                         <div className="info">{dayjs(d.createdAt).format("YYYY-MM-DD HH:mm:ss")}</div>
