@@ -35,6 +35,10 @@ apicloud.interceptors.request.use(config => {
             filter: JSON.stringify(config.params.filter)
         };
     }
+    config.params = {
+        timestamp: Date.now(),
+        ...config.params
+    };
     return config;
 });
 
