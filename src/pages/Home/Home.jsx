@@ -59,6 +59,8 @@ export default class Home extends Component {
         });
         console.timeEnd("testForEach");
         db.news.bulkPut(res.data);
+        console.log(res.data);
+
         this.setState({
             items: res.data
         });
