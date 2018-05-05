@@ -1,73 +1,131 @@
 import React, { Component } from "react";
 import { NavBar, TabBar } from "antd-mobile";
-
 import { Link } from "react-router-dom";
 
 import asyncComponent from "Extended/asyncComponent";
 import ContentView from "Views/Layout/ContentView";
+import LazyWarper from "Components/Layout/LazyWarper";
 import Loading from "Components/Layout/Loading";
 
 import Layout from "../Layout/Layout";
-
-import reqTest from "Hoc/reqTest";
+import delay from "Utils/delay";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
-import { Switch, Redirect, Route } from "react-router-dom";
-
+import dayjs from "dayjs";
 import getWeekOfYear from "Utils/getWeekOfYear";
-
-import { contextConsumers } from "Libs/ContextRudex";
-import GetData from "Hoc/GetData";
-@contextConsumers(state => ({
-    init: state.init
-}))
-@GetData
+// import { contextConsumers } from "Libs/ContextRudex";
+// @contextConsumers(state => ({
+//     init: state.init
+// }))
 export default class Home extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            items: []
+            data: [],
+            page: 0,
+            pageSize: 10,
+            isCache: false,
+            isInit: true,
+            hasMore: true,
+            loadState: {
+                loading: false,
+                error: false,
+                errorMsg: ""
+            }
         };
     }
-    componentDidMount() {
-        let weeks = getWeekOfYear();
-        console.log(weeks);
-        this.getData();
-    }
-    getData = async () => {
-        console.time("testForEach");
-        let dbData = await db.news.toArray();
-        if (dbData) {
+    async componentDidMount() {
+        // let weeks = getWeekOfYear();
+        // console.log(weeks);
+        let { pageSize } = this.state;
+        let dbData = await db.news
+            .reverse()
+            .limit(pageSize)
+            .toArray();
+        if (dbData.length > 0) {
             this.setState({
-                items: dbData
+                data: dbData,
+                isCache: true
             });
         }
+        this.getInitData();
+    }
+    getInitData = () => {
+        this.getData();
+    };
+    getMoreData = async () => {
+        let { data, hasMore } = this.state;
+        if (!hasMore) {
+            return;
+        }
+        this.getData(data, false, 300);
+    };
+    getData = async (data = [], isInit = true, delaytime = 0) => {
+        if (this.loading) {
+            return;
+        }
+        this.loading = true;
+        this.delayStart = Date.now();
+        this.setState({
+            isInit,
+            loadState: {
+                loading: true,
+                error: false,
+                errorMsg: ""
+            }
+        });
+        let { page, pageSize } = this.state;
         let filter = {
             where: {},
-            skip: 0,
-            limit: 20,
+            skip: page * pageSize,
+            limit: pageSize,
             fields: ["id", "title", "content", "createdAt"]
         };
-        // this.props.getData("article", {
-        //     params: {
-        //         filter
-        //     }
-        // });
         let res = await Apicloud("article", {
             params: {
                 filter
             }
         });
-        console.timeEnd("testForEach");
-        db.news.bulkPut(res.data);
-        console.log(res.data);
-
-        this.setState({
-            items: res.data
-        });
+        let delayend = this.delayStart + delaytime - Date.now();
+        if (delayend > 0) {
+            await delay(delayend);
+        }
+        this.loading = false;
+        if (res.success) {
+            db.news.bulkPut(res.data);
+            page++;
+            this.setState({
+                data: data.concat(res.data),
+                hasMore: res.data.length == pageSize,
+                page,
+                loadState: {
+                    loading: false,
+                    error: false,
+                    errorMsg: ""
+                }
+            });
+        } else {
+            this.setState({
+                loadState: {
+                    loading: false,
+                    error: true,
+                    errorMsg: res.message
+                }
+            });
+        }
+    };
+    handleScroll = viewport => {
+        let { loadState } = this.state;
+        if (loadState.error) {
+            return;
+        }
+        let { top } = this.load.getBoundingClientRect();
+        let height = window.screen.height;
+        if (top < height + 100) {
+            this.getMoreData();
+        }
     };
     render() {
-        let { init, data, loadState } = this.props;
-        const { items } = this.state;
+        const { data, loadState, isCache, isInit } = this.state;
         return (
             <Layout
                 title="首页"
@@ -79,36 +137,39 @@ export default class Home extends Component {
                 }
             >
                 <ContentView style={{ height: "100%", background: "#fff" }}>
-                    <Loading
-                        {...loadState}
-                        loadingTitle={"刷新中"}
-                        errorAction={<div onClick={this.getData}>出错了，点击重试！</div>}
-                    />
-                    {/* <Loading {...loadState} errorAction={<div onClick={this.getData}>出错了，点击重试！</div>}> */}
-                    {items.map(d => {
-                        return (
-                            <Link to={`/p/${d.id}`} key={d.id} className="listitem">
-                                {d.titleImg && (
-                                    <div className="img" style={{ backgroundImage: `url(${d.titleImg})` }} />
-                                )}
-                                <div className="detail">
-                                    <div className="title">{d.title}</div>
-                                    <div className="info">{d.createdAt}</div>
-                                </div>
-                            </Link>
-                        );
-                    })}
-                    {/* </Loading> */}
+                    <LazyWarper onScroll={this.handleScroll}>
+                        {isInit && (
+                            <Loading
+                                {...loadState}
+                                reflush={isCache}
+                                loadingTitle={"数据加载中"}
+                                errorAction={<div onClick={this.getInitData}>{loadState.errorMsg}，点击重试！</div>}
+                            />
+                        )}
+                        {data.map(d => {
+                            return (
+                                <Link to={`/p/${d.id}`} key={d.id} className="listitem">
+                                    {d.titleImg && (
+                                        <div className="img" style={{ backgroundImage: `url(${d.titleImg})` }} />
+                                    )}
+                                    <div className="detail">
+                                        <div className="title">{d.title}</div>
+                                        <div className="info">{dayjs(d.createdAt).format("YYYY-MM-DD HH:mm:ss")}</div>
+                                    </div>
+                                </Link>
+                            );
+                        })}
+                        <div ref={ele => (this.load = ele)} />
+                        {!isInit && (
+                            <Loading
+                                {...loadState}
+                                loadingTitle={"更多数据加载中"}
+                                errorAction={<div onClick={this.getMoreData}>{loadState.errorMsg}，点击重试！</div>}
+                            />
+                        )}
+                    </LazyWarper>
                 </ContentView>
             </Layout>
         );
     }
 }
-
-const Home1 = () => {
-    return <div>Home1</div>;
-};
-
-const Home2 = () => {
-    return <div>Home2</div>;
-};

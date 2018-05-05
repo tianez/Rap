@@ -30,9 +30,13 @@ apicloud.interceptors.request.use(config => {
         "X-APICloud-AppKey": key
     };
     if (config.params && config.params.filter) {
+        let filter = {
+            order: "createdAt DESC",
+            ...config.params.filter
+        };
         config.params = {
             ...config.params,
-            filter: JSON.stringify(config.params.filter)
+            filter: JSON.stringify(filter)
         };
     }
     config.params = {

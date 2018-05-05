@@ -2,10 +2,25 @@ import React, { Component } from "react";
 import { Icon } from "antd-mobile";
 
 import styles from "./Loading.scss";
-const Loading = ({ loading, loadingshow = true, loadingTitle = "数据加载中", error, errorAction, children }) => {
+const Loading = ({
+    loading,
+    loadingshow = true,
+    reflush = false,
+    loadingTitle = "数据加载中",
+    error,
+    errorAction,
+    children
+}) => {
     if (loading) {
         if (!loadingshow) {
             return null;
+        }
+        if (reflush) {
+            return (
+                <div className={styles.reflush}>
+                    <Icon type="loading" />
+                </div>
+            );
         }
         return (
             <div className={styles.loading}>

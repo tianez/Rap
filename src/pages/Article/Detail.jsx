@@ -3,6 +3,7 @@ import ContentView from "Views/Layout/ContentView";
 import BaseLayout from "../Layout/BaseLayout";
 
 import Loading from "Components/Layout/Loading";
+import dayjs from "dayjs";
 
 import styles from "./Detail.scss";
 
@@ -10,7 +11,6 @@ import GetData from "Hoc/GetData";
 @GetData
 export default class Detail extends Component {
     state = {
-        data: {},
         isCache: false,
         loadState: {}
     };
@@ -41,7 +41,7 @@ export default class Detail extends Component {
         this.props.getData(`article/${id}`);
     };
     render() {
-        let { data, loadState, isCache } = this.state;
+        let { data = {}, loadState, isCache } = this.state;
         return (
             <BaseLayout title={"文章详情"}>
                 <ContentView style={{ padding: "15px", background: "#fff" }}>
@@ -51,7 +51,7 @@ export default class Detail extends Component {
                         errorAction={<div onClick={this.props.getData}>出错了，点击重试！</div>}
                     />
                     <div className={styles.title}>{data.title}</div>
-                    <div className={styles.info}>{data.createdAt}</div>
+                    <div className={styles.info}>{dayjs(data.createdAt).format("YYYY-MM-DD HH:mm:ss")}</div>
                     <div className={styles.content} dangerouslySetInnerHTML={{ __html: data.content }} />
                 </ContentView>
             </BaseLayout>

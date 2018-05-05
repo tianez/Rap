@@ -3,7 +3,7 @@ import delay from "Utils/delay";
 const GetData = Component =>
     class extends React.Component {
         state = {
-            data: {},
+            // data: null,
             loadState: {
                 loading: false,
                 error: false,
@@ -19,11 +19,11 @@ const GetData = Component =>
                     errorMsg: ""
                 }
             });
+            let res = await Apicloud(url, options);
             let delayend = this.delayStart + delaytime - Date.now();
             if (delayend > 0) {
                 await delay(delayend);
             }
-            let res = await Apicloud(url, options);
             if (res.success) {
                 this.setState({
                     data: res.data,
