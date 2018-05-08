@@ -1,4 +1,4 @@
-var cacheStorageKey = "cacheStorage-v36";
+var cacheStorageKey = "cacheStorage-v37";
 
 var cacheList = [
     "/",
