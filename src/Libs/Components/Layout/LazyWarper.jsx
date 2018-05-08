@@ -17,7 +17,7 @@ class LazyWarper extends Component {
         let { scrollTop } = this.props;
         if (scrollTop) {
             this.lazyWarper.scrollTop = this.props.scrollTop;
-            this.handleScroll();
+            // this.handleScroll();
         }
     }
     /**

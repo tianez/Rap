@@ -25,7 +25,7 @@ import { contextConsumers } from "Libs/ContextRudex";
 const RootRoutes = ({ location, redUrl, onLine }) => {
     return (
         <LayoutView>
-            {!onLine && <Toptip>网络连接不可用</Toptip>}
+            {/* {!onLine && <Toptip>网络连接不可用</Toptip>} */}
             <ContentView>
                 <Switch location={location}>
                     <Route path="/home" component={Home} />
