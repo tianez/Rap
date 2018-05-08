@@ -3,6 +3,7 @@ import { Icon } from "antd-mobile";
 
 import styles from "./Loading.scss";
 const Loading = ({
+    show = true,
     loading,
     loadingshow = true,
     reflush = false,
@@ -11,6 +12,9 @@ const Loading = ({
     errorAction,
     children
 }) => {
+    if (!show) {
+        return null;
+    }
     if (loading) {
         if (!loadingshow) {
             return null;

@@ -28,6 +28,7 @@ export default class Detail extends Component {
     }
     getData = async () => {
         let { id } = this.props.match.params;
+        console.log(id);
         let dbData = await db.news
             .where("id")
             .equalsIgnoreCase(id)
@@ -47,11 +48,14 @@ export default class Detail extends Component {
                 <ContentView style={{ padding: "15px", background: "#fff" }}>
                     <Loading
                         {...loadState}
+                        reflush={true}
                         loadingTitle={isCache ? "刷新中..." : "获取数据中..."}
-                        errorAction={<div onClick={this.props.getData}>出错了，点击重试！</div>}
+                        errorAction={<div onClick={this.getData}>出错了，点击重试！</div>}
                     />
                     <div className={styles.title}>{data.title}</div>
-                    <div className={styles.info}>{dayjs(data.createdAt).format("YYYY-MM-DD HH:mm:ss")}</div>
+                    <div className={styles.info}>
+                        {data.createdAt && dayjs(data.createdAt).format("YYYY-MM-DD HH:mm:ss")}
+                    </div>
                     <div className={styles.content} dangerouslySetInnerHTML={{ __html: data.content }} />
                 </ContentView>
             </BaseLayout>

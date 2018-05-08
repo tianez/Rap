@@ -125,7 +125,7 @@ export default class Home extends Component {
         }
     };
     render() {
-        const { data, loadState, isCache, isInit } = this.state;
+        let { data, loadState, isCache, isInit } = this.state;
         return (
             <Layout
                 title="首页"
@@ -138,14 +138,13 @@ export default class Home extends Component {
             >
                 <ContentView style={{ height: "100%", background: "#fff" }}>
                     <LazyWarper onScroll={this.handleScroll}>
-                        {isInit && (
-                            <Loading
-                                {...loadState}
-                                reflush={isCache}
-                                loadingTitle={"数据加载中"}
-                                errorAction={<div onClick={this.getInitData}>{loadState.errorMsg}，点击重试！</div>}
-                            />
-                        )}
+                        <Loading
+                            {...loadState}
+                            show={isInit}
+                            reflush={isCache}
+                            loadingTitle={"数据加载中"}
+                            errorAction={<div onClick={this.getInitData}>{loadState.errorMsg}，点击重试！</div>}
+                        />
                         {data.map(d => {
                             return (
                                 <Link to={`/p/${d.id}`} key={d.id} className="listitem">
@@ -158,13 +157,12 @@ export default class Home extends Component {
                             );
                         })}
                         <div ref={ele => (this.load = ele)} />
-                        {!isInit && (
-                            <Loading
-                                {...loadState}
-                                loadingTitle={"更多数据加载中"}
-                                errorAction={<div onClick={this.getMoreData}>{loadState.errorMsg}，点击重试！</div>}
-                            />
-                        )}
+                        <Loading
+                            {...loadState}
+                            show={!isInit}
+                            loadingTitle={"更多数据加载中"}
+                            errorAction={<div onClick={this.getMoreData}>{loadState.errorMsg}，点击重试！</div>}
+                        />
                     </LazyWarper>
                 </ContentView>
             </Layout>
