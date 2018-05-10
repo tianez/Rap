@@ -3,14 +3,17 @@ import delay from "Utils/delay";
 const GetData = Component =>
     class extends React.Component {
         state = {
-            // data: null,
             loadState: {
                 loading: false,
                 error: false,
                 errorMsg: ""
             }
         };
-        getData = async (url, options, delaytime = 0) => {
+        getData = async ({ url, options, delaytime = 0 } = {}, callback) => {
+            if (this.loading) {
+                return;
+            }
+            this.loading = true;
             this.delayStart = Date.now();
             this.setState({
                 loadState: {
@@ -19,14 +22,16 @@ const GetData = Component =>
                     errorMsg: ""
                 }
             });
-            let res = await Apicloud(url, options);
+            let res = await Apicloud({ url, ...options });
             let delayend = this.delayStart + delaytime - Date.now();
             if (delayend > 0) {
                 await delay(delayend);
             }
             if (res.success) {
+                if (callback) {
+                    await callback(res.data);
+                }
                 this.setState({
-                    data: res.data,
                     loadState: {
                         loading: false,
                         error: false,
@@ -42,6 +47,7 @@ const GetData = Component =>
                     }
                 });
             }
+            this.loading = false;
         };
         render() {
             return <Component {...this.props} {...this.state} getData={this.getData} />;

@@ -8,6 +8,8 @@ import dayjs from "dayjs";
 
 import styles from "./Detail.scss";
 
+import delay from "Utils/delay";
+
 import GetData from "Hoc/GetData";
 import { contextConsumers } from "Libs/ContextRudex";
 @GetData
@@ -16,20 +18,9 @@ import { contextConsumers } from "Libs/ContextRudex";
 }))
 export default class Detail extends Component {
     state = {
-        isCache: false,
-        loadState: {}
+        data: {},
+        isCache: false
     };
-    static getDerivedStateFromProps(nextProps, prevState) {
-        if (nextProps.data) {
-            return {
-                data: nextProps.data,
-                loadState: nextProps.loadState
-            };
-        }
-        return {
-            loadState: nextProps.loadState
-        };
-    }
     componentDidMount() {
         this.getData();
     }
@@ -45,14 +36,21 @@ export default class Detail extends Component {
                 data: dbData[0],
                 isCache: true
             });
+            let update_time = dbData[0].update_time;
+            if (update_time && Date.now() - update_time < 10 * 1000) {
+                return;
+            }
         }
         if (onLine) {
-            this.props.getData(`article/${id}`);
+            this.props.getData({ url: `article/${id}` }, async data => {
+                this.setState({ data });
+                db.news.put({ ...data, update_time: Date.now() });
+            });
         }
     };
     render() {
-        let { onLine } = this.props;
-        let { data = {}, loadState, isCache } = this.state;
+        let { onLine, loadState } = this.props;
+        let { data, isCache } = this.state;
         return (
             <BaseLayout title={"文章详情"}>
                 {!onLine && (
@@ -63,8 +61,7 @@ export default class Detail extends Component {
                 <ContentView style={{ padding: "15px", background: "#fff" }}>
                     <Loading
                         {...loadState}
-                        reflush={true}
-                        loadingTitle={isCache ? "刷新中..." : "获取数据中..."}
+                        reflush={isCache}
                         errorAction={<div onClick={this.getData}>出错了，点击重试！</div>}
                     />
 

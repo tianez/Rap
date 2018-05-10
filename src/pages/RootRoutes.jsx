@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Switch, Redirect, Route } from "react-router-dom";
 import PrivateRoute from "Extended/privateRoute";
-import asyncComponent from "Extended/asyncComponent";
+import asyncComponent from "Extended/asyncComponents";
 const Login = asyncComponent(() => import("./Login/Login"), true);
 
 import Home from "./Home/Home";

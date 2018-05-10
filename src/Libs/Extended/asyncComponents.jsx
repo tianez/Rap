@@ -1,23 +1,22 @@
 import React, { Component } from "react";
 import Loadable from "react-loadable";
 import { NavBar, Icon } from "antd-mobile";
-import Layout from "Components/Layout/Layout";
-import Content from "Components/Layout/Content";
+import LayoutView from "Views/Layout/LayoutView";
+import ContentView from "Views/Layout/ContentView";
 import LeftIcon from "Components/Layout/LeftIcon";
 
 import styles from "./asyncComponents.scss";
 
 const LoadingFarmeWork = props => (
-    <Layout>
+    <LayoutView>
         <NavBar mode="light" icon={<LeftIcon />} />
-        <Content>
+        <ContentView>
             <LoadingComponent {...props} />
-        </Content>
-    </Layout>
+        </ContentView>
+    </LayoutView>
 );
 
 const LoadingComponent = ({ error, timedOut, pastDelay, retry, ...rest }) => {
-    console.log(rest);
     if (error) {
         return <LoadingError onClick={retry} title={"模块加载失败，点击重试"} />;
     } else if (timedOut) {
