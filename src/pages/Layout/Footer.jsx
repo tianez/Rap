@@ -14,7 +14,8 @@ export default class Footer extends Component {
         if (url.indexOf("https://") == 0 || url.indexOf("http://") == 0) {
             return this.props.history.push(`/iframe?outlink=${url}`);
         }
-        this.props.history.replace(`/${url}`);
+        // this.props.history.replace(`/${url}`);
+        this.props.history.push(`/${url}`);
     };
     render() {
         let { selectedTab, footerTabs } = this.props;
