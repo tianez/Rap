@@ -14,9 +14,11 @@ import { CSSTransition, TransitionGroup } from "react-transition-group";
 import dayjs from "dayjs";
 import getWeekOfYear from "Utils/getWeekOfYear";
 import { contextConsumers } from "Libs/ContextRudex";
+import GetData from "Hoc/GetData";
 @contextConsumers((state, props) => ({
     data: state.getIn([localStorage.site_id, "HomeArticle"])
 }))
+@GetData
 export default class Home extends Component {
     static defaultProps = {
         data: Immutable({
@@ -146,16 +148,8 @@ export default class Home extends Component {
     render() {
         let { loadState, data, isCache, isInit, scrolltop } = this.props.data;
         return (
-            <Layout
-                title="首页"
-                selectedTab="home"
-                rightContent={
-                    <Link to="/news" style={{ color: "#108ee9" }}>
-                        写文章
-                    </Link>
-                }
-            >
-                <ContentView style={{ height: "100%", background: "#fff" }}>
+            <Layout title="首页" selectedTab="home">
+                <ContentView>
                     <LazyWarper onScroll={this.handleScroll} scrollTop={scrolltop}>
                         <Loading
                             {...loadState}

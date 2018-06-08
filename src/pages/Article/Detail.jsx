@@ -51,6 +51,7 @@ export default class Detail extends Component {
     render() {
         let { onLine, loadState } = this.props;
         let { data, isCache } = this.state;
+        console.log(isCache);
         return (
             <BaseLayout title={"文章详情"}>
                 {!onLine && (

@@ -9,9 +9,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.18.0",
     "koa": "^2.5.1",
+    "koa-better-http-proxy": "^0.2.4",
     "koa-router": "^7.4.0",
     "koa-static2": "^0.1.8",
-    "koa-view": "^2.1.1"
+    "koa-view": "^2.1.1",
+    "koa2-simple-proxy": "^1.0.0"
   }
 }

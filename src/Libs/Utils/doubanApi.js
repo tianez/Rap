@@ -6,48 +6,25 @@
  * @return {object}           An object containing either "data" or "err"
  */
 import axios from "axios";
-const CancelToken = axios.CancelToken;
-
-axios.defaults.timeout = 10000;
-axios.defaults.dataType = "json";
 /**
  * 请求拦截器
  *
  */
-let instance = axios.create();
-instance.interceptors.request.use(config => {
-    if (config.url.indexOf("https://") != 0 && config.url.indexOf("http://") != 0) {
-        config.url = AppConfig.ApiUrl + config.url;
-        // config.url = AppConfig.YapiUrl + config.url;
-        config.params = {
-            timestamp: Date.parse(new Date()),
-            orgid: localStorage.organizationId,
-            orgId: localStorage.organizationId,
-            ...config.params
-        };
-        config.headers = {
-            // orgid: "2f48b9f151cf4f48b01030624cd7aac7",
-            userId: localStorage.userId,
-            ...config.headers
-        };
-    }
-    config.cancelToken = new CancelToken(c => {
-        // executor 函数接收一个 cancel 函数作为参数
-        window.axiosCancel = c;
-    });
-    return config;
+let doubanApi = axios.create({
+    baseURL: "http://192.168.60.109:3001/v2/",
+    timeout: 5000,
+    dataType: "json"
 });
 
 /**
  * 响应拦截器
  */
-instance.interceptors.response.use(
+doubanApi.interceptors.response.use(
     response => {
         // 对响应数据做点什么
         let data = {
             success: true,
-            message: response.data.msg,
-            ...response.data
+            data: response.data
         };
         return data;
     },
@@ -77,7 +54,7 @@ instance.interceptors.response.use(
     }
 );
 
-export default instance;
+export default doubanApi;
 
 //判断obj是否为json对象
 function isJson(obj) {

@@ -61,16 +61,16 @@
         //         navigator.serviceWorker.register('/sw_dev.js');
         //     };
         // }
-        if (typeof (Worker) !== "undefined") {
-            console.log('Yes! Web worker support!')
-            w = new Worker("web_workers.js");
-            w.onmessage = function (event) {
-                console.log(event.data)
-            };
-        }
-        else {
-            console.log('Sorry! No Web Worker support..')
-        }
+        // if (typeof (Worker) !== "undefined") {
+        //     console.log('Yes! Web worker support!')
+        //     w = new Worker("web_workers.js");
+        //     w.onmessage = function (event) {
+        //         console.log(event.data)
+        //     };
+        // }
+        // else {
+        //     console.log('Sorry! No Web Worker support..')
+        // }
     </script>
 </body>
 
