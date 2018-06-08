@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <link rel="manifest" href="manifest.json" />
+    <link href="https://at.alicdn.com/t/font_629087_j7zlk65tr1ss8aor.css" rel="stylesheet">
+    <title>智慧医疗</title>
+</head>
+<script>
+    var width = document.documentElement.clientWidth / 3.6 + 'px';
+    document.documentElement.style.fontSize = width;
+</script>
+<style>
+    body {
+        font-size: 0.14rem;
+    }
+</style>
+
+<body>
+    <div id="app"></div>
+    <script src="https://cdn.bootcss.com/react/16.3.2/umd/react.production.min.js"></script>
+    <script src="https://cdn.bootcss.com/react-dom/16.3.2/umd/react-dom.production.min.js"></script>
+    <script src="./public/bower/axios/dist/axios.min.js"></script>
+    <script src="./dll/vendor.dll.js"></script>
+    <script>
+        var AppConfig = {
+            ApiUrl: 'http://cloudhubeioa.estv.com.cn/yssj_OA/a/rest/',
+        }
+    </script>
+</body>
+
+</html>

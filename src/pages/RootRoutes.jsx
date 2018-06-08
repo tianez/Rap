@@ -16,6 +16,7 @@ const Iframe = asyncComponent(() => import("./Iframe/Iframe"), true);
 const FriendAdd = asyncComponent(() => import("./Friend/FriendAdd"), true);
 const FriendDetail = asyncComponent(() => import("./Friend/FriendDetail"), true);
 const ArticleDetail = asyncComponent(() => import("./Article/Detail"), true);
+const Movies = asyncComponent(() => import("./Movies/Movies"), true);
 
 import LayoutView from "Views/Layout/LayoutView";
 import ContentView from "Views/Layout/ContentView";
@@ -29,6 +30,7 @@ const RootRoutes = ({ location, redUrl, onLine }) => {
             <ContentView>
                 <Switch location={location}>
                     <Route path="/home" component={Home} />
+                    <Route path="/movies" exact component={Movies} />
                     <Route path="/news" exact component={News} />
                     <Route path="/news/:id" exact component={NewDetail} />
                     <PrivateRoute path="/friend" exact component={Friend} />

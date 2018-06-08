@@ -8,7 +8,7 @@ const Layout = ({ headerShow = true, border = true, title, selectedTab, rightCon
     return (
         <LayoutView>
             {headerShow && (
-                <NavBar mode="light" className={border && styles.header} rightContent={rightContent}>
+                <NavBar mode="dark" className={border && styles.header} rightContent={rightContent}>
                     {title}
                 </NavBar>
             )}

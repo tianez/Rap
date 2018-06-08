@@ -5,6 +5,7 @@
  * @param  {object} [options] The options we want to pass to "fetch"
  * @return {object}           An object containing either "data" or "err"
  */
+import Qs from "qs";
 import axios from "axios";
 const CancelToken = axios.CancelToken;
 
@@ -14,7 +15,19 @@ axios.defaults.dataType = "json";
  * 请求拦截器
  *
  */
-let instance = axios.create();
+let instance = axios.create({
+    headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+    },
+    transformRequest: [
+        function(data) {
+            console.log(data);
+            data = Qs.stringify(data);
+            return data;
+        }
+    ],
+    withCredentials: true //加了这段就可以跨域了
+});
 instance.interceptors.request.use(config => {
     if (config.url.indexOf("https://") != 0 && config.url.indexOf("http://") != 0) {
         config.url = AppConfig.ApiUrl + config.url;
