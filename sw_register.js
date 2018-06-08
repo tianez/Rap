@@ -1,6 +1,6 @@
 if (navigator.serviceWorker != null) {
     navigator.serviceWorker
-        .register("sw.js?v=39")
+        .register("sw.js?v=40")
         .then(function(registration) {
             console.log("Registered events at scope: ", registration.scope);
         })
