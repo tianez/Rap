@@ -8,7 +8,7 @@ import styles from "./Layout.scss";
 const BaseLayout = ({ border = true, title, children }) => {
     return (
         <LayoutView>
-            <NavBar mode="light" icon={<LeftIcon />} className={border && styles.header}>
+            <NavBar mode="dark" icon={<LeftIcon />} className={border && styles.header}>
                 {title}
             </NavBar>
             {children}

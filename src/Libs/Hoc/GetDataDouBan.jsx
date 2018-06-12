@@ -1,6 +1,9 @@
 import React, { Component } from "react";
+import qs from "qs";
 import doubanApi from "Utils/doubanApi";
 import delay from "Utils/delay";
+
+const cachetime = 1000 * 60 * 60;
 const GetDataDouBan = Component =>
     class extends React.Component {
         state = {
@@ -8,10 +11,10 @@ const GetDataDouBan = Component =>
                 loading: false,
                 error: false,
                 errorMsg: "",
-                isOk:false
+                isOk: false
             }
         };
-        getData = async ({ url, ...options, delaytime = 0 } = {}, callback) => {
+        getData = async ({ url, delaytime = 0, cachetime = cachetime, ...options } = {}, callback) => {
             if (this.loading) {
                 return;
             }
@@ -22,10 +25,26 @@ const GetDataDouBan = Component =>
                     loading: true,
                     error: false,
                     errorMsg: "",
-                    isOk:false
+                    isOk: false
                 }
             });
-            let res = await doubanApi({ url, ...options });
+            let reqkey = url + qs.stringify(options.params);
+            let res;
+            let dbData = await db.req
+                .where("req")
+                .equalsIgnoreCase(reqkey)
+                .last();
+            if (dbData) {
+                res = dbData.res;
+                let update_time = dbData.time;
+                if (update_time && (Date.now() - update_time > cachetime || !res.success)) {
+                    res = await doubanApi({ url, ...options });
+                    db.req.put({ req: reqkey, res, time: Date.now() });
+                }
+            } else {
+                res = await doubanApi({ url, ...options });
+                db.req.put({ req: reqkey, res, time: Date.now() });
+            }
             let delayend = this.delayStart + delaytime - Date.now();
             if (delayend > 0) {
                 await delay(delayend);
@@ -39,7 +58,7 @@ const GetDataDouBan = Component =>
                         loading: false,
                         error: false,
                         errorMsg: "",
-                        isOk:true
+                        isOk: true
                     }
                 });
             } else {
@@ -48,7 +67,7 @@ const GetDataDouBan = Component =>
                         loading: false,
                         error: true,
                         errorMsg: res.message,
-                        isOk:false
+                        isOk: false
                     }
                 });
             }

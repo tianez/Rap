@@ -1,12 +1,35 @@
 import React, { Component } from "react";
 import { Tabs, WhiteSpace } from "antd-mobile";
 import List from "./List";
+
+import { contextConsumers } from "Libs/ContextRudex";
+@contextConsumers(state => ({
+    movieSelectKey: state.movieSelectKey,
+    movies: state.movies
+}))
 export default class MoviesTabs extends Component {
     renderContent = tab => {
         let { match } = this.props;
         return <List tab={tab} match={match} />;
     };
+    handleChange = tab => {
+        console.log(tab);
+        this.props.dispatch.set({
+            movieSelectKey: tab.key
+        });
+    };
+    handleTabClick = tab => {
+        let { movies } = this.props;
+        let movie = movies[tab.key];
+        movie = movie.merge({
+            scrollTop: 0,
+            scrollTopChange: true
+        });
+        this.props.dispatch.setIn(["movies", tab.key], movie);
+        console.log("tab", tab);
+    };
     render() {
+        let { movieSelectKey } = this.props;
         const tabs = [
             { title: "正在上映", key: "movie/in_theaters" },
             // { title: "新片榜", key: "movie/new_movies" },
@@ -16,7 +39,13 @@ export default class MoviesTabs extends Component {
             // { title: "口碑榜", key: "movie/weekly" }
         ];
         return (
-            <Tabs tabs={tabs} className="ds" renderTabBar={props => <Tabs.DefaultTabBar {...props} page={4} />}>
+            <Tabs
+                tabs={tabs}
+                page={movieSelectKey}
+                onChange={this.handleChange}
+                onTabClick={this.handleTabClick}
+                renderTabBar={props => <Tabs.DefaultTabBar {...props} page={4} />}
+            >
                 {this.renderContent}
             </Tabs>
         );

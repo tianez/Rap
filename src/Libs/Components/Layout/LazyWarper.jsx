@@ -3,7 +3,8 @@ import React, { Component } from "react";
 class LazyWarper extends Component {
     static defaultProps = {
         delaytime: 20,
-        scrollTop: 0
+        scrollTop: 0,
+        scrollTopChange: false
     };
     constructor(props) {
         super(props);
@@ -16,10 +17,19 @@ class LazyWarper extends Component {
     componentDidMount() {
         let { scrollTop } = this.props;
         if (scrollTop) {
-            this.lazyWarper.scrollTop = this.props.scrollTop;
-            // this.handleScroll();
+            this.lazyWarper.scrollTop = scrollTop;
         }
     }
+    componentDidUpdate() {
+        this.handleScrollChange();
+    }
+    handleScrollChange = () => {
+        let { scrollTop, scrollTopChange, scrollTopChangeBack } = this.props;
+        if (scrollTopChange) {
+            this.lazyWarper.scrollTop = scrollTop;
+            scrollTopChangeBack();
+        }
+    };
     /**
      * 监听事件，返回组件滚动信息到父级组件
      */

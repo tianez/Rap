@@ -1,10 +1,11 @@
-const db = new Dexie("webpack5");
+const db = new Dexie("webpack7");
 
 // Declare tables, IDs and indexes
-db.version(3).stores({
+db.version(2).stores({
     friends: "++id, name, age",
     news: "id, title, content",
-    movies: "id, title"
+    movies: "id, title",
+    req: " req,res,time"
 });
 
 export default db;

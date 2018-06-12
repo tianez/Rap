@@ -24,26 +24,26 @@ export default class Detail extends Component {
     getData = async () => {
         let { onLine, match } = this.props;
         let { id } = match.params;
-        let dbData = await db.movies
-            .where("id")
-            .equalsIgnoreCase(id)
-            .toArray();
-        if (dbData[0]) {
-            this.setState({
-                data: dbData[0],
-                isCache: true
-            });
-            let update_time = dbData[0].update_time;
-            if (update_time && Date.now() - update_time < 1000 * 60 * 60) {
-                return;
-            }
-        }
-        if (onLine) {
-            this.props.getData({ url: `movie/subject/${id}` }, async data => {
-                this.setState({ data });
-                db.movies.put({ ...data, update_time: Date.now() });
-            });
-        }
+        // let dbData = await db.movies
+        //     .where("id")
+        //     .equalsIgnoreCase(id)
+        //     .toArray();
+        // if (dbData[0]) {
+        //     this.setState({
+        //         data: dbData[0],
+        //         isCache: true
+        //     });
+        //     let update_time = dbData[0].update_time;
+        //     if (update_time && Date.now() - update_time < 1000 * 60 * 60) {
+        //         return;
+        //     }
+        // }
+        // if (onLine) {
+        this.props.getData({ url: `movie/subject/${id}` }, async data => {
+            this.setState({ data });
+            // db.movies.put({ ...data, update_time: Date.now() });
+        });
+        // }
     };
     render() {
         let { loadState } = this.props;
