@@ -10,6 +10,8 @@ class LazyWarper extends Component {
         super(props);
         this.startTime = null;
         this.moveXY = 0;
+        this.moving = false;
+        this.timer = null;
     }
     /**
      * 组件渲染完毕添加监听事件
@@ -25,11 +27,31 @@ class LazyWarper extends Component {
     }
     handleScrollChange = () => {
         let { scrollTop, scrollTopChange, scrollTopChangeBack } = this.props;
+        if (this.moving) {
+            return;
+        }
         if (scrollTopChange) {
-            this.lazyWarper.scrollTop = scrollTop;
-            scrollTopChangeBack();
+            this.moving = true;
+            let top = this.lazyWarper.scrollTop;
+            let moveY = top - scrollTop;
+            let count = 20;
+            let ispeed = moveY / count;
+            this.timer = setInterval(() => {
+                moveY = moveY - ispeed;
+                this.lazyWarper.scrollTop = scrollTop + moveY;
+                count--;
+                if (count == 0) {
+                    clearInterval(this.timer);
+                    scrollTopChangeBack();
+                    this.moving = false;
+                }
+            }, 16.67);
         }
     };
+    componentWillMount() {
+        console.log(this.timer);
+        clearInterval(this.timer);
+    }
     /**
      * 监听事件，返回组件滚动信息到父级组件
      */

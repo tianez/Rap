@@ -21,7 +21,7 @@ export default class List extends Component {
             more: true,
             isInit: true,
             scrollTop: 0,
-            scrollTopChange: true
+            scrollTopChange: false
         })
     };
     componentDidMount() {
