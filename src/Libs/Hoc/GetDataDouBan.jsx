@@ -20,14 +20,6 @@ const GetDataDouBan = Component =>
             }
             this.loading = true;
             this.delayStart = Date.now();
-            this.setState({
-                loadState: {
-                    loading: true,
-                    error: false,
-                    errorMsg: "",
-                    isOk: false
-                }
-            });
             let reqkey = "https://api.douban.com/v2/" + url + "?" + qs.stringify(options.params);
             let res;
             let dbData = await db.req
@@ -38,12 +30,10 @@ const GetDataDouBan = Component =>
                 res = dbData.res;
                 let update_time = dbData.time;
                 if (update_time && (Date.now() - update_time > cachetime || !res.success)) {
-                    res = await fetchJsonp(reqkey);
-                    db.req.put({ req: reqkey, res, time: Date.now() });
+                    res = await this.fetchData(reqkey);
                 }
             } else {
-                res = await fetchJsonp(reqkey);
-                db.req.put({ req: reqkey, res, time: Date.now() });
+                res = await this.fetchData(reqkey);
             }
             let delayend = this.delayStart + delaytime - Date.now();
             if (delayend > 0) {
@@ -72,6 +62,19 @@ const GetDataDouBan = Component =>
                 });
             }
             this.loading = false;
+        };
+        fetchData = async reqkey => {
+            this.setState({
+                loadState: {
+                    loading: true,
+                    error: false,
+                    errorMsg: "",
+                    isOk: false
+                }
+            });
+            let res = await fetchJsonp(reqkey);
+            db.req.put({ req: reqkey, res, time: Date.now() });
+            return res;
         };
         render() {
             return <Component {...this.props} {...this.state} getData={this.getData} />;

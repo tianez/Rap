@@ -25,7 +25,6 @@ export default class MoviesDetail extends Component {
         let { loadState, match } = this.props;
         let { id } = match.params;
         let { data, isCache } = this.state;
-        console.log(data);
         return (
             <BaseLayout title="详情">
                 <ContentView style={{ padding: "15px", background: "#fff" }}>
@@ -54,7 +53,11 @@ export default class MoviesDetail extends Component {
                                     )}
                                     <div>
                                         主演：{data.casts.map(d => {
-                                            return <Link to={`/movies/celebrity/${d.id}`}>{d.name + "，"}</Link>;
+                                            return (
+                                                <Link key={d.id} to={`/movies/celebrity/${d.id}`}>
+                                                    {d.name + "，"}
+                                                </Link>
+                                            );
                                         })}
                                     </div>
                                     <div>

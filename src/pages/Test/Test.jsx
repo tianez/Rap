@@ -21,6 +21,17 @@ export default class Test extends Component {
                     测试页面
                 </NavBar>
                 <ContentView>
+                    <video
+                        controls
+                        // playsInline="true"
+                        // airplay="allow"
+                        // x5-video-player-type="h5"
+                        // x5-video-player-fullscreen="true"
+                        // x5-video-orientation="portrait"
+                        preload="auto"
+                        // autoPlay
+                        src={"public/video/2.mp4"}
+                    />
                     <div>111111111111111111111111111111111</div>
                 </ContentView>
             </LayoutView>
