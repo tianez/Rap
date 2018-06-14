@@ -11,8 +11,7 @@ import axios from "axios";
  *
  */
 let doubanApi = axios.create({
-    baseURL: "http://192.168.60.109:3001/v2/",
-    // baseURL: AppConfig.doubanUrl,
+    baseURL: AppConfig.doubanUrl,
     timeout: 5000,
     dataType: "json"
 });

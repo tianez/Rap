@@ -25,11 +25,6 @@ export default class Video extends Component {
             let { width } = window.screen;
             let { videoWidth, videoHeight } = this.videoPlayer;
             let vHeight = (width * videoHeight) / videoWidth;
-            console.log(vHeight);
-            console.log(window.screen);
-            console.log(videoWidth);
-            console.log(videoHeight);
-
             this.setState({
                 videoWidth: width,
                 videoHeight: vHeight
@@ -41,16 +36,18 @@ export default class Video extends Component {
         this.videoPlayer.addEventListener(
             "play",
             () => {
-                this.videoPlayer.style.height = window.screen.height + "px";
                 this.handleFullScreen(true);
+                this.videoPlayer.style.height = window.screen.height + "px";
             },
             false
         );
         this.videoPlayer.addEventListener(
             "pause",
             () => {
-                this.videoPlayer.style.height = "auto";
+                // let { videoHeight } = this.state;
+                // this.videoPlayer.style.height = videoHeight + "px";
                 this.handleFullScreen(false);
+                this.videoPlayer.style.height = "auto";
             },
             false
         );
@@ -64,15 +61,19 @@ export default class Video extends Component {
         let { fullscreen, videoHeight } = this.state;
         let navBarCls = "";
         let videoCls = styles.video;
+        let tmStyle = {};
         let contentStyle = {};
         if (fullscreen) {
             navBarCls = styles.navBar;
             videoCls = styles.fullscreenvideo;
+            tmStyle.top = 0;
             contentStyle = {
                 position: "absolute",
                 top: videoHeight + "px"
             };
         }
+        console.log(videoHeight);
+
         return (
             <LayoutView>
                 <NavBar className={navBarCls} mode="light" icon={<LeftIcon />}>
@@ -81,7 +82,7 @@ export default class Video extends Component {
                 <video
                     controls
                     ref={e => (this.videoPlayer = e)}
-                    style={{ height: videoHeight + "px" }}
+                    style={{ height: videoHeight ? videoHeight + "px" : "auto" }}
                     className={videoCls}
                     playsInline="true"
                     airplay="allow"
@@ -92,7 +93,10 @@ export default class Video extends Component {
                     // autoPlay
                     src={"public/video/2.mp4"}
                 />
-                <div className={styles.tm}>111111111111111</div>
+                <div className={styles.tm} style={tmStyle}>
+                    <div className={styles.tm1}>12356</div>
+                    <div className={styles.tm2}>弹幕222</div>
+                </div>
                 <ContentView className={styles.content} style={contentStyle}>
                     <div>
                         <div style={{ height: "500px" }}>22222222222</div>

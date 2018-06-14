@@ -12,20 +12,37 @@
     position: relative;
     object-fit: contain;
     display: block;
+    width: 100%;
     z-index: 9;
+    background: #000;
 }
 
 .fullscreenvideo {
     // height: 100%;
-    object-position: right 100% top 0;
+    object-position: right 100% top -8px;
 }
 
 .tm {
     position: absolute;
-    top: 50px;
+    top: 45px;
     left: 0;
+    width: 200%;
     z-index: 9999;
-    background: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.tm1 {
+    position: absolute;
+    top: 0;
+    left: 30px;
+    color: #fff;
+}
+
+.tm2 {
+    position: absolute;
+    top: 200px;
+    left: 310px;
+    color: #fff;
 }
 
 .content {

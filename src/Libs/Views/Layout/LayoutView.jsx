@@ -12,6 +12,8 @@ const LayoutView = styled.div`
     flex: 1;
     flex-direction: column;
     z-index: 99;
+    overflow-x: hidden;
+    overflow-y: auto;
 `;
 
 export default LayoutView;
