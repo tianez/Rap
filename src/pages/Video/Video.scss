@@ -1,0 +1,40 @@
+.navBar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 0;
+    display: none;
+}
+
+.video,
+.fullscreenvideo {
+    position: relative;
+    object-fit: contain;
+    display: block;
+    z-index: 9;
+}
+
+.fullscreenvideo {
+    // height: 100%;
+    object-position: right 100% top 0;
+}
+
+.tm {
+    position: absolute;
+    top: 50px;
+    left: 0;
+    z-index: 9999;
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.content {
+    position: relative;
+    background: #f00;
+    flex: 1;
+    overflow-y: auto;
+    z-index: 999;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
