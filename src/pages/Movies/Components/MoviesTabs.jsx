@@ -12,28 +12,27 @@ export default class MoviesTabs extends Component {
         let { match } = this.props;
         return <List tab={tab} match={match} />;
     };
-    // handleChange = tab => {
-    //     console.log(tab);
-    //     this.props.dispatch.set({
-    //         movieSelectKey: tab.key
-    //     });
-    // };
-    handleTabClick = tab => {
-        let { movies, movieSelectKey } = this.props;
-        console.log("tab", tab);
-        if (movieSelectKey == tab.key) {
-            let movie = movies[tab.key];
-            movie = movie.merge({
-                scrollTop: 0,
-                scrollTopChange: true
-            });
-            this.props.dispatch.setIn(["movies", tab.key], movie);
-        } else {
-            this.props.dispatch.set({
-                movieSelectKey: tab.key
-            });
-        }
+    handleChange = tab => {
+        this.props.dispatch.set({
+            movieSelectKey: tab.key
+        });
     };
+    // handleTabClick = tab => {
+    //     let { movies, movieSelectKey } = this.props;
+    //     console.log("tab", tab);
+    //     if (movieSelectKey == tab.key) {
+    //         let movie = movies[tab.key];
+    //         movie = movie.merge({
+    //             scrollTop: 0,
+    //             scrollTopChange: true
+    //         });
+    //         this.props.dispatch.setIn(["movies", tab.key], movie);
+    //     } else {
+    //         this.props.dispatch.set({
+    //             movieSelectKey: tab.key
+    //         });
+    //     }
+    // };
     render() {
         let { movieSelectKey, movies } = this.props;
         const tabs = [
@@ -48,8 +47,8 @@ export default class MoviesTabs extends Component {
             <Tabs
                 tabs={tabs}
                 page={movieSelectKey}
-                // onChange={this.handleChange}
-                onTabClick={this.handleTabClick}
+                onChange={this.handleChange}
+                // onTabClick={this.handleTabClick}
                 renderTabBar={props => <Tabs.DefaultTabBar {...props} page={4} />}
             >
                 {this.renderContent}

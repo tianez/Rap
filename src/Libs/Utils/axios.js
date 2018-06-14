@@ -8,13 +8,14 @@
 import axios from "axios";
 const CancelToken = axios.CancelToken;
 
-axios.defaults.timeout = 10000;
-axios.defaults.dataType = "json";
 /**
  * 请求拦截器
  *
  */
-let instance = axios.create();
+let instance = axios.create({
+    timeout: 10000,
+    dataType: 'json',
+});
 instance.interceptors.request.use(config => {
     if (config.url.indexOf("https://") != 0 && config.url.indexOf("http://") != 0) {
         config.url = AppConfig.ApiUrl + config.url;

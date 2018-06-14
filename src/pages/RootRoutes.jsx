@@ -17,7 +17,8 @@ const FriendAdd = asyncComponent(() => import("./Friend/FriendAdd"), true);
 const FriendDetail = asyncComponent(() => import("./Friend/FriendDetail"), true);
 const ArticleDetail = asyncComponent(() => import("./Article/Detail"), true);
 const Movies = asyncComponent(() => import("./Movies/Movies"), true);
-const MoviesDetail = asyncComponent(() => import("./Movies/Detail"), true);
+const MoviesDetail = asyncComponent(() => import("./Movies/MoviesDetail"), true);
+const MoviesCelebrity = asyncComponent(() => import("./Movies/MoviesCelebrity"), true);
 const Video = asyncComponent(() => import("./Video/Video"), true);
 const Test = asyncComponent(() => import("./Test/Test"), true);
 
@@ -34,6 +35,7 @@ const RootRoutes = ({ location, redUrl, onLine }) => {
         <Switch location={location}>
             <Route path="/home" component={Home} />
             <Route path="/movies" exact component={Movies} />
+            <Route path="/movies/celebrity/:id" exact component={MoviesCelebrity} />
             <Route path="/movies/:id" exact component={MoviesDetail} />
             <Route path="/news" exact component={News} />
             <Route path="/news/:id" exact component={NewDetail} />
