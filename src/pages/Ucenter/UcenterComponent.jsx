@@ -53,6 +53,14 @@ export default class UcenterComponent extends Component {
                         视频播放
                     </Item>
                 </List>
+                <List>
+                    <Item
+                        thumb="https://zos.alipayobjects.com/rmsportal/UmbJMbWOejVOpxe.png"
+                        onClick={() => this.handleLink("/test")}
+                    >
+                        测试页面
+                    </Item>
+                </List>
                 <WhiteSpace />
                 <List>
                     <Item

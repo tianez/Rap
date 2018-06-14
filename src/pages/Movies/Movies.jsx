@@ -3,7 +3,7 @@ import ContentView from "Views/Layout/ContentView";
 import Layout from "../Layout/Layout";
 import asyncComponent from "Extended/asyncComponent";
 const MoviesTabs = asyncComponent(() => import("./Components/MoviesTabs"));
-const News = props => {
+const Movies = props => {
     return (
         <Layout title="电影资讯" selectedTab="movies">
             <ContentView>
@@ -12,4 +12,4 @@ const News = props => {
         </Layout>
     );
 };
-export default News;
+export default Movies;

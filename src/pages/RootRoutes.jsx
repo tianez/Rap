@@ -19,6 +19,7 @@ const ArticleDetail = asyncComponent(() => import("./Article/Detail"), true);
 const Movies = asyncComponent(() => import("./Movies/Movies"), true);
 const MoviesDetail = asyncComponent(() => import("./Movies/Detail"), true);
 const Video = asyncComponent(() => import("./Video/Video"), true);
+const Test = asyncComponent(() => import("./Test/Test"), true);
 
 import LayoutView from "Views/Layout/LayoutView";
 import ContentView from "Views/Layout/ContentView";
@@ -47,6 +48,7 @@ const RootRoutes = ({ location, redUrl, onLine }) => {
             <Route path="/iframe" component={Iframe} />
             <Route path="/p/:id" component={ArticleDetail} />
             <Route path="/video" component={Video} />
+            <Route path="/test" component={Test} />
             {/* <Redirect path="/" exact to={redUrl} /> */}
             <Redirect path="*" to={redUrl} />
         </Switch>

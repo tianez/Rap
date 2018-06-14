@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import qs from "qs";
-import doubanApi from "Utils/doubanApi";
 import delay from "Utils/delay";
+import fetchJsonp from "Utils/fetchJsonp";
 
 const cachetime = 1000 * 60 * 60;
 const GetDataDouBan = Component =>
@@ -28,7 +28,7 @@ const GetDataDouBan = Component =>
                     isOk: false
                 }
             });
-            let reqkey = url + qs.stringify(options.params);
+            let reqkey = "https://api.douban.com/v2/" + url + "?" + qs.stringify(options.params);
             let res;
             let dbData = await db.req
                 .where("req")
@@ -38,11 +38,11 @@ const GetDataDouBan = Component =>
                 res = dbData.res;
                 let update_time = dbData.time;
                 if (update_time && (Date.now() - update_time > cachetime || !res.success)) {
-                    res = await doubanApi({ url, ...options });
+                    res = await fetchJsonp(reqkey);
                     db.req.put({ req: reqkey, res, time: Date.now() });
                 }
             } else {
-                res = await doubanApi({ url, ...options });
+                res = await fetchJsonp(reqkey);
                 db.req.put({ req: reqkey, res, time: Date.now() });
             }
             let delayend = this.delayStart + delaytime - Date.now();
