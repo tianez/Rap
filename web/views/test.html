@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<!--
+ *  Copyright (c) 2015 The WebRTC project authors. All Rights Reserved.
+ *
+ *  Use of this source code is governed by a BSD-style license
+ *  that can be found in the LICENSE file in the root of the source
+ *  tree.
+-->
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="description" content="WebRTC code samples">
+    <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1, maximum-scale=1">
+    <meta itemprop="description" content="Client-side WebRTC code samples">
+    <meta itemprop="image" content="../../../images/webrtc-icon-192x192.png">
+    <meta itemprop="name" content="WebRTC code samples">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta id="theme-color" name="theme-color" content="#ffffff">
+
+    <base target="_blank">
+
+    <title>Transmit text</title>
+</head>
+
+<body>
+
+    <div id="container">
+
+        <div id="buttons">
+            <button id="sendButton">Send</button>
+        </div>
+
+        <div id="sendReceive">
+            <div id="send">
+                <h2>Send</h2>
+                <textarea id="dataChannelSend" disabled placeholder="Press Start, enter some text, then press Send."></textarea>
+            </div>
+            <div id="receive">
+                <h2>Receive</h2>
+                <textarea id="dataChannelReceive" disabled></textarea>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.bootcss.com/webrtc-adapter/6.2.1/adapter.min.js"></script>
+    <script src="/test.js"></script>
+</body>
+
+</html>
