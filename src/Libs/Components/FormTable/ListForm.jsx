@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+﻿import React, { Component } from "react";
 
 import { List, WhiteSpace } from "antd-mobile";
 
@@ -11,17 +11,14 @@ import Attachment from "./Attachment";
 import DatePicker from "./DatePicker";
 import Radio from "./Radio";
 
-import SelectDepCpt from "./SelectDepCpt";
-import SelectUserCpt from "./SelectUserCpt";
-
 import Switch from "./Switch";
 import Slider from "./Slider";
 
 import styles from "./Form.scss";
 
-const ListForm = ({ fields = $arr, data = {}, onChange }) => {
+const ListForm = ({ fields = $arr, data = {}, onChange, title }) => {
     return (
-        <List renderHeader={() => "表单"} className={styles.listform}>
+        <List renderHeader={title} className={styles.listform}>
             {fields.map((field, index) => {
                 let props = {
                     ...field,
@@ -38,6 +35,12 @@ const ListForm = ({ fields = $arr, data = {}, onChange }) => {
                         break;
                     case "number":
                         return <InputItem {...props} type="number" />;
+                        break;
+                    case "digit":
+                        return <InputItem {...props} type="digit" />;
+                        break;
+                    case "phone":
+                        return <InputItem {...props} type="phone" />;
                         break;
                     case "textarea":
                         return <TextareaItem2 {...props} />;
@@ -65,12 +68,6 @@ const ListForm = ({ fields = $arr, data = {}, onChange }) => {
                         break;
                     case "images":
                         return <Images {...props} />;
-                        break;
-                    case "departments":
-                        return <SelectDepCpt {...props} />;
-                        break;
-                    case "organizations":
-                        return <SelectUserCpt {...props} />;
                         break;
                     case "WhiteSpace":
                         return <WhiteSpace key={index} className={styles.whiteSpace} />;

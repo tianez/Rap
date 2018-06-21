@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 表单通用
  */
 
@@ -65,7 +65,7 @@ export default class Form extends Component {
         return (
             <Layout>
                 <NavBar
-                    mode="light"
+                    mode="dark"
                     icon={<LeftIcon />}
                     rightContent={<span onClick={this.handleSubmit}>{rightTitle}</span>}
                 >

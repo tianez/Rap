@@ -4,13 +4,13 @@ import handleChange from "./handleChange";
 
 import styles from "./Form.scss";
 
-const ExportComponent = ({ title, name, value, opts, onChange, ...props }) => {
+const ExportComponent = ({ title, name, value, defaultValue, opts, onChange, ...props }) => {
     return (
         <List.Item
             arrow="horizontal"
             extra={
                 <select name={name} onChange={e => onChange(e.target.value)} value={value}>
-                    <option>请选择</option>
+                    {!defaultValue && defaultValue != 0 && <option value="">请选择</option>}
                     {opts &&
                         opts.map(opt => {
                             return (

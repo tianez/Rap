@@ -57,6 +57,7 @@ socket.on("connect", function() {
         });
     });
     socket.on("sendcandidate", function(data) {
+        console.log(data);
         remoteConnection.addIceCandidate(new RTCIceCandidate(data));
     });
 });

@@ -22,20 +22,20 @@ var dataConstraint = null;
 var servers = null;
 var localConnection = new RTCPeerConnection(servers);
 var sendChannel = localConnection.createDataChannel("sendDataChannel", dataConstraint);
-localConnection.onicecandidate = function(event) {
-    if (event.candidate) {
-        console.log(2222);
-        // console.log(event.candidate);
-        // pc2.addIceCandidate(new RTCIceCandidate(event.candidate));
-        socket.emit("candidate", event.candidate);
-        // pc2.addIceCandidate(event.candidate);
-    }
-};
+
 sendChannel.onopen = onSendChannelStateChange;
 sendChannel.onclose = onSendChannelStateChange;
 
+localConnection.onicecandidate = function(event) {
+    if (event.candidate) {
+        // console.log(event.candidate);
+        // pc2.addIceCandidate(new RTCIceCandidate(event.candidate));
+        socket.emit("candidate", { socketid: socket.id, candidate: event.candidate });
+        // pc2.addIceCandidate(event.candidate);
+    }
+};
+
 function sendData() {
-    console.log(1111);
     sendChannel.send("11111111111");
 }
 
